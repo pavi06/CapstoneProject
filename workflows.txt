@@ -1,0 +1,29 @@
+Patient:
+    -look for doctors -> select speciality -> book appointment (enter details)
+    -login -> bookappointments (enter details)
+Book Appointment details (fe - automatic) -> id, name, phoneno, speciality, date, preferred language
+Book Appointment details (fe) -> id, doctorid, name, phoneno, date , slot
+    -login -> myAppointments -> selectAppointment -> edit
+    -login -> myPrescriptions
+
+return : appointmentid, patientdetails(name,...), appointmentDate, slot, doctordetails(name,...), currentDate
+
+----------------------------------------
+Doctor:
+    -login -> 
+        - look for today appointments -> return list of appointments
+        - Upload prescription -> appointmentid,image(feed) -> return message
+        - patients -> patientid -> get medical records -> return list of medical records
+
+----------------------------------------
+Receptionist:
+    -login -> 
+        - doctors -> specify specialization -> check doctor availability
+        - doctors -> specialization -> check doctor availability -> create appointment (patient details)
+        - appointments -> filter by speciality or appointmentid -> updateStatus
+        - checkBedAvailability
+        - patients -> select type (inpatient, outpatient)
+            -inpatient : create -> patient details
+                         update -> details
+        -create bill -> appointmentid(feed) -> generatedbill
+                     -> inpatientid(feed) -> generatedbill 
