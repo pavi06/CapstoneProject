@@ -2,12 +2,12 @@ User
     - id, name, dob, age, gender, emailid, contactno, address, role
     role:patient, doctor, receptionist
     -Doctor:
-        -specialization, experience , Qualification, languagesKnown, shiftStartTime, shiftEndTime
+        -doctorId, specialization, experience , Qualification, languagesKnown, shiftStartTime, shiftEndTime
         type:permanent, visiting
     -Patient :
-        - patientType, listOfbills 
+        - patientId, patientType, listOfbills 
     -InPatient :
-        - inPatientid,doctorid, admittedDate,dischargedDate?, isActive, billId?
+        - doctorid, admittedDate,dischargedDate?, isActive, billId?
     -Outpatient :
         - listOfAppointments
 
