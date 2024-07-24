@@ -3,13 +3,11 @@ User
     role:patient, doctor, receptionist
     -Doctor:
         -doctorId, specialization, experience , Qualification, languagesKnown, shiftStartTime, shiftEndTime
-        type:permanent, visiting
-    -Patient :
-        - patientId, patientType, listOfbills 
+        type:permanent, visiting 
     -InPatient :
-        - doctorid, admittedDate,dischargedDate?, isActive, billId?
+        - patientId, patientType,doctorid, admittedDate,dischargedDate?, isActive, billId?
     -Outpatient :
-        - listOfAppointments
+        - patientId, patientType,listOfAppointments
 
 Appointment
     -appointmentid, currentDate, appointmentDate, slot , doctorid , speciality, patientid, description, status, 
