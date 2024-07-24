@@ -26,7 +26,7 @@ MedicalRecord
 treatementStatus: recovered, Ongoing , initiated
 medication : description -> medicine, weekly injection, therapy, etc   
 
-InPatientDetails : inPatientDetailsid, inPatientid, typeid, noOfDays 
+InPatientDetails : inPatientDetailsid, inPatientid, roomid, noOfDays 
 
 Bill
     -billid, date, patientid, description, amount, paymentstatus
@@ -35,6 +35,9 @@ paymentstatus: paid, pending
 WardBedAvailability
     -typeid, type, availablecount , totalBedCount, costPerDay
 type:generalWard, ICUWard, Maternity Ward, Pediatric Ward, Psychiatric Ward, Isolation Ward, Neonatal Intensive Care Unit
+
+Rooms
+    -roomId, typeId
 
 DoctorFeesEnum :
 ENT - Rs. 300
