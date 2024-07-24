@@ -27,6 +27,25 @@ namespace HospitalManagement.Contexts
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<DoctorAvailability>().HasKey(da => new { da.DoctorId, da.Date });
+
+            modelBuilder.Entity<Doctor>()
+            .Property(d => d.AvailableDays)
+            .HasConversion(v => string.Join(",", v),
+              v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList()
+             );
+
+            modelBuilder.Entity<Doctor>()
+            .Property(d => d.Slots)
+            .HasConversion(v => string.Join(",", v),
+              v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList()
+              );
+
+            modelBuilder.Entity<DoctorAvailability>()
+            .Property(d => d.AvailableSlots)
+            .HasConversion(v => string.Join(",", v),
+              v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList()
+              );
 
             modelBuilder.Entity<Appointment>()
             .Property(a => a.Slot)

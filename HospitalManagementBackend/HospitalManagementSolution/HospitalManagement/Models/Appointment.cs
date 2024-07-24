@@ -7,7 +7,7 @@ namespace HospitalManagement.Models
     {
         [Key]
         public int AppointmentId { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now.Date;
         public DateTime AppointmentDate { get; set; }
         public TimeOnly Slot { get; set; }
         public int DoctorId { get; set; }
@@ -20,5 +20,17 @@ namespace HospitalManagement.Models
         public string AppointmentType { get; set; }
         public string AppointmentMode { get; set; }
 
+        public Appointment(DateTime appointmentDate, TimeOnly slot, int doctorId, string speciality, int patientId, string description, string appointmentStatus, string appointmentType, string appointmentMode)
+        {
+            AppointmentDate = appointmentDate;
+            Slot = slot;
+            DoctorId = doctorId;
+            Speciality = speciality;
+            PatientId = patientId;
+            Description = description;
+            AppointmentStatus = appointmentStatus;
+            AppointmentType = appointmentType;
+            AppointmentMode = appointmentMode;
+        }
     }
 }

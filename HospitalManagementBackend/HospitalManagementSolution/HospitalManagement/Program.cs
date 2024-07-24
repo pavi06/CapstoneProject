@@ -2,6 +2,7 @@ using HospitalManagement.Contexts;
 using HospitalManagement.Interfaces;
 using HospitalManagement.Models;
 using HospitalManagement.Repositories;
+using HospitalManagement.Services;
 using Microsoft.EntityFrameworkCore;
 
 namespace HospitalManagement
@@ -39,6 +40,10 @@ namespace HospitalManagement
             builder.Services.AddScoped<IRepository<int, Appointment>, AppointmentRepository>();
             #endregion
 
+            #region Services
+            builder.Services.AddScoped<IDoctorService, DoctorService>();
+            builder.Services.AddScoped<IHospitalBasicService, HospitalBasicService>();
+            #endregion
 
             var app = builder.Build();
 

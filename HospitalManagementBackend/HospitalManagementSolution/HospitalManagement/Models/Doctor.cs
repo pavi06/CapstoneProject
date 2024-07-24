@@ -13,6 +13,8 @@ namespace HospitalManagement.Models
         public string LanguagesKnown { get; set; }
         public TimeOnly ShiftStartTime { get; set; }
         public TimeOnly ShiftEndTime { get; set; }
+        public List<string> Slots { get; set; }
+        public List<string> AvailableDays { get; set; }
         public List<Appointment> Appointments { get; set; }
         public List<MedicalRecord> MedicalRecords { get; set; }
 
