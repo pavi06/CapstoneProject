@@ -1,0 +1,630 @@
+INFO  12:38:57 Start installing Hangfire SQL objects...
+INFO  12:38:58 Hangfire SQL objects installed.
+INFO  12:38:59 Now listening on: http://localhost:5253
+INFO  12:38:59 Starting Hangfire Server using job storage: 'SQL Server: 853CBX3\SQLEXPRESS@dbHangfireDetails'
+INFO  12:38:59 Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+INFO  12:38:59 Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+INFO  12:38:59 Application started. Press Ctrl+C to shut down.
+INFO  12:38:59 Hosting environment: Development
+INFO  12:38:59 Content root path: C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\
+INFO  12:38:59 Server 853cbx3:11512:7d176972 successfully announced in 296.8615 ms
+INFO  12:38:59 Server 853cbx3:11512:7d176972 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+INFO  12:38:59 Server 853cbx3:11512:7d176972 all the dispatchers started
+INFO  12:48:52 Start installing Hangfire SQL objects...
+INFO  12:48:52 Hangfire SQL objects installed.
+INFO  12:48:53 Now listening on: http://localhost:5253
+INFO  12:48:53 Starting Hangfire Server using job storage: 'SQL Server: 853CBX3\SQLEXPRESS@dbHangfireDetails'
+INFO  12:48:53 Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+INFO  12:48:53 Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+INFO  12:48:53 Application started. Press Ctrl+C to shut down.
+INFO  12:48:53 Hosting environment: Development
+INFO  12:48:53 Content root path: C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\
+INFO  12:48:53 Server 853cbx3:15076:0ef9120c successfully announced in 333.3549 ms
+INFO  12:48:53 Server 853cbx3:15076:0ef9120c is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+INFO  12:48:53 1 servers were removed due to timeout
+INFO  12:48:54 Server 853cbx3:15076:0ef9120c all the dispatchers started
+ERROR 12:50:57 An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Unable to resolve service for type 'HospitalManagement.Interfaces.IUserService' while attempting to activate 'HospitalManagement.Controllers.UserController'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetService(IServiceProvider sp, Type type, Type requiredBy, Boolean isDefaultParameterRequired)
+   at lambda_method16(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass7_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+ERROR 12:55:09 An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: Unable to resolve service for type 'HospitalManagement.Interfaces.IUserService' while attempting to activate 'HospitalManagement.Controllers.UserController'.
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetService(IServiceProvider sp, Type type, Type requiredBy, Boolean isDefaultParameterRequired)
+   at lambda_method24(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass7_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass6_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+INFO  12:55:31 Start installing Hangfire SQL objects...
+INFO  12:55:32 Hangfire SQL objects installed.
+INFO  12:55:32 Now listening on: http://localhost:5253
+INFO  12:55:32 Starting Hangfire Server using job storage: 'SQL Server: 853CBX3\SQLEXPRESS@dbHangfireDetails'
+INFO  12:55:32 Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+INFO  12:55:32 Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+INFO  12:55:32 Application started. Press Ctrl+C to shut down.
+INFO  12:55:32 Hosting environment: Development
+INFO  12:55:32 Content root path: C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\
+INFO  12:55:32 Server 853cbx3:17332:2071c1a7 successfully announced in 256.5657 ms
+INFO  12:55:32 Server 853cbx3:17332:2071c1a7 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+INFO  12:55:33 Server 853cbx3:17332:2071c1a7 all the dispatchers started
+WARN  12:55:49 The property 'Doctor.AvailableDays' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:55:49 The property 'Doctor.LanguagesKnown' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:55:49 The property 'Doctor.Slots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:55:49 The property 'DoctorAvailability.AvailableSlots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+INFO  12:55:50 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+ERROR 12:55:51 Failed executing DbCommand (106ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (DbType = DateTime2), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [UserDetails] ([Address], [Age], [ContactNo], [DateOfBirth], [EmailId], [Gender], [Name], [Role])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT [UserId]
+FROM [UserDetails]
+WHERE @@ROWCOUNT = 1 AND [UserId] = scope_identity();
+ERROR 12:55:51 An exception occurred in the database while saving changes for context type 'HospitalManagement.Contexts.HospitalManagementContext'.
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'Gender'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__189_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:f773f5af-2a52-4346-b90a-08fa5126bc81
+Error Number:207,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+Microsoft.EntityFrameworkCore.DbUpdateException: An error occurred while saving the entity changes. See the inner exception for details.
+ ---> Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'Gender'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__189_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+ClientConnectionId:f773f5af-2a52-4346-b90a-08fa5126bc81
+Error Number:207,State:1,Class:16
+   --- End of inner exception stack trace ---
+   at Microsoft.EntityFrameworkCore.Update.ReaderModificationCommandBatch.ExecuteAsync(IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Update.Internal.BatchExecutor.ExecuteAsync(IEnumerable`1 commandBatches, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(IList`1 entriesToSave, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.ChangeTracking.Internal.StateManager.SaveChangesAsync(StateManager stateManager, Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync(Boolean acceptAllChangesOnSuccess, CancellationToken cancellationToken)
+ERROR 12:55:53 Failed executing DbCommand (8ms) [Parameters=[@__key_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[Address], [u].[Age], [u].[ContactNo], [u].[DateOfBirth], [u].[EmailId], [u].[Gender], [u].[Name], [u].[Role]
+FROM [UserDetails] AS [u]
+WHERE [u].[UserId] = @__key_0
+ERROR 12:55:53 An exception occurred while iterating over the results of a query for context type 'HospitalManagement.Contexts.HospitalManagementContext'.
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'Gender'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__189_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:f773f5af-2a52-4346-b90a-08fa5126bc81
+Error Number:207,State:1,Class:16
+Microsoft.Data.SqlClient.SqlException (0x80131904): Invalid column name 'Gender'.
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<ExecuteDbDataReaderAsync>b__189_0(Task`1 result)
+   at System.Threading.Tasks.ContinuationResultTaskFromResultTask`2.InnerInvoke()
+   at System.Threading.Tasks.Task.<>c.<.cctor>b__272_0(Object obj)
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+--- End of stack trace from previous location ---
+   at System.Threading.ExecutionContext.RunInternal(ExecutionContext executionContext, ContextCallback callback, Object state)
+   at System.Threading.Tasks.Task.ExecuteWithThreadLocal(Task& currentTaskSlot, Thread threadPoolThread)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+ClientConnectionId:f773f5af-2a52-4346-b90a-08fa5126bc81
+Error Number:207,State:1,Class:16
+ERROR 12:55:54 Cannot register at this moment
+WARN  12:56:34 The property 'Doctor.AvailableDays' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:56:34 The property 'Doctor.LanguagesKnown' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:56:34 The property 'Doctor.Slots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:56:34 The property 'DoctorAvailability.AvailableSlots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+INFO  12:56:35 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+WARN  12:56:35 The property 'Doctor.AvailableDays' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:56:35 The property 'Doctor.LanguagesKnown' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:56:35 The property 'Doctor.Slots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:56:35 The property 'DoctorAvailability.AvailableSlots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:56:45 The property 'Doctor.AvailableDays' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:56:45 The property 'Doctor.LanguagesKnown' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:56:45 The property 'Doctor.Slots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:56:45 The property 'DoctorAvailability.AvailableSlots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+INFO  12:56:45 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  12:56:45 Executed DbCommand (15ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+INFO  12:56:45 Executed DbCommand (12ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+INFO  12:56:45 Executed DbCommand (2ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT 1
+INFO  12:56:45 Executed DbCommand (0ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+INFO  12:56:45 Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+INFO  12:56:45 Applying migration '20240725192635_userEdited'.
+INFO  12:56:46 Executed DbCommand (271ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+EXEC sp_rename N'[UserDetails].[Female]', N'Gender', N'COLUMN';
+INFO  12:56:46 Executed DbCommand (8ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+ALTER TABLE [Rooms] ADD [IsAllotted] bit NOT NULL DEFAULT CAST(0 AS bit);
+INFO  12:56:46 Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+ALTER TABLE [InPatients] ADD [Description] nvarchar(max) NOT NULL DEFAULT N'';
+INFO  12:56:46 Executed DbCommand (5ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+ALTER TABLE [InPatientDetails] ADD [IsActivePatient] bit NOT NULL DEFAULT CAST(0 AS bit);
+INFO  12:56:46 Executed DbCommand (34ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+DECLARE @var0 sysname;
+SELECT @var0 = [d].[name]
+FROM [sys].[default_constraints] [d]
+INNER JOIN [sys].[columns] [c] ON [d].[parent_column_id] = [c].[column_id] AND [d].[parent_object_id] = [c].[object_id]
+WHERE ([d].[parent_object_id] = OBJECT_ID(N'[Bills]') AND [c].[name] = N'PatientType');
+IF @var0 IS NOT NULL EXEC(N'ALTER TABLE [Bills] DROP CONSTRAINT [' + @var0 + '];');
+ALTER TABLE [Bills] ALTER COLUMN [PatientType] nvarchar(max) NOT NULL;
+INFO  12:56:46 Executed DbCommand (3ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20240725192635_userEdited', N'6.0.32');
+INFO  12:57:51 Start installing Hangfire SQL objects...
+INFO  12:57:51 Hangfire SQL objects installed.
+INFO  12:57:52 Now listening on: http://localhost:5253
+INFO  12:57:52 Starting Hangfire Server using job storage: 'SQL Server: 853CBX3\SQLEXPRESS@dbHangfireDetails'
+INFO  12:57:52 Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+INFO  12:57:52 Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+INFO  12:57:52 Application started. Press Ctrl+C to shut down.
+INFO  12:57:52 Hosting environment: Development
+INFO  12:57:52 Content root path: C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\
+INFO  12:57:52 Server 853cbx3:21568:dd2db7c0 successfully announced in 265.6308 ms
+INFO  12:57:52 Server 853cbx3:21568:dd2db7c0 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+INFO  12:57:53 Server 853cbx3:21568:dd2db7c0 all the dispatchers started
+WARN  12:58:08 The property 'Doctor.AvailableDays' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:58:08 The property 'Doctor.LanguagesKnown' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:58:08 The property 'Doctor.Slots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  12:58:08 The property 'DoctorAvailability.AvailableSlots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+INFO  12:58:09 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  12:58:10 Executed DbCommand (64ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (DbType = DateTime2), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [UserDetails] ([Address], [Age], [ContactNo], [DateOfBirth], [EmailId], [Gender], [Name], [Role])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT [UserId]
+FROM [UserDetails]
+WHERE @@ROWCOUNT = 1 AND [UserId] = scope_identity();
+INFO  12:58:10 Executed DbCommand (9ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime2), @p2='?' (DbType = DateTime2), @p3='?' (Size = 8000) (DbType = Binary), @p4='?' (Size = 8000) (DbType = Binary), @p5='?' (Size = 4000), @p6='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([PersonId], [CreatedOn], [ExpiresOn], [Password], [PasswordHashKey], [RefreshToken], [Status])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+INFO  12:58:10 Registration successfull
+INFO  12:58:57 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  12:58:57 Executed DbCommand (10ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (DbType = DateTime2), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [UserDetails] ([Address], [Age], [ContactNo], [DateOfBirth], [EmailId], [Gender], [Name], [Role])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT [UserId]
+FROM [UserDetails]
+WHERE @@ROWCOUNT = 1 AND [UserId] = scope_identity();
+INFO  12:58:57 Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime2), @p2='?' (DbType = DateTime2), @p3='?' (Size = 8000) (DbType = Binary), @p4='?' (Size = 8000) (DbType = Binary), @p5='?' (Size = 4000), @p6='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([PersonId], [CreatedOn], [ExpiresOn], [Password], [PasswordHashKey], [RefreshToken], [Status])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+INFO  12:58:57 Registration successfull
+INFO  12:59:22 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  12:59:23 Executed DbCommand (9ms) [Parameters=[@p0='?' (Size = 4000), @p1='?' (DbType = Int32), @p2='?' (Size = 4000), @p3='?' (DbType = DateTime2), @p4='?' (Size = 4000), @p5='?' (Size = 4000), @p6='?' (Size = 4000), @p7='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [UserDetails] ([Address], [Age], [ContactNo], [DateOfBirth], [EmailId], [Gender], [Name], [Role])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7);
+SELECT [UserId]
+FROM [UserDetails]
+WHERE @@ROWCOUNT = 1 AND [UserId] = scope_identity();
+INFO  12:59:23 Executed DbCommand (11ms) [Parameters=[@p0='?' (DbType = Int32), @p1='?' (DbType = DateTime2), @p2='?' (DbType = DateTime2), @p3='?' (Size = 8000) (DbType = Binary), @p4='?' (Size = 8000) (DbType = Binary), @p5='?' (Size = 4000), @p6='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+INSERT INTO [Users] ([PersonId], [CreatedOn], [ExpiresOn], [Password], [PasswordHashKey], [RefreshToken], [Status])
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6);
+INFO  12:59:23 Registration successfull
+INFO  01:02:52 2 servers were removed due to timeout
+INFO  01:14:46 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  01:14:47 Executed DbCommand (13ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [d].[DoctorId], [d].[AvailableDays], [d].[Experience], [d].[LanguagesKnown], [d].[Qualification], [d].[ShiftEndTime], [d].[ShiftStartTime], [d].[Slots], [d].[Specialization], [a].[AppointmentId], [a].[AppointmentDate], [a].[AppointmentMode], [a].[AppointmentStatus], [a].[AppointmentType], [a].[Date], [a].[Description], [a].[DoctorId], [a].[PatientId], [a].[Slot], [a].[Speciality]
+FROM [Doctors] AS [d]
+LEFT JOIN [Appointments] AS [a] ON [d].[DoctorId] = [a].[DoctorId]
+ORDER BY [d].[DoctorId]
+INFO  01:14:48 Executed DbCommand (3ms) [Parameters=[@__key_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[Address], [u].[Age], [u].[ContactNo], [u].[DateOfBirth], [u].[EmailId], [u].[Gender], [u].[Name], [u].[Role]
+FROM [UserDetails] AS [u]
+WHERE [u].[UserId] = @__key_0
+INFO  01:14:48 Executed DbCommand (6ms) [Parameters=[@__key1_0='?' (DbType = Int32), @__key2_1='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [d].[DoctorId], [d].[Date], [d].[AvailableSlots]
+FROM [DoctorAvailability] AS [d]
+WHERE ([d].[DoctorId] = @__key1_0) AND ([d].[Date] = @__key2_1)
+ERROR 01:15:40 Object reference not set to an instance of an object.
+INFO  01:16:19 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  01:16:19 Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [d].[DoctorId], [d].[AvailableDays], [d].[Experience], [d].[LanguagesKnown], [d].[Qualification], [d].[ShiftEndTime], [d].[ShiftStartTime], [d].[Slots], [d].[Specialization], [a].[AppointmentId], [a].[AppointmentDate], [a].[AppointmentMode], [a].[AppointmentStatus], [a].[AppointmentType], [a].[Date], [a].[Description], [a].[DoctorId], [a].[PatientId], [a].[Slot], [a].[Speciality]
+FROM [Doctors] AS [d]
+LEFT JOIN [Appointments] AS [a] ON [d].[DoctorId] = [a].[DoctorId]
+ORDER BY [d].[DoctorId]
+INFO  01:17:00 Executed DbCommand (3ms) [Parameters=[@__key_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[Address], [u].[Age], [u].[ContactNo], [u].[DateOfBirth], [u].[EmailId], [u].[Gender], [u].[Name], [u].[Role]
+FROM [UserDetails] AS [u]
+WHERE [u].[UserId] = @__key_0
+INFO  01:17:12 Executed DbCommand (1ms) [Parameters=[@__key1_0='?' (DbType = Int32), @__key2_1='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [d].[DoctorId], [d].[Date], [d].[AvailableSlots]
+FROM [DoctorAvailability] AS [d]
+WHERE ([d].[DoctorId] = @__key1_0) AND ([d].[Date] = @__key2_1)
+ERROR 01:17:48 Object reference not set to an instance of an object.
+INFO  01:20:32 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  01:20:32 Executed DbCommand (1ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [d].[DoctorId], [d].[AvailableDays], [d].[Experience], [d].[LanguagesKnown], [d].[Qualification], [d].[ShiftEndTime], [d].[ShiftStartTime], [d].[Slots], [d].[Specialization], [a].[AppointmentId], [a].[AppointmentDate], [a].[AppointmentMode], [a].[AppointmentStatus], [a].[AppointmentType], [a].[Date], [a].[Description], [a].[DoctorId], [a].[PatientId], [a].[Slot], [a].[Speciality]
+FROM [Doctors] AS [d]
+LEFT JOIN [Appointments] AS [a] ON [d].[DoctorId] = [a].[DoctorId]
+ORDER BY [d].[DoctorId]
+INFO  01:20:34 Executed DbCommand (2ms) [Parameters=[@__key_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[Address], [u].[Age], [u].[ContactNo], [u].[DateOfBirth], [u].[EmailId], [u].[Gender], [u].[Name], [u].[Role]
+FROM [UserDetails] AS [u]
+WHERE [u].[UserId] = @__key_0
+INFO  01:20:34 Executed DbCommand (4ms) [Parameters=[@__key1_0='?' (DbType = Int32), @__key2_1='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [d].[DoctorId], [d].[Date], [d].[AvailableSlots]
+FROM [DoctorAvailability] AS [d]
+WHERE ([d].[DoctorId] = @__key1_0) AND ([d].[Date] = @__key2_1)
+INFO  01:20:34 Doctors retrieved successfully
+ERROR 01:20:34 An unhandled exception has occurred while executing the request.
+System.NotSupportedException: The type 'System.TimeOnly' is not a supported dictionary key using converter of type 'System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1[System.TimeOnly]'. The unsupported member type is located on type 'System.Boolean'. Path: $.AvailableSlots.
+ ---> System.NotSupportedException: The type 'System.TimeOnly' is not a supported dictionary key using converter of type 'System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1[System.TimeOnly]'.
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DictionaryKeyTypeNotSupported(Type keyType, JsonConverter converter)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteAsPropertyName(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteAsPropertyNameCore(Utf8JsonWriter writer, T value, JsonSerializerOptions options, Boolean isWritingExtensionDataProperty)
+   at System.Text.Json.Serialization.Converters.DictionaryOfTKeyTValueConverter`3.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonDictionaryConverter`3.OnTryWrite(Utf8JsonWriter writer, TDictionary dictionary, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.ListOfTConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   --- End of inner exception stack trace ---
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException(WriteStack& state, NotSupportedException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCoreAsObject(Utf8JsonWriter writer, Object value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.JsonSerializer.WriteCore[TValue](JsonConverter jsonConverter, Utf8JsonWriter writer, TValue& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter.WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+INFO  01:23:53 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  01:23:53 Executed DbCommand (7ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [d].[DoctorId], [d].[AvailableDays], [d].[Experience], [d].[LanguagesKnown], [d].[Qualification], [d].[ShiftEndTime], [d].[ShiftStartTime], [d].[Slots], [d].[Specialization], [a].[AppointmentId], [a].[AppointmentDate], [a].[AppointmentMode], [a].[AppointmentStatus], [a].[AppointmentType], [a].[Date], [a].[Description], [a].[DoctorId], [a].[PatientId], [a].[Slot], [a].[Speciality]
+FROM [Doctors] AS [d]
+LEFT JOIN [Appointments] AS [a] ON [d].[DoctorId] = [a].[DoctorId]
+ORDER BY [d].[DoctorId]
+INFO  01:23:55 Executed DbCommand (7ms) [Parameters=[@__key_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[Address], [u].[Age], [u].[ContactNo], [u].[DateOfBirth], [u].[EmailId], [u].[Gender], [u].[Name], [u].[Role]
+FROM [UserDetails] AS [u]
+WHERE [u].[UserId] = @__key_0
+INFO  01:23:55 Executed DbCommand (5ms) [Parameters=[@__key1_0='?' (DbType = Int32), @__key2_1='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [d].[DoctorId], [d].[Date], [d].[AvailableSlots]
+FROM [DoctorAvailability] AS [d]
+WHERE ([d].[DoctorId] = @__key1_0) AND ([d].[Date] = @__key2_1)
+INFO  01:23:55 Doctors retrieved successfully
+ERROR 01:23:55 An unhandled exception has occurred while executing the request.
+System.NotSupportedException: The type 'System.TimeOnly' is not a supported dictionary key using converter of type 'System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1[System.TimeOnly]'. The unsupported member type is located on type 'System.Boolean'. Path: $.AvailableSlots.
+ ---> System.NotSupportedException: The type 'System.TimeOnly' is not a supported dictionary key using converter of type 'System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1[System.TimeOnly]'.
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DictionaryKeyTypeNotSupported(Type keyType, JsonConverter converter)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteAsPropertyName(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteAsPropertyNameCore(Utf8JsonWriter writer, T value, JsonSerializerOptions options, Boolean isWritingExtensionDataProperty)
+   at System.Text.Json.Serialization.Converters.DictionaryOfTKeyTValueConverter`3.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonDictionaryConverter`3.OnTryWrite(Utf8JsonWriter writer, TDictionary dictionary, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.ListOfTConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   --- End of inner exception stack trace ---
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException(WriteStack& state, NotSupportedException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCoreAsObject(Utf8JsonWriter writer, Object value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.JsonSerializer.WriteCore[TValue](JsonConverter jsonConverter, Utf8JsonWriter writer, TValue& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter.WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+INFO  01:26:08 Start installing Hangfire SQL objects...
+INFO  01:26:09 Hangfire SQL objects installed.
+INFO  01:26:09 Now listening on: http://localhost:5253
+INFO  01:26:09 Starting Hangfire Server using job storage: 'SQL Server: 853CBX3\SQLEXPRESS@dbHangfireDetails'
+INFO  01:26:09 Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+INFO  01:26:09 Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+INFO  01:26:09 Application started. Press Ctrl+C to shut down.
+INFO  01:26:09 Hosting environment: Development
+INFO  01:26:09 Content root path: C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\
+INFO  01:26:09 Server 853cbx3:25004:35a8da4c successfully announced in 254.2076 ms
+INFO  01:26:09 Server 853cbx3:25004:35a8da4c is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+INFO  01:26:10 Server 853cbx3:25004:35a8da4c all the dispatchers started
+WARN  01:26:28 The property 'Doctor.AvailableDays' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  01:26:28 The property 'Doctor.LanguagesKnown' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  01:26:28 The property 'Doctor.Slots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  01:26:28 The property 'DoctorAvailability.AvailableSlots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+INFO  01:26:29 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  01:26:30 Executed DbCommand (63ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [d].[DoctorId], [d].[AvailableDays], [d].[Experience], [d].[LanguagesKnown], [d].[Qualification], [d].[ShiftEndTime], [d].[ShiftStartTime], [d].[Slots], [d].[Specialization], [a].[AppointmentId], [a].[AppointmentDate], [a].[AppointmentMode], [a].[AppointmentStatus], [a].[AppointmentType], [a].[Date], [a].[Description], [a].[DoctorId], [a].[PatientId], [a].[Slot], [a].[Speciality]
+FROM [Doctors] AS [d]
+LEFT JOIN [Appointments] AS [a] ON [d].[DoctorId] = [a].[DoctorId]
+ORDER BY [d].[DoctorId]
+INFO  01:26:34 Executed DbCommand (5ms) [Parameters=[@__key_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[Address], [u].[Age], [u].[ContactNo], [u].[DateOfBirth], [u].[EmailId], [u].[Gender], [u].[Name], [u].[Role]
+FROM [UserDetails] AS [u]
+WHERE [u].[UserId] = @__key_0
+INFO  01:26:34 Executed DbCommand (4ms) [Parameters=[@__key1_0='?' (DbType = Int32), @__key2_1='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [d].[DoctorId], [d].[Date], [d].[AvailableSlots]
+FROM [DoctorAvailability] AS [d]
+WHERE ([d].[DoctorId] = @__key1_0) AND ([d].[Date] = @__key2_1)
+INFO  01:26:34 Doctors retrieved successfully
+ERROR 01:26:34 An unhandled exception has occurred while executing the request.
+System.NotSupportedException: The type 'System.TimeOnly' is not a supported dictionary key using converter of type 'System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1[System.TimeOnly]'. The unsupported member type is located on type 'System.Boolean'. Path: $.AvailableSlots.
+ ---> System.NotSupportedException: The type 'System.TimeOnly' is not a supported dictionary key using converter of type 'System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1[System.TimeOnly]'.
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DictionaryKeyTypeNotSupported(Type keyType, JsonConverter converter)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteAsPropertyName(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteAsPropertyNameCore(Utf8JsonWriter writer, T value, JsonSerializerOptions options, Boolean isWritingExtensionDataProperty)
+   at System.Text.Json.Serialization.Converters.DictionaryOfTKeyTValueConverter`3.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonDictionaryConverter`3.OnTryWrite(Utf8JsonWriter writer, TDictionary dictionary, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.ListOfTConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   --- End of inner exception stack trace ---
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException(WriteStack& state, NotSupportedException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCoreAsObject(Utf8JsonWriter writer, Object value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.JsonSerializer.WriteCore[TValue](JsonConverter jsonConverter, Utf8JsonWriter writer, TValue& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter.WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+INFO  01:28:39 Start installing Hangfire SQL objects...
+INFO  01:28:40 Hangfire SQL objects installed.
+INFO  01:28:40 Now listening on: http://localhost:5253
+INFO  01:28:41 Starting Hangfire Server using job storage: 'SQL Server: 853CBX3\SQLEXPRESS@dbHangfireDetails'
+INFO  01:28:41 Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+INFO  01:28:41 Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+INFO  01:28:41 Application started. Press Ctrl+C to shut down.
+INFO  01:28:41 Hosting environment: Development
+INFO  01:28:41 Content root path: C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\
+INFO  01:28:41 Server 853cbx3:32880:669e95b7 successfully announced in 306.9316 ms
+INFO  01:28:41 Server 853cbx3:32880:669e95b7 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+INFO  01:28:41 Server 853cbx3:32880:669e95b7 all the dispatchers started
+WARN  01:29:00 The property 'Doctor.AvailableDays' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  01:29:00 The property 'Doctor.LanguagesKnown' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  01:29:00 The property 'Doctor.Slots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  01:29:00 The property 'DoctorAvailability.AvailableSlots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+INFO  01:29:01 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  01:29:02 Executed DbCommand (65ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [d].[DoctorId], [d].[AvailableDays], [d].[Experience], [d].[LanguagesKnown], [d].[Qualification], [d].[ShiftEndTime], [d].[ShiftStartTime], [d].[Slots], [d].[Specialization], [a].[AppointmentId], [a].[AppointmentDate], [a].[AppointmentMode], [a].[AppointmentStatus], [a].[AppointmentType], [a].[Date], [a].[Description], [a].[DoctorId], [a].[PatientId], [a].[Slot], [a].[Speciality]
+FROM [Doctors] AS [d]
+LEFT JOIN [Appointments] AS [a] ON [d].[DoctorId] = [a].[DoctorId]
+ORDER BY [d].[DoctorId]
+INFO  01:29:07 Executed DbCommand (6ms) [Parameters=[@__key_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[Address], [u].[Age], [u].[ContactNo], [u].[DateOfBirth], [u].[EmailId], [u].[Gender], [u].[Name], [u].[Role]
+FROM [UserDetails] AS [u]
+WHERE [u].[UserId] = @__key_0
+INFO  01:29:07 Executed DbCommand (7ms) [Parameters=[@__key1_0='?' (DbType = Int32), @__key2_1='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [d].[DoctorId], [d].[Date], [d].[AvailableSlots]
+FROM [DoctorAvailability] AS [d]
+WHERE ([d].[DoctorId] = @__key1_0) AND ([d].[Date] = @__key2_1)
+INFO  01:29:07 Doctors retrieved successfully
+ERROR 01:29:07 An unhandled exception has occurred while executing the request.
+System.NotSupportedException: The type 'System.TimeOnly' is not a supported dictionary key using converter of type 'System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1[System.TimeOnly]'. The unsupported member type is located on type 'System.Boolean'. Path: $.AvailableSlots.
+ ---> System.NotSupportedException: The type 'System.TimeOnly' is not a supported dictionary key using converter of type 'System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1[System.TimeOnly]'.
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DictionaryKeyTypeNotSupported(Type keyType, JsonConverter converter)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteAsPropertyName(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteAsPropertyNameCore(Utf8JsonWriter writer, T value, JsonSerializerOptions options, Boolean isWritingExtensionDataProperty)
+   at System.Text.Json.Serialization.Converters.DictionaryOfTKeyTValueConverter`3.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonDictionaryConverter`3.OnTryWrite(Utf8JsonWriter writer, TDictionary dictionary, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.ListOfTConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   --- End of inner exception stack trace ---
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException(WriteStack& state, NotSupportedException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCoreAsObject(Utf8JsonWriter writer, Object value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.JsonSerializer.WriteCore[TValue](JsonConverter jsonConverter, Utf8JsonWriter writer, TValue& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter.WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+INFO  01:29:18 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  01:29:18 Executed DbCommand (4ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [d].[DoctorId], [d].[AvailableDays], [d].[Experience], [d].[LanguagesKnown], [d].[Qualification], [d].[ShiftEndTime], [d].[ShiftStartTime], [d].[Slots], [d].[Specialization], [a].[AppointmentId], [a].[AppointmentDate], [a].[AppointmentMode], [a].[AppointmentStatus], [a].[AppointmentType], [a].[Date], [a].[Description], [a].[DoctorId], [a].[PatientId], [a].[Slot], [a].[Speciality]
+FROM [Doctors] AS [d]
+LEFT JOIN [Appointments] AS [a] ON [d].[DoctorId] = [a].[DoctorId]
+ORDER BY [d].[DoctorId]
+INFO  01:29:26 Executed DbCommand (3ms) [Parameters=[@__key_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[Address], [u].[Age], [u].[ContactNo], [u].[DateOfBirth], [u].[EmailId], [u].[Gender], [u].[Name], [u].[Role]
+FROM [UserDetails] AS [u]
+WHERE [u].[UserId] = @__key_0
+INFO  01:29:31 Executed DbCommand (5ms) [Parameters=[@__key1_0='?' (DbType = Int32), @__key2_1='?' (DbType = DateTime2)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [d].[DoctorId], [d].[Date], [d].[AvailableSlots]
+FROM [DoctorAvailability] AS [d]
+WHERE ([d].[DoctorId] = @__key1_0) AND ([d].[Date] = @__key2_1)
+INFO  01:31:09 Doctors retrieved successfully
+ERROR 01:31:13 An unhandled exception has occurred while executing the request.
+System.NotSupportedException: The type 'System.TimeOnly' is not a supported dictionary key using converter of type 'System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1[System.TimeOnly]'. The unsupported member type is located on type 'System.Boolean'. Path: $.AvailableSlots.
+ ---> System.NotSupportedException: The type 'System.TimeOnly' is not a supported dictionary key using converter of type 'System.Text.Json.Serialization.Converters.UnsupportedTypeConverter`1[System.TimeOnly]'.
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException_DictionaryKeyTypeNotSupported(Type keyType, JsonConverter converter)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteAsPropertyName(Utf8JsonWriter writer, T value, JsonSerializerOptions options)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteAsPropertyNameCore(Utf8JsonWriter writer, T value, JsonSerializerOptions options, Boolean isWritingExtensionDataProperty)
+   at System.Text.Json.Serialization.Converters.DictionaryOfTKeyTValueConverter`3.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonDictionaryConverter`3.OnTryWrite(Utf8JsonWriter writer, TDictionary dictionary, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Metadata.JsonPropertyInfo`1.GetMemberAndWriteJson(Object obj, WriteStack& state, Utf8JsonWriter writer)
+   at System.Text.Json.Serialization.Converters.ObjectDefaultConverter`1.OnTryWrite(Utf8JsonWriter writer, T value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.Converters.ListOfTConverter`2.OnWriteResume(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonCollectionConverter`2.OnTryWrite(Utf8JsonWriter writer, TCollection value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.TryWrite(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   --- End of inner exception stack trace ---
+   at System.Text.Json.ThrowHelper.ThrowNotSupportedException(WriteStack& state, NotSupportedException ex)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCore(Utf8JsonWriter writer, T& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.Serialization.JsonConverter`1.WriteCoreAsObject(Utf8JsonWriter writer, Object value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.JsonSerializer.WriteCore[TValue](JsonConverter jsonConverter, Utf8JsonWriter writer, TValue& value, JsonSerializerOptions options, WriteStack& state)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at System.Text.Json.JsonSerializer.WriteStreamAsync[TValue](Stream utf8Json, TValue value, JsonTypeInfo jsonTypeInfo, CancellationToken cancellationToken)
+   at Microsoft.AspNetCore.Mvc.Formatters.SystemTextJsonOutputFormatter.WriteResponseBodyAsync(OutputFormatterWriteContext context, Encoding selectedEncoding)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResultFilterAsync>g__Awaited|30_0[TFilter,TFilterAsync](ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResultExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.ResultNext[TFilter,TFilterAsync](State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeResultFilters()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|20_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)

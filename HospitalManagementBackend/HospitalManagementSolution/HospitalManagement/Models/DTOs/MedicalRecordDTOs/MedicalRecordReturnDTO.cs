@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace HospitalManagement.Models.DTOs
+namespace HospitalManagement.Models.DTOs.MedicalRecordDTOs
 {
     public class MedicalRecordReturnDTO
     {

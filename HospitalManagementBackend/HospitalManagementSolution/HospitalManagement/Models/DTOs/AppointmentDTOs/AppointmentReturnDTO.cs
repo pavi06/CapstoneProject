@@ -1,4 +1,4 @@
-﻿namespace HospitalManagement.Models.DTOs
+﻿namespace HospitalManagement.Models.DTOs.AppointmentDTOs
 {
     public class AppointmentReturnDTO
     {
@@ -11,8 +11,9 @@
         public string ContactNo { get; set; }
         public string Description { get; set; }
         public string AppointmentType { get; set; }
+        public string AppointmentStatus { get; set; }
 
-        public AppointmentReturnDTO(int appointmentId, DateTime appointmentDate, TimeOnly slot, int patientId, string patientName, int age, string contactNo, string description, string appointmentType)
+        public AppointmentReturnDTO(int appointmentId, DateTime appointmentDate, TimeOnly slot, int patientId, string patientName, int age, string contactNo, string description, string appointmentType, string appointmentStatus)
         {
             AppointmentId = appointmentId;
             AppointmentDate = appointmentDate;
@@ -23,6 +24,7 @@
             ContactNo = contactNo;
             Description = description;
             AppointmentType = appointmentType;
+            AppointmentStatus = appointmentStatus;
         }
     }
 }

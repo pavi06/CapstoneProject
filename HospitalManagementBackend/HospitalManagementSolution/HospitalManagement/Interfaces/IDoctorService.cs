@@ -1,5 +1,6 @@
 ﻿using HospitalManagement.Models;
-using HospitalManagement.Models.DTOs;
+using HospitalManagement.Models.DTOs.AppointmentDTOs;
+using HospitalManagement.Models.DTOs.MedicalRecordDTOs;
 
 namespace HospitalManagement.Interfaces
 {

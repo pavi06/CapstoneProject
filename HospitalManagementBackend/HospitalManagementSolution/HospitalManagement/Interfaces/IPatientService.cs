@@ -1,5 +1,6 @@
 ﻿using HospitalManagement.Models;
-using HospitalManagement.Models.DTOs;
+using HospitalManagement.Models.DTOs.AppointmentDTOs;
+using HospitalManagement.Models.DTOs.MedicalRecordDTOs;
 
 namespace HospitalManagement.Interfaces
 {
@@ -8,8 +9,9 @@ namespace HospitalManagement.Interfaces
         public Task<PatientAppointmentReturnDTO> BookAppointmentByDoctor(BookAppointmentDTO appointmentDTO);
         public Task<PatientAppointmentReturnDTO> BookAppointmentBySpeciality(BookAppointmentBySpecDTO specAppointmentDTO);
         public Task<List<PatientAppointmentReturnDTO>> MyAppointments(int patientId, int limit, int skip);
-        public Task<Prescription> MyPrescriptionForAppointment(int patientId, int appointmentId);
-        public Task<List<Prescription>> MyPrescriptions(int patientId, int limit, int skip);
-        public Task<string> CancelAppointment(int appointmentId, string status);
+        public Task<PrescriptionReturnDTO> MyPrescriptionForAppointment(int patientId, int appointmentId);
+        public Task<List<PrescriptionReturnDTO>> MyPrescriptions(int patientId, int limit, int skip);
+        public Task<string> CancelAppointment(int appointmentId);
+        public Task<Doctor> GetDoctorAvailableOnThatSlot(string speciality, string preferredTime, DateTime appointmentDate);
     }
 }

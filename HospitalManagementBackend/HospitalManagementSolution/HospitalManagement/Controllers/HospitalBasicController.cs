@@ -1,0 +1,88 @@
+﻿using HospitalManagement.CustomExceptions;
+using HospitalManagement.Interfaces;
+using HospitalManagement.Models;
+using HospitalManagement.Models.DTOs.DoctorDTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace HospitalManagement.Controllers
+{
+    [Route("api/[controller]")]
+    [EnableCors("MyCors")]
+    [ApiController]
+    public class HospitalBasicController : ControllerBase
+    {
+        private readonly IHospitalBasicService _hospitalBasicService;
+        private readonly ILogger<HospitalBasicController> _logger;
+
+        public HospitalBasicController(IHospitalBasicService hospitalBasicService, ILogger<HospitalBasicController> logger)
+        {
+            _hospitalBasicService = hospitalBasicService;
+            _logger = logger;
+        }
+
+        [AllowAnonymous]
+        [HttpPost("GetAllDoctorsBySpecialization")]
+        [ProducesResponseType(typeof(List<DoctorReturnDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<List<DoctorReturnDTO>>> GetAllDoctorsBySpecialization([FromBody] string specialization)
+        {
+            try
+            {
+                List<DoctorReturnDTO> result = await _hospitalBasicService.GetAllDoctorsBySpecialization(specialization);
+                _logger.LogInformation("Doctors retrieved successfully");
+                return Ok(result);
+            }
+            catch (ObjectsNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
+
+        [AllowAnonymous]
+        [HttpPost("GetAllDoctorsBySpecializationWithLimit")]
+        [ProducesResponseType(typeof(List<DoctorReturnDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<List<DoctorReturnDTO>>> GetAllDoctorsBySpecialization([FromBody] string specialization, int limit, int skip)
+        {
+            try
+            {
+                List<DoctorReturnDTO> result = await _hospitalBasicService.GetAllDoctorsBySpecialization(specialization, limit, skip);
+                _logger.LogInformation("Doctors retrieved successfully");
+                return Ok(result);
+            }
+            catch (ObjectsNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
+    }
+}

@@ -10,5 +10,6 @@ namespace HospitalManagement.Models
         public int WardTypeId { get; set; }
         [ForeignKey("WardTypeId")]
         public WardBedAvailability WardBed { get; set; }
+        public bool IsAllotted { get; set; } = false;
     }
 }

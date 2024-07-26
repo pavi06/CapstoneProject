@@ -20,6 +20,8 @@ namespace HospitalManagement.Models
         public string AppointmentType { get; set; }
         public string AppointmentMode { get; set; }
 
+        public Appointment() { }
+
         public Appointment(DateTime appointmentDate, TimeOnly slot, int doctorId, string speciality, int patientId, string description, string appointmentStatus, string appointmentType, string appointmentMode)
         {
             AppointmentDate = appointmentDate;

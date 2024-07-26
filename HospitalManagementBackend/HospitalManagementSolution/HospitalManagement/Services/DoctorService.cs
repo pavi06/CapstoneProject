@@ -1,7 +1,8 @@
 ﻿using HospitalManagement.CustomExceptions;
 using HospitalManagement.Interfaces;
 using HospitalManagement.Models;
-using HospitalManagement.Models.DTOs;
+using HospitalManagement.Models.DTOs.AppointmentDTOs;
+using HospitalManagement.Models.DTOs.MedicalRecordDTOs;
 
 namespace HospitalManagement.Services
 {
@@ -25,7 +26,7 @@ namespace HospitalManagement.Services
             var appointmentList = await Task.WhenAll(appointments.Select(async a =>
             {
                 var patient = await _userDetailsRepository.Get(a.PatientId);
-                return new AppointmentReturnDTO(a.AppointmentId, a.AppointmentDate, a.Slot, a.PatientId, patient.Name, patient.Age, patient.ContactNo, a.Description, a.AppointmentType);
+                return new AppointmentReturnDTO(a.AppointmentId, a.AppointmentDate, a.Slot, a.PatientId, patient.Name, patient.Age, patient.ContactNo, a.Description, a.AppointmentType, a.AppointmentStatus);
             }));
             return appointmentList.ToList();
         }

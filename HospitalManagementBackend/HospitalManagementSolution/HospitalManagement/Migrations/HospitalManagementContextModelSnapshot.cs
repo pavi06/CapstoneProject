@@ -101,8 +101,9 @@ namespace HospitalManagement.Migrations
                     b.Property<int>("PatientId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PatientType")
-                        .HasColumnType("int");
+                    b.Property<string>("PatientType")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PaymentStatus")
                         .IsRequired()
@@ -190,6 +191,10 @@ namespace HospitalManagement.Migrations
                     b.Property<int?>("BillId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DischargeDate")
                         .HasColumnType("datetime2");
 
@@ -218,6 +223,9 @@ namespace HospitalManagement.Migrations
 
                     b.Property<int>("InPatientId")
                         .HasColumnType("int");
+
+                    b.Property<bool>("IsActivePatient")
+                        .HasColumnType("bit");
 
                     b.Property<int>("NoOfDays")
                         .HasColumnType("int");
@@ -331,6 +339,9 @@ namespace HospitalManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoomId"), 1L, 1);
 
+                    b.Property<bool>("IsAllotted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("WardTypeId")
                         .HasColumnType("int");
 
@@ -398,7 +409,7 @@ namespace HospitalManagement.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Female")
+                    b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

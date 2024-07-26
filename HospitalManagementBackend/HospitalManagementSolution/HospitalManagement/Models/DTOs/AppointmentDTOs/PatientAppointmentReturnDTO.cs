@@ -1,4 +1,4 @@
-﻿namespace HospitalManagement.Models.DTOs
+﻿namespace HospitalManagement.Models.DTOs.AppointmentDTOs
 {
     public class PatientAppointmentReturnDTO
     {

@@ -13,6 +13,13 @@ namespace HospitalManagement.Models
         [ForeignKey("RoomId")]
         public Room Room { get; set; }
         public int NoOfDays { get; set; }
+        public bool IsActivePatient { get; set; } = true;
 
+        public InPatientDetails(int inPatientId, int roomId, int noOfDays)
+        {
+            InPatientId = inPatientId;
+            RoomId = roomId;
+            NoOfDays = noOfDays;
+        }
     }
 }

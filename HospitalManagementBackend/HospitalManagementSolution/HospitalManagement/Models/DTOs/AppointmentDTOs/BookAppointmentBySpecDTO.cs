@@ -1,4 +1,4 @@
-﻿namespace HospitalManagement.Models.DTOs
+﻿namespace HospitalManagement.Models.DTOs.AppointmentDTOs
 {
     public class BookAppointmentBySpecDTO
     {
@@ -12,7 +12,7 @@
         public string AppointmentType { get; set; }
         public string AppointmentMode { get; set; }
 
-        public BookAppointmentBySpecDTO(int patientId, string phoneNo, DateTime appointmentDate,string preferredTime, string speciality, string description, string preferredLanguage, string appointmentType, string appointmentMode)
+        public BookAppointmentBySpecDTO(int patientId, string phoneNo, DateTime appointmentDate, string preferredTime, string speciality, string description, string preferredLanguage, string appointmentType, string appointmentMode)
         {
             PatientId = patientId;
             PhoneNo = phoneNo;

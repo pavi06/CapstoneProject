@@ -12,6 +12,7 @@ namespace HospitalManagement.Models
 
         [ForeignKey("AppointmentId")]
         public Appointment Appointment { get; set; }
+
         public string PrescriptionUrl { get; set; }
     }
 }

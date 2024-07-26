@@ -24,6 +24,7 @@ namespace HospitalManagement.Contexts
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<WardBedAvailability> WardBedAvailabilities { get; set; }
+        public DbSet<DoctorAvailability> DoctorAvailability { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -36,15 +37,21 @@ namespace HospitalManagement.Contexts
              );
 
             modelBuilder.Entity<Doctor>()
-            .Property(d => d.Slots)
+            .Property(d => d.LanguagesKnown)
             .HasConversion(v => string.Join(",", v),
               v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList()
+              );
+
+            modelBuilder.Entity<Doctor>()
+            .Property(d => d.Slots)
+            .HasConversion(v => string.Join(",", v),
+              v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(s=> TimeOnly.FromTimeSpan(TimeSpan.Parse(s))).ToList()
               );
 
             modelBuilder.Entity<DoctorAvailability>()
             .Property(d => d.AvailableSlots)
             .HasConversion(v => string.Join(",", v),
-              v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList()
+              v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(s => TimeOnly.FromTimeSpan(TimeSpan.Parse(s))).ToList()
               );
 
             modelBuilder.Entity<Appointment>()
