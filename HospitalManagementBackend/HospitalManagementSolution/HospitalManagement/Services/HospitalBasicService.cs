@@ -9,10 +9,10 @@ namespace HospitalManagement.Services
     public class HospitalBasicService : IHospitalBasicService
     {
         private readonly IRepository<int, Doctor> _doctorRepository;
-        private readonly IRepository<int, UserDetails> _userDetailsRepository;
+        private readonly IRepository<int, User> _userDetailsRepository;
         private readonly IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> _doctorAvailabilityRepository;
 
-        public HospitalBasicService(IRepository<int, Doctor> doctorRepository, IRepository<int, UserDetails> userDetailsRepository, IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> doctorAvailabilityRepository) { 
+        public HospitalBasicService(IRepository<int, Doctor> doctorRepository, IRepository<int, User> userDetailsRepository, IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> doctorAvailabilityRepository) { 
             _doctorRepository = doctorRepository;
             _userDetailsRepository = userDetailsRepository;
             _doctorAvailabilityRepository = doctorAvailabilityRepository;
@@ -25,12 +25,12 @@ namespace HospitalManagement.Services
             {
                 var doctor = await _userDetailsRepository.Get(d.DoctorId);
                 var doctorAvailability = await _doctorAvailabilityRepository.Get(d.DoctorId, DateTime.Now.Date);
-                Dictionary<TimeOnly, bool> slotsAvailable = new Dictionary<TimeOnly, bool>();
+                Dictionary<String, bool> slotsAvailable = new Dictionary<String, bool>();
                 if (doctorAvailability == null)
                 {                    
                     foreach (var slot in d.Slots)
                     {
-                      slotsAvailable.Add(slot, true);
+                      slotsAvailable.Add(slot.ToString(), true);
                     }
                 }
                 else
@@ -39,11 +39,11 @@ namespace HospitalManagement.Services
                     {
                         if (doctorAvailability.AvailableSlots.Contains(slot))
                         {
-                            slotsAvailable.Add(slot, true);
+                            slotsAvailable.Add(slot.ToString(), true);
                         }
                         else
                         {
-                            slotsAvailable.Add(slot, false);
+                            slotsAvailable.Add(slot.ToString(), false);
                         }
                     }
                 }

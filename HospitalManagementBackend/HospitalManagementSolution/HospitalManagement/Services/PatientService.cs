@@ -11,17 +11,20 @@ namespace HospitalManagement.Services
     {
         private readonly IRepository<int, Appointment> _appointmentRepository;
         private readonly IRepository<int, Doctor> _doctorRepository;
-        private readonly IRepository<int, UserDetails> _userDetailsRepository;
+        private readonly IRepository<int, User> _userRepository;
         private readonly IRepository<int, Prescription> _prescriptionRepository;
+        private readonly IRepository<int, Patient> _patientRepository;
         private readonly IRepositoryForCompositeKey<int,DateTime,DoctorAvailability> _doctorAvailabilityRepository;
 
         public PatientService(IRepository<int, Appointment> appointmentRepository, IRepository<int, Doctor> doctorRepository, 
-            IRepository<int, UserDetails> userDetailsRepository, IRepository<int, Prescription> prescriptionRepository, IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> doctorAvailabilityRepository) { 
+            IRepository<int, User> userDetailsRepository, IRepository<int, Prescription> prescriptionRepository, 
+            IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> doctorAvailabilityRepository, IRepository<int, Patient> outPatientRepository) { 
             _appointmentRepository = appointmentRepository;
             _doctorRepository = doctorRepository;
-            _userDetailsRepository = userDetailsRepository;
+            _userRepository = userDetailsRepository;
             _prescriptionRepository = prescriptionRepository;
             _doctorAvailabilityRepository = doctorAvailabilityRepository;
+            _patientRepository = outPatientRepository;
         }
         public async Task<PatientAppointmentReturnDTO> BookAppointmentByDoctor(BookAppointmentDTO appointmentDTO)
         {
@@ -33,22 +36,26 @@ namespace HospitalManagement.Services
                 {
                     throw new ObjectNotAvailableException("Doctor");
                 }
-                var appointment = await _appointmentRepository.Add(new Appointment(appointmentDTO.AppointmentDate, appointmentDTO.Slot, appointmentDTO.DoctorId, doctor.Specialization, appointmentDTO.PatientId, appointmentDTO.Description, "scheduled", appointmentDTO.AppointmentType, appointmentDTO.AppointmentMode));
+                if(await _patientRepository.Get(appointmentDTO.PatientId) == null)
+                {
+                    await _patientRepository.Add(new Patient(appointmentDTO.PatientId));
+                }                
+                var appointment = await _appointmentRepository.Add(new Appointment(appointmentDTO.AppointmentDate, TimeOnly.Parse(appointmentDTO.Slot), appointmentDTO.DoctorId, doctor.Specialization, appointmentDTO.PatientId, appointmentDTO.Description, "scheduled", appointmentDTO.AppointmentType, appointmentDTO.AppointmentMode));
                 var availability  = await _doctorAvailabilityRepository.Get(appointmentDTO.DoctorId, appointmentDTO.AppointmentDate);
                 if(availability == null)
                 {
-                    await _doctorAvailabilityRepository.Add(new DoctorAvailability(doctor.DoctorId, doctor.Slots.Except(new List<TimeOnly>() { appointmentDTO.Slot }).ToList()));
+                    await _doctorAvailabilityRepository.Add(new DoctorAvailability(doctor.DoctorId, doctor.Slots.Except(new List<TimeOnly>() { TimeOnly.Parse(appointmentDTO.Slot) }).ToList()));
                 }
                 else
                 {
-                    availability.AvailableSlots.Remove(appointmentDTO.Slot);
+                    availability.AvailableSlots.Remove(TimeOnly.Parse(appointmentDTO.Slot));
                 }
                 await _doctorAvailabilityRepository.Update(availability);
                 if (appointment == null)
                 {
                     throw new AppointmentAlreadyRaisedException();
                 }
-                var doctorDetails = await _userDetailsRepository.Get(appointment.DoctorId);
+                var doctorDetails = await _userRepository.Get(appointment.DoctorId);
                 if (appointmentDTO.AppointmentMode == "Online")
                 {
                     //generate meet link 
@@ -130,9 +137,9 @@ namespace HospitalManagement.Services
             {
                 //generate meet link 
                 var meetLink = "";
-                return new PatientOnlineAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot, appointment.Description, _userDetailsRepository.Get(appointment.DoctorId).Result.Name, appointment.Speciality, appointment.AppointmentStatus, appointment.AppointmentType, meetLink);
+                return new PatientOnlineAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot, appointment.Description, _userRepository.Get(appointment.DoctorId).Result.Name, appointment.Speciality, appointment.AppointmentStatus, appointment.AppointmentType, meetLink);
             }
-            return new PatientAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot, appointment.Description, _userDetailsRepository.Get(appointment.DoctorId).Result.Name, appointment.Speciality, appointment.AppointmentStatus, appointment.AppointmentType);            
+            return new PatientAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot, appointment.Description, _userRepository.Get(appointment.DoctorId).Result.Name, appointment.Speciality, appointment.AppointmentStatus, appointment.AppointmentType);            
             //send notification        
         }
 
@@ -147,6 +154,9 @@ namespace HospitalManagement.Services
             try
             {
                 await _appointmentRepository.Update(appointment);
+                var docAvailability = await _doctorAvailabilityRepository.Get(appointment.DoctorId, appointment.AppointmentDate);
+                docAvailability.AvailableSlots.Add(appointment.Slot);
+                await _doctorAvailabilityRepository.Update(docAvailability);
                 return "Appointment Cancelled successfully";
             }
             catch (ObjectNotAvailableException e)
@@ -167,7 +177,7 @@ namespace HospitalManagement.Services
             {
                 var appointmentList = await Task.WhenAll(appointments.Select(async a =>
                 {
-                    var doctorDetails = await _userDetailsRepository.Get(a.DoctorId);
+                    var doctorDetails = await _userRepository.Get(a.DoctorId);
                     return new PatientAppointmentReturnDTO(a.AppointmentId, a.AppointmentDate, a.Slot, a.Description, doctorDetails.Name, a.Speciality, a.AppointmentStatus, a.AppointmentType);
                 }));
                 return appointmentList.ToList();
@@ -181,16 +191,16 @@ namespace HospitalManagement.Services
 
         public async Task<PrescriptionReturnDTO> MyPrescriptionForAppointment(int patientId, int appointmentId)
         {
-            var prescription = _prescriptionRepository.Get().Result.SingleOrDefault(p => p.AppointmentId == appointmentId && p.Appointment.PatientId == patientId);
+            var prescription = _prescriptionRepository.Get().Result.SingleOrDefault(p => p.PrescriptionFor == appointmentId && p.PatientId == patientId);
             if(prescription == null)
             {
                 throw new ObjectNotAvailableException("Prescription");
             }
             try
             {
-                var patientDetails = await _userDetailsRepository.Get(prescription.Appointment.PatientId);
-                var doctorDetails = await _userDetailsRepository.Get(prescription.Appointment.DoctorId);
-                return new PrescriptionReturnDTO(prescription.PrescriptionId, prescription.AppointmentId, patientDetails.Name, doctorDetails.Name, _doctorRepository.Get(prescription.Appointment.DoctorId).Result.Specialization, prescription.PrescriptionUrl);
+                var patientDetails = await _userRepository.Get(prescription.PatientId);
+                var doctorDetails = await _userRepository.Get(prescription.DoctorId);
+                return new PrescriptionReturnDTO(prescription.PrescriptionId, prescription.PrescriptionFor,prescription.PatientId,patientDetails.Name, patientDetails.Age,doctorDetails.Name,prescription.Doctor.Specialization, prescription.Medications);
             }
             catch (ObjectNotAvailableException e)
             {
@@ -200,7 +210,7 @@ namespace HospitalManagement.Services
 
         public async Task<List<PrescriptionReturnDTO>> MyPrescriptions(int patientId, int limit, int skip)
         {
-            var prescriptions = _prescriptionRepository.Get().Result.Where(p=>p.Appointment.PatientId == patientId).ToList();
+            var prescriptions = _prescriptionRepository.Get().Result.Where(p=>p.PatientId == patientId).ToList();
             if (prescriptions == null)
             {
                 throw new ObjectsNotAvailableException("Prescription");
@@ -209,9 +219,9 @@ namespace HospitalManagement.Services
             {
                 var prescriptionList = await Task.WhenAll(prescriptions.Select(async p =>
                 {
-                    var patientDetails = await _userDetailsRepository.Get(p.Appointment.PatientId);
-                    var doctorDetails = await _userDetailsRepository.Get(p.Appointment.DoctorId);
-                    return new PrescriptionReturnDTO(p.PrescriptionId, p.AppointmentId, patientDetails.Name, doctorDetails.Name, _doctorRepository.Get(p.Appointment.DoctorId).Result.Specialization, p.PrescriptionUrl);
+                    var patientDetails = await _userRepository.Get(p.PatientId);
+                    var doctorDetails = await _userRepository.Get(p.DoctorId);
+                    return new PrescriptionReturnDTO(p.PrescriptionId, p.PrescriptionFor,p.PatientId ,patientDetails.Name, patientDetails.Age,doctorDetails.Name, p.Doctor.Specialization, p.Medications);
                 }));
                 return prescriptionList.ToList();
             }

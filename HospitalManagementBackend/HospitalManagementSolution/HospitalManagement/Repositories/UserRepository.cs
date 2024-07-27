@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HospitalManagement.Repositories
 {
-    public class UserRepository : AbstractRepository<int, User>
+    public class UserRepository:AbstractRepository<int, User>
     {
         public UserRepository(HospitalManagementContext context) : base(context)
         {
@@ -15,51 +15,52 @@ namespace HospitalManagement.Repositories
         {
             try
             {
-                var user = await Get(key);
-                _context.Remove(user);
+                var userDetail = await Get(key);
+                _context.Remove(userDetail);
                 await _context.SaveChangesAsync();
-                return user;
+                return userDetail;
             }
             catch (ObjectNotAvailableException)
             {
-                throw new ObjectNotAvailableException("User");
+                throw new ObjectNotAvailableException("UserDetail");
             }
 
         }
 
         public override async Task<User> Get(int key)
         {
-            var user = await _context.Users.SingleOrDefaultAsync(u => u.PersonId == key);
-            if (user != null)
+            var userDetail = await _context.Users.SingleOrDefaultAsync(u => u.UserId == key);
+            if (userDetail != null)
             {
-                return user;
+                return userDetail;
             }
-            throw new ObjectNotAvailableException("User");
+            throw new ObjectNotAvailableException("UserDetail");
         }
 
         public override async Task<IEnumerable<User>> Get()
         {
-            var user = await _context.Users.ToListAsync();
-            return user;
+            var userDetails = await _context.Users.ToListAsync();
+            return userDetails;
         }
 
         public override async Task<User> Update(User item)
         {
             try
             {
-                if (await Get(item.PersonId) != null)
+                if (await Get(item.UserId) != null)
                 {
                     _context.Entry<User>(item).State = EntityState.Modified;
                     await _context.SaveChangesAsync(true);
                     return item;
                 }
-                throw new ObjectNotAvailableException("User");
+                throw new ObjectNotAvailableException("UserDetail");
             }
             catch (ObjectNotAvailableException)
             {
-                throw new ObjectNotAvailableException("User");
+                throw new ObjectNotAvailableException("UserDetail");
             }
 
         }
+
     }
 }

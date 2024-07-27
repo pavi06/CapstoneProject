@@ -8,9 +8,9 @@
         public int Experience { get; set; }
         public List<string> LanguagesKnown { get; set; }
         public List<string> AvailableDaysOfWeek { get; set; }
-        public Dictionary<TimeOnly, bool> AvailableSlots { get; set; }
+        public Dictionary<string, bool> AvailableSlots { get; set; }
 
-        public DoctorReturnDTO(int doctorId, string doctorName, string specialization, int experience, List<string> languagesKnown, List<string> availableDaysOfWeek, Dictionary<TimeOnly, bool> availableSlots)
+        public DoctorReturnDTO(int doctorId, string doctorName, string specialization, int experience, List<string> languagesKnown, List<string> availableDaysOfWeek, Dictionary<string, bool> availableSlots)
         {
             DoctorId = doctorId;
             DoctorName = doctorName;

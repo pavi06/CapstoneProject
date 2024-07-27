@@ -4,10 +4,8 @@ User
     -Doctor:
         -doctorId, specialization, experience , Qualification, languagesKnown, shiftStartTime, shiftEndTime
         type:permanent, visiting 
-    -InPatient :
-        - patientId, patientType,doctorid, admittedDate,dischargedDate?, isActive, billId?
-    -Outpatient :
-        - patientId, patientType,listOfAppointments
+    -Patient :
+        - patientId
 
 Appointment
     -appointmentid, currentDate, appointmentDate, slot , doctorid , speciality, patientid, description, status, 
@@ -17,25 +15,32 @@ appointmentType : speciality, general
 appointmentMode : online, offline
 
 Prescription
-    -prescriptionid, appointmentid, prescriptionImage
+    -prescriptionid, appointmentid, listOfMedication
+
+Medication:
+    -medId, name, form, dosage, intake, intaketiming, prescriptionId
 
 MedicalRecord
     -id, patientid, doctorid, date, diagnosis, treatment, medication , treatementStatus
 treatementStatus: recovered, Ongoing , initiated
 medication : description -> medicine, weekly injection, therapy, etc   
 
-InPatientDetails : inPatientDetailsid, inPatientid, roomid, noOfDays 
+admission :admissionId, patientId, doctorid, admittedDate,dischargedDate?, isActivePatient
+
+admissionDetails : admissionDetailsid, admissionid, roomid, noOfDays 
 
 Bill
     -billid, date, patientid, description, amount, paymentstatus
 paymentstatus: paid, pending
 
+Payment: paymentId, paymentstatus, paymentMode, billId
+
 WardBedAvailability
-    -typeid, type, availablecount , totalBedCount, costPerDay
+    -typeid, type, availablecount , totalBedCount
 type:generalWard, ICUWard, Maternity Ward, Pediatric Ward, Psychiatric Ward, Isolation Ward, Neonatal Intensive Care Unit
 
 Rooms
-    -roomId, typeId
+    -roomId, typeId, costPerDay
 
 DoctorFeesEnum :
 ENT - Rs. 300

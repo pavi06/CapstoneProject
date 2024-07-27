@@ -1,21 +1,29 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace HospitalManagement.Models
 {
     public class User
     {
         [Key]
-        public int PersonId { get; set; }
-        [ForeignKey("PersonId")]
-        public UserDetails Person { get; set; }
-        public byte[] Password { get; set; }
-        public byte[] PasswordHashKey { get; set; }
-        public string Status { get; set; }
-        public string? RefreshToken { get; set; }
-        public DateTime CreatedOn { get; set; }
-        public DateTime ExpiresOn { get; set; }
+        public int UserId { get; set; }
+        public string Name { get; set; }
+        public DateTime DateOfBirth { get; set; }
+        public int Age { get; set; } 
+        public string Gender { get; set; }
+        public string? EmailId { get; set; }
+        public string ContactNo { get; set; }
+        public string Address { get; set; }
+        public string Role { get; set; } = "User";
 
-        public User() { }
+        public User(string name, DateTime dateOfBirth, int age, string gender, string emailId, string contactNo, string address)
+        {
+            Name = name;
+            DateOfBirth = dateOfBirth;
+            Age = age;
+            Gender = gender;
+            EmailId = emailId;
+            ContactNo = contactNo;
+            Address = address;
+        }
     }
 }

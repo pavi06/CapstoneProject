@@ -32,10 +32,10 @@ namespace HospitalManagement.Controllers
             string refreshToken = tokenModel.RefreshToken;
             var principal = _tokenService.GetPrincipalFromExpiredToken(accessToken);
             var username = principal.FindFirstValue("UserId");
-            var user = _context.Users.SingleOrDefault(u => u.PersonId.ToString() == username);
+            var user = _context.UserLoginDetails.SingleOrDefault(u => u.UserId.ToString() == username);
             if (user == null || user.RefreshToken != refreshToken || user.ExpiresOn <= DateTime.Now)
                 return BadRequest("Invalid client request");
-            var newAccessToken = _tokenService.GenerateToken(_context.UserDetails.SingleOrDefault(u => u.UserId == user.PersonId));
+            var newAccessToken = _tokenService.GenerateToken(_context.Users.SingleOrDefault(u => u.UserId == user.UserId));
             var newRefreshToken = _tokenService.GenerateRefreshToken();
             user.RefreshToken = newRefreshToken.RfrshToken;
             user.CreatedOn = newRefreshToken.Created;
@@ -55,7 +55,7 @@ namespace HospitalManagement.Controllers
         public async Task<IActionResult> Revoke()
         {
             var username = User.FindFirstValue("UserId");
-            var user = _context.Users.SingleOrDefault(u => u.PersonId.ToString() == username);
+            var user = _context.UserLoginDetails.SingleOrDefault(u => u.UserId.ToString() == username);
             if (user == null) return BadRequest();
             user.RefreshToken = null;
             user.ExpiresOn = DateTime.MinValue;

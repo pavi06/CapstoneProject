@@ -65,7 +65,7 @@ namespace HospitalManagement.Controllers
         #endregion
 
         #region ExternalUserLogin
-        [HttpPost("Login")]
+        [HttpPost("ExternalLogin")]
         [ProducesResponseType(typeof(UserLoginReturnDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status401Unauthorized)]
         public async Task<ActionResult<UserLoginReturnDTO>> LoginForExternalUsers([FromBody] string contactNo)

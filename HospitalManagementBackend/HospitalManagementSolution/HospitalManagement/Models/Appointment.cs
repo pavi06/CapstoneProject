@@ -14,7 +14,8 @@ namespace HospitalManagement.Models
         public Doctor Doctor { get; set; }
         public string Speciality { get; set; }
         public int PatientId { get; set; }
-        public OutPatient Patient { get; set; }
+        [ForeignKey("PatientId")]
+        public Patient Patient { get; set; }
         public string Description { get; set; }
         public string AppointmentStatus { get; set; }
         public string AppointmentType { get; set; }

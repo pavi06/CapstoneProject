@@ -1,0 +1,138 @@
+﻿using HospitalManagement.CustomExceptions;
+using HospitalManagement.Interfaces;
+using HospitalManagement.Models.DTOs.AppointmentDTOs;
+using HospitalManagement.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using HospitalManagement.Models.DTOs.MedicalRecordDTOs;
+using HospitalManagement.Services;
+
+namespace HospitalManagement.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class DoctorController : ControllerBase
+    {
+        private readonly IDoctorService _doctorService;
+        private readonly ILogger<DoctorController> _logger;
+
+        public DoctorController(IDoctorService doctorService, ILogger<DoctorController> logger)
+        {
+            _doctorService = doctorService;
+            _logger = logger;
+        }
+
+        [HttpGet("GetTodayAppointment")]
+        [ProducesResponseType(typeof(List<AppointmentReturnDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<List<AppointmentReturnDTO>>> GetAppointment(int doctorId)
+        {
+            try
+            {
+                List<AppointmentReturnDTO> result = await _doctorService.GetAllTodayAppointments(doctorId);
+                _logger.LogInformation("Appointments retrieved successfully");
+                return Ok(result);
+            }
+            catch (ObjectsNotAvailableException e)
+            {
+                _logger.LogError("No Appointment Available");
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
+
+        [HttpPut("CancelAppointment")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<string>> CancelAppointment(int appointmentId)
+        {
+            try
+            {
+                var result = await _doctorService.CancelAppointment(appointmentId);
+                _logger.LogError("Appointment cancelled successfully");
+                return Ok(result);
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
+
+
+        [HttpGet("GetMedicalRecord")]
+        [ProducesResponseType(typeof(List<MedicalRecordReturnDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<List<MedicalRecordReturnDTO>>> GetMedicalRecords(int doctorId, int patientId, string patientType)
+        {
+            try
+            {
+                List<MedicalRecordReturnDTO> result = await _doctorService.GetPatientMedicalRecords(patientId,doctorId);
+                _logger.LogInformation("Medical records are retrieved successfully");
+                return Ok(result);
+            }
+            catch (ObjectsNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
+
+
+        [HttpPost("UploadPrescription")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<String>> ProvidePrescription(ProvidePrescriptionDTO prescriptionDTO)
+        {
+            try
+            {
+                 var result = await _doctorService.ProvidePrescriptionForAppointment(prescriptionDTO);
+                _logger.LogInformation("Prescription provided successfully");
+                return Ok(result);
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
+
+    }
+}

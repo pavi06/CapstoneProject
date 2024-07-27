@@ -5,13 +5,13 @@
         public int PatientId { get; set; }
         public string ContactNo { get; set; }
         public DateTime AppointmentDate { get; set; }
-        public TimeOnly Slot { get; set; }
+        public string Slot { get; set; }
         public int DoctorId { get; set; }
         public string Description { get; set; }
         public string AppointmentType { get; set; }
         public string AppointmentMode { get; set; }
 
-        public BookAppointmentDTO(int patientId, string contactNo, DateTime appointmentDate, TimeOnly slot, int doctorId, string description, string appointmentType, string appointmentMode)
+        public BookAppointmentDTO(int patientId, string contactNo, DateTime appointmentDate, string slot, int doctorId, string description, string appointmentType, string appointmentMode)
         {
             PatientId = patientId;
             ContactNo = contactNo;

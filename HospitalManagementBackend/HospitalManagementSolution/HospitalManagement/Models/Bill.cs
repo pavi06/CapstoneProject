@@ -8,16 +8,18 @@ namespace HospitalManagement.Models
         [Key]
         public int BillId { get; set; }
         public DateTime Date { get; set; } = DateTime.Now.Date;
-
-        [ForeignKey("PatientId")]
+        public int BillGeneratedFor { get; set; }
         public int PatientId { get; set; }
+        public Patient Patient { get; set; }
         public string PatientType { get; set; }
         public string Description { get; set; }
         public Double Amount { get; set; }
         public string PaymentStatus { get; set; } = "Not Paid";
+        public List<Payment> Payments { get; set; }
 
-        public Bill(int patientId, string patientType, string description, double amount)
+        public Bill(int billGeneratedFor, int patientId, string patientType, string description, double amount)
         {
+            BillGeneratedFor = billGeneratedFor;
             PatientId = patientId;
             PatientType = patientType;
             Description = description;

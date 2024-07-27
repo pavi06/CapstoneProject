@@ -13,7 +13,6 @@ namespace HospitalManagement.Interfaces
         public Task<Dictionary<string, int>> CheckBedAvailability();
         public Task<string> CreateInPatient(InPatientDTO patientDTO);
         public Task<string> UpdateInPatient(UpdateInPatientDTO patientDTO);
-        public Task<string> CancelAppointment(int appointmentId);
         public Task<OutPatientBillDTO> GenerateBillForOutPatient(int appointmentid);
         public Task<InPatientBillDTO> GenerateBillForInPatient(int inPatientid);
         public Task<string> UpdateInPatientDetailsForDischarge(int inpatientId, int billId);

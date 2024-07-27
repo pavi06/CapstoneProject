@@ -154,32 +154,6 @@ namespace HospitalManagement.Controllers
 
         }
 
-
-        [HttpPut("CancelAppointment")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
-        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
-        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<string>> CancelAppointment(int appointmentId)
-        {
-            try
-            {
-                var result = await _receptionistService.CancelAppointment(appointmentId);
-                _logger.LogError("Appointment cancelled successfully");
-                return Ok(result);
-            }
-            catch (ObjectNotAvailableException e)
-            {
-                _logger.LogError(e.Message);
-                return NotFound(new ErrorModel(404, e.Message));
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex.Message);
-                return BadRequest(new ErrorModel(400, ex.Message));
-            }
-
-        }
-
         [HttpPost("BillForOutPatient")]
         [ProducesResponseType(typeof(OutPatientBillDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]

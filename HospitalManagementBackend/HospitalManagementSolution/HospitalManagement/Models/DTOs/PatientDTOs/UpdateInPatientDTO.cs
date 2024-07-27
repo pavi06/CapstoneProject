@@ -2,13 +2,13 @@
 {
     public class UpdateInPatientDTO
     {
-        public int PatientId { get; set; }
+        public int AdmissionId { get; set; }
         public string WardType { get; set; }
         public int NoOfDays { get; set; }
 
-        public UpdateInPatientDTO(int patientId, string wardType, int noOfDays)
+        public UpdateInPatientDTO(int admissionId, string wardType, int noOfDays)
         {
-            PatientId = patientId;
+            AdmissionId = admissionId;
             WardType = wardType;
             NoOfDays = noOfDays;
         }

@@ -10,14 +10,14 @@ namespace HospitalManagement.Services
 {
     public class UserService : IUserService
     {
+        private readonly IRepository<int, UserLoginDetails> _userLoginRepository;
         private readonly IRepository<int, User> _userRepository;
-        private readonly IRepository<int, UserDetails> _userDetailsRepository;
         private readonly ITokenService _tokenService;
 
-        public UserService(IRepository<int, User> userRepository, IRepository<int, UserDetails> userDetailsRepository, ITokenService tokenService)
+        public UserService(IRepository<int, UserLoginDetails> userLoginRepository, IRepository<int, User> userRepository, ITokenService tokenService)
         {
+            _userLoginRepository = userLoginRepository;
             _userRepository = userRepository;
-            _userDetailsRepository = userDetailsRepository;
             _tokenService = tokenService;
         }
 
@@ -26,12 +26,12 @@ namespace HospitalManagement.Services
         {
             try
             {
-                var user = _userDetailsRepository.Get().Result.SingleOrDefault(u => u.EmailId.ToLower() == loginDTO.Email.ToLower());
+                var user = _userRepository.Get().Result.SingleOrDefault(u => u.EmailId.ToLower() == loginDTO.Email.ToLower());
                 if (user == null)
                 {
                     throw new ObjectNotAvailableException("User");
                 }
-                var userLogin = await _userRepository.Get(user.UserId);
+                var userLogin = await _userLoginRepository.Get(user.UserId);
                 if (userLogin == null)
                 {
                     throw new UnauthorizedUserException();
@@ -56,7 +56,7 @@ namespace HospitalManagement.Services
             }
         }
 
-        private async Task<UserLoginReturnDTO> MapUserToLoginReturn(UserDetails user)
+        private async Task<UserLoginReturnDTO> MapUserToLoginReturn(User user)
         {
             UserLoginReturnDTO returnDTO = new UserLoginReturnDTO();
             returnDTO.UserId = user.UserId;
@@ -65,11 +65,11 @@ namespace HospitalManagement.Services
             returnDTO.AccessToken = _tokenService.GenerateToken(user);
             var token = _tokenService.GenerateRefreshToken();
             returnDTO.RefreshToken = token.RfrshToken;
-            var userLogin = await _userRepository.Get(user.UserId);
+            var userLogin = await _userLoginRepository.Get(user.UserId);
             userLogin.RefreshToken = token.RfrshToken;
             userLogin.CreatedOn = token.Created;
             userLogin.ExpiresOn = token.ExpiresOn;
-            await _userRepository.Update(userLogin);
+            await _userLoginRepository.Update(userLogin);
             return returnDTO;
         }
 
@@ -101,19 +101,19 @@ namespace HospitalManagement.Services
         #region Register
         public async Task<UserReturnDTO> Register(UserRegistrationDTO userDTO)
         {
-            UserDetails user = null;
-            User userLogin = null;
+            User user = null;
+            UserLoginDetails userLogin = null;
             try
             {
-                user = new UserDetails(userDTO.Name, userDTO.DateOfBirth, CalculateAge(userDTO.DateOfBirth), userDTO.Gender, userDTO.EmailId, userDTO.ContactNo, userDTO.Address);
+                user = new User(userDTO.Name, userDTO.DateOfBirth, CalculateAge(userDTO.DateOfBirth), userDTO.Gender, userDTO.EmailId, userDTO.ContactNo, userDTO.Address);
                 userLogin = MapUserDetailsToUser(userDTO);
-                user = await _userDetailsRepository.Add(user);
-                userLogin.PersonId = user.UserId;
+                user = await _userRepository.Add(user);
+                userLogin.UserId = user.UserId;
                 var refToken = _tokenService.GenerateRefreshToken();
                 userLogin.RefreshToken = refToken.RfrshToken;
                 userLogin.CreatedOn = refToken.Created;
                 userLogin.ExpiresOn = refToken.ExpiresOn;
-                userLogin = await _userRepository.Add(userLogin);                
+                userLogin = await _userLoginRepository.Add(userLogin);                
                 UserReturnDTO addedUser = new UserReturnDTO(user.UserId, user.Name,user.EmailId, user.Role, _tokenService.GenerateToken(user), refToken.RfrshToken);
                 return addedUser;
             }
@@ -123,25 +123,25 @@ namespace HospitalManagement.Services
             }
             catch (Exception) { }
             if (user != null)
-                await RevertGuestInsert(user);
+                await RevertUserInsert(user);
             if (userLogin != null && user == null)
-                await RevertUserInsert(userLogin);
+                await RevertUserLoginInsert(userLogin);
             throw new UnableToRegisterException();
+        }
+
+        private async Task RevertUserLoginInsert(UserLoginDetails user)
+        {
+            await _userLoginRepository.Delete(user.UserId);
         }
 
         private async Task RevertUserInsert(User user)
         {
-            await _userRepository.Delete(user.PersonId);
-        }
 
-        private async Task RevertGuestInsert(UserDetails user)
-        {
-
-            await _userDetailsRepository.Delete(user.UserId);
+            await _userRepository.Delete(user.UserId);
         }
-        private User MapUserDetailsToUser(UserRegistrationDTO userDTO)
+        private UserLoginDetails MapUserDetailsToUser(UserRegistrationDTO userDTO)
         {
-            User user = new User();
+            UserLoginDetails user = new UserLoginDetails();
             user.Status = "Disabled";
             HMACSHA512 hMACSHA = new HMACSHA512();
             user.PasswordHashKey = hMACSHA.Key;
@@ -155,7 +155,7 @@ namespace HospitalManagement.Services
         #region LoginWithContactNo
         public async Task<UserLoginReturnDTO> LoginWithContactNo(string contactNo)
         {
-            var user = _userDetailsRepository.Get().Result.Where(u=>u.ContactNo == contactNo).FirstOrDefault();
+            var user = _userRepository.Get().Result.Where(u=>u.ContactNo == contactNo).FirstOrDefault();
             if(user == null)
             {
                 throw new ObjectNotAvailableException("User");

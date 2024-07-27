@@ -32,7 +32,7 @@ namespace HospitalManagement.Services
         #endregion
 
         #region AccessTokenGeneration
-        public string GenerateToken(UserDetails user)
+        public string GenerateToken(User user)
         {
             string token = string.Empty;
             var claims = new List<Claim>(){

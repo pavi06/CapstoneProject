@@ -5,18 +5,18 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HospitalManagement.Repositories
 {
-    public class WardBedAvailabilityRepository:AbstractRepository<int, WardBedAvailability>
+    public class WardRoomsAvailabilityRepository:AbstractRepository<int, WardRoomsAvailability>
     {
-        public WardBedAvailabilityRepository(HospitalManagementContext context) : base(context)
+        public WardRoomsAvailabilityRepository(HospitalManagementContext context) : base(context)
         {
         }
 
-        public override async Task<WardBedAvailability> Delete(int key)
+        public override async Task<WardRoomsAvailability> Delete(int key)
         {
             try
             {
                 var wardBedType = await Get(key);
-                _context.Entry<WardBedAvailability>(wardBedType).State = EntityState.Deleted;
+                _context.Entry<WardRoomsAvailability>(wardBedType).State = EntityState.Deleted;
                 await _context.SaveChangesAsync();
                 return wardBedType;
 
@@ -27,28 +27,28 @@ namespace HospitalManagement.Repositories
             }
         }
 
-        public override async Task<WardBedAvailability> Get(int key)
+        public override async Task<WardRoomsAvailability> Get(int key)
         {
-            var wardBedType = await _context.WardBedAvailabilities.SingleOrDefaultAsync(b => b.WardBedTypeId == key);
+            var wardBedType = await _context.WardBedAvailabilities.SingleOrDefaultAsync(b => b.WardTypeId == key);
             if (wardBedType == null)
                 throw new ObjectNotAvailableException("WardBed");
             return wardBedType;
         }
 
-        public override async Task<IEnumerable<WardBedAvailability>> Get()
+        public override async Task<IEnumerable<WardRoomsAvailability>> Get()
         {
             var wardBedTypes = await _context.WardBedAvailabilities.ToListAsync();
             return wardBedTypes;
 
         }
 
-        public override async Task<WardBedAvailability> Update(WardBedAvailability item)
+        public override async Task<WardRoomsAvailability> Update(WardRoomsAvailability item)
         {
             try
             {
-                if (await Get(item.WardBedTypeId) != null)
+                if (await Get(item.WardTypeId) != null)
                 {
-                    _context.Entry<WardBedAvailability>(item).State = EntityState.Modified;
+                    _context.Entry<WardRoomsAvailability>(item).State = EntityState.Modified;
                     await _context.SaveChangesAsync();
                     return item;
                 }

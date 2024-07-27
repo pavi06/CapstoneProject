@@ -7,6 +7,9 @@ namespace HospitalManagement.Models
     {
         [Key]
         public int DoctorId { get; set; }
+        [ForeignKey("DoctorId")]
+        public UserLoginDetails User { get; set; }
+        public string DoctorType { get; set; }
         public string Specialization { get; set; }
         public int Experience { get; set; }
         public string Qualification { get; set; }
@@ -17,6 +20,7 @@ namespace HospitalManagement.Models
         public List<string> AvailableDays { get; set; }
         public List<Appointment> Appointments { get; set; }
         public List<MedicalRecord> MedicalRecords { get; set; }
+        public List<Admission> Admissions { get; set; }
 
     }
 }

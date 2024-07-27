@@ -29,7 +29,7 @@ namespace HospitalManagement.Repositories
 
         public override async Task<Prescription> Get(int key)
         {
-            var prescription = await _context.Prescriptions.Include(d => d.Appointment).SingleOrDefaultAsync(d => d.PrescriptionId == key);
+            var prescription = await _context.Prescriptions.Include(d => d.Patient).Include(d=>d.Doctor).SingleOrDefaultAsync(d => d.PrescriptionId == key);
             if (prescription == null)
                 throw new ObjectNotAvailableException("Prescription");
             return prescription;
@@ -37,7 +37,7 @@ namespace HospitalManagement.Repositories
 
         public override async Task<IEnumerable<Prescription>> Get()
         {
-            var prescriptions = await _context.Prescriptions.Include(d => d.Appointment).ToListAsync();
+            var prescriptions = await _context.Prescriptions.Include(d => d.Patient).Include(d => d.Doctor).ToListAsync();
             return prescriptions;
 
         }

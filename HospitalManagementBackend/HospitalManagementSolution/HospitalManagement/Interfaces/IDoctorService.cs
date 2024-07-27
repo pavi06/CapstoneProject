@@ -7,8 +7,9 @@ namespace HospitalManagement.Interfaces
     public interface IDoctorService
     {
         public Task<List<AppointmentReturnDTO>> GetAllTodayAppointments(int doctorid);
-        public Task<Prescription> UploadPrescriptionForAppointment(int appointmentid, string prescriptionImage);
-        public Task<List<MedicalRecordReturnDTO>> GetPatientMedicalRecords(int patientid, string patientType, int doctorid);
+        public Task<string> CancelAppointment(int appointmentId);
+        public Task<PrescriptionReturnDTO> ProvidePrescriptionForAppointment(ProvidePrescriptionDTO prescriptionDTO);
+        public Task<List<MedicalRecordReturnDTO>> GetPatientMedicalRecords(int patientid, int doctorid);
 
     }
 }

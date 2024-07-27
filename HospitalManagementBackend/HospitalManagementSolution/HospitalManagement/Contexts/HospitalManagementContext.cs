@@ -12,22 +12,28 @@ namespace HospitalManagement.Contexts
 
         }
 
-        public DbSet<UserDetails> UserDetails { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<UserLoginDetails> UserLoginDetails { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
-        public DbSet<OutPatient> OutPatients { get; set; }
-        public DbSet<InPatient> InPatients { get; set; }
-        public DbSet<InPatientDetails> InPatientDetails { get; set; }
+        public DbSet<Patient> Patients { get; set; }
+        public DbSet<Admission> Admissions { get; set; }
+        public DbSet<AdmissionDetails> AdmissionDetails { get; set; }
         public DbSet<Bill> Bills { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<MedicalRecord> MedicalRecords { get; set; }
+        public DbSet<Medication> Medications { get; set; }
+        public DbSet<MedicineMaster> MedicineMaster { get; set; }
         public DbSet<Prescription> Prescriptions { get; set; }
         public DbSet<Room> Rooms { get; set; }
-        public DbSet<WardBedAvailability> WardBedAvailabilities { get; set; }
+        public DbSet<WardRoomsAvailability> WardBedAvailabilities { get; set; }
         public DbSet<DoctorAvailability> DoctorAvailability { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<User>()
+            .HasIndex(x => x.ContactNo)
+            .IsUnique();
+
             modelBuilder.Entity<DoctorAvailability>().HasKey(da => new { da.DoctorId, da.Date });
 
             modelBuilder.Entity<Doctor>()
@@ -54,6 +60,19 @@ namespace HospitalManagement.Contexts
               v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).Select(s => TimeOnly.FromTimeSpan(TimeSpan.Parse(s))).ToList()
               );
 
+            modelBuilder.Entity<MedicineMaster>()
+            .Property(d => d.DosagesAvailable)
+            .HasConversion(v => string.Join(",", v),
+              v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList()
+             );
+
+            modelBuilder.Entity<MedicineMaster>()
+            .Property(d => d.FormsAvailable)
+            .HasConversion(v => string.Join(",", v),
+              v => v.Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries).ToList()
+             );
+
+           
             modelBuilder.Entity<Appointment>()
             .Property(a => a.Slot)
             .HasConversion(
@@ -87,17 +106,23 @@ namespace HospitalManagement.Contexts
                .HasForeignKey(a => a.DoctorId)
                .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<InPatientDetails>()
-              .HasOne(pd => pd.InPatient)
-              .WithMany(p => p.InPatientDetails)
-              .HasForeignKey(pd => pd.InPatientId)
+            modelBuilder.Entity<Admission>()
+              .HasOne(ad => ad.Patient)
+              .WithMany(p => p.Admissions)
+              .HasForeignKey(ad => ad.PatientId)
               .OnDelete(DeleteBehavior.Restrict);
 
-            //modelBuilder.Entity<MedicalRecord>()
-            // .HasOne(mr => mr.Patient)
-            // .WithMany(p => p.MedicalRecords)
-            // .HasForeignKey(mr => mr.PatientId)
-            // .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Admission>()
+              .HasOne(ad => ad.DoctorInCharge)
+              .WithMany(p => p.Admissions)
+              .HasForeignKey(ad => ad.DoctorId)
+              .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<AdmissionDetails>()
+              .HasOne(ad => ad.Admission)
+              .WithMany(a => a.AdmissionDetails)
+              .HasForeignKey(ad => ad.AdmissionId)
+              .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<MedicalRecord>()
              .HasOne(mr => mr.Doctor)
@@ -105,16 +130,40 @@ namespace HospitalManagement.Contexts
              .HasForeignKey(mr => mr.DoctorId)
              .OnDelete(DeleteBehavior.Restrict);
 
-            //modelBuilder.Entity<Bill>()
-            //   .HasOne(b => b.Patient)
-            //   .WithMany(p => p.Bills)
-            //   .HasForeignKey(b => b.PatientId)
-            //   .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<MedicalRecord>()
+             .HasOne(mr => mr.Patient)
+             .WithMany(d => d.MedicalRecords)
+             .HasForeignKey(mr => mr.PatientId)
+             .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Room>()
              .HasOne(r => r.WardBed)
              .WithMany(b => b.Rooms)
              .HasForeignKey(r => r.WardTypeId)
+             .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Prescription>()
+               .HasOne(p => p.Patient)
+               .WithMany(pa => pa.Prescriptions)
+               .HasForeignKey(p => p.PatientId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Medication>()
+               .HasOne(a => a.Prescription)
+               .WithMany(p => p.Medications)
+               .HasForeignKey(a => a.PrescriptionId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Bill>()
+             .HasOne(b => b.Patient)
+             .WithMany(p => p.Bills)
+             .HasForeignKey(b => b.PatientId)
+             .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Payment>()
+             .HasOne(p => p.Bill)
+             .WithMany(b => b.Payments)
+             .HasForeignKey(p => p.BillId)
              .OnDelete(DeleteBehavior.Restrict);
 
         }

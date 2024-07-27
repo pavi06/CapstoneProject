@@ -16,21 +16,6 @@ namespace HospitalManagement
 {
     public class Program
     {
-
-        public sealed class DateOnlyJsonConverter : JsonConverter<DateOnly>
-        {
-            public override DateOnly Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-            {
-                return DateOnly.FromDateTime(reader.GetDateTime());
-            }
-
-            public override void Write(Utf8JsonWriter writer, DateOnly value, JsonSerializerOptions options)
-            {
-                var isoDate = value.ToString("O");
-                writer.WriteStringValue(isoDate);
-            }
-        }
-
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
@@ -47,7 +32,7 @@ namespace HospitalManagement
             #region HangfireService
             builder.Services.AddHangfire((sp, config) =>
             {
-                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("hangfireConnection");
+                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("defaultConnection");
                 config.UseSqlServerStorage(connectionString);
             });
 
@@ -119,16 +104,19 @@ namespace HospitalManagement
             #endregion
 
             #region Repositories
+            builder.Services.AddScoped<IRepository<int, UserLoginDetails>, UserLoginDetailsRepository>();
             builder.Services.AddScoped<IRepository<int, User>, UserRepository>();
-            builder.Services.AddScoped<IRepository<int, UserDetails>, UserDetailsRepository>();
             builder.Services.AddScoped<IRepository<int, Doctor>, DoctorRepository>();
-            builder.Services.AddScoped<IRepository<int, InPatient>, InPatientRepository>();
-            builder.Services.AddScoped<IRepository<int, OutPatient>, OutPatientRepository>();
-            builder.Services.AddScoped<IRepository<int, InPatientDetails>, InPatientDetailsRepository>();
-            builder.Services.AddScoped<IRepository<int, WardBedAvailability>, WardBedAvailabilityRepository>();
+            builder.Services.AddScoped<IRepository<int, Admission>, AdmissionRepository>();
+            builder.Services.AddScoped<IRepository<int, Patient>, PatientRepository>();
+            builder.Services.AddScoped<IRepository<int, AdmissionDetails>, AdmissionDetailsRepository>();
+            builder.Services.AddScoped<IRepository<int, WardRoomsAvailability>, WardRoomsAvailabilityRepository>();
             builder.Services.AddScoped<IRepository<int, Prescription>, PrescriptionRepository>();
             builder.Services.AddScoped<IRepository<int, MedicalRecord>, MedicalRecordRepository>();
+            builder.Services.AddScoped<IRepository<int, Medication>, MedicationRepository>();
+            builder.Services.AddScoped<IRepository<int, MedicineMaster>, MedicineMasterRepository>();
             builder.Services.AddScoped<IRepository<int, Bill>, BillRepository>();
+            builder.Services.AddScoped<IRepository<int, Room>, RoomRepository>();
             builder.Services.AddScoped<IRepository<int, Appointment>, AppointmentRepository>();
             builder.Services.AddScoped<IRepositoryForCompositeKey<int,DateTime, DoctorAvailability>, DoctorAvailabilityRepository>();
             #endregion
@@ -146,7 +134,6 @@ namespace HospitalManagement
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 options.JsonSerializerOptions.WriteIndented = true;
-                options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
             });
 
             var app = builder.Build();

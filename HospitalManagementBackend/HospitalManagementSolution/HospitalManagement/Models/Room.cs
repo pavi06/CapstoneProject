@@ -9,7 +9,8 @@ namespace HospitalManagement.Models
         public int RoomId { get; set; }
         public int WardTypeId { get; set; }
         [ForeignKey("WardTypeId")]
-        public WardBedAvailability WardBed { get; set; }
+        public WardRoomsAvailability WardBed { get; set; }
         public bool IsAllotted { get; set; } = false;
+        public Double CostsPerDay { get; set; }
     }
 }

@@ -35,11 +35,12 @@ Doctor services :
 1.Get Appointments
 2.Upload prescription
 3.Check Patient Medical records (only his patient)
+4.Cancel appointment
 
 
 Receptionist Services:
 1.Check for doctor availability
 2.Create Appointment - for getting appointments by visiting hospital
-3.Update appointments (to cancel)
-4.Manage patient (create inpatient, update inpatient) 
-5.Manage billing (generate bill)
+3.Manage patient (create inpatient, update inpatient) 
+4.Manage billing (generate bill)
+5.checkRoomAvailability()
