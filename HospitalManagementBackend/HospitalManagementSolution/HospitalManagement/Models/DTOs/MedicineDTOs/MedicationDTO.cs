@@ -8,5 +8,15 @@
         public int Quantity { get; set; }
         public string IntakeTiming { get; set; }
         public string Intake { get; set; }
+
+        public MedicationDTO(string medicineName, string form, string dosage, int quantity, string intakeTiming, string intake)
+        {
+            MedicineName = medicineName;
+            Form = form;
+            Dosage = dosage;
+            Quantity = quantity;
+            IntakeTiming = intakeTiming;
+            Intake = intake;
+        }
     }
 }

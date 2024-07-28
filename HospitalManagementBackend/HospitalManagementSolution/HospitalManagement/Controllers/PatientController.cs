@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using HospitalManagement.Models.DTOs.AppointmentDTOs;
 using HospitalManagement.Models.DTOs.MedicalRecordDTOs;
+using HospitalManagement.Models.DTOs.DoctorDTOs;
 
 namespace HospitalManagement.Controllers
 {
@@ -23,6 +24,31 @@ namespace HospitalManagement.Controllers
         {
             _patientService = patientService;
             _logger = logger;
+        }
+
+        [HttpPost("GetDoctorSlots")]
+        [ProducesResponseType(typeof(Dictionary<string, bool>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<Dictionary<string, bool>>> GetDoctorSlots([FromBody] CheckDoctorSlotsDTO checkSlotsDTO)
+        {
+            try
+            {
+                Dictionary<string, bool> result = await _patientService.GetAvailableSlotsOfDoctor(checkSlotsDTO);
+                _logger.LogInformation("Doctor slots retrieved successfully");
+                return Ok(result);
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
         }
 
         [HttpPost("BookAppointmentByDoctor")]

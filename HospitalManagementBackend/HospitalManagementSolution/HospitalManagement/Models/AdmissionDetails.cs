@@ -8,7 +8,6 @@ namespace HospitalManagement.Models
         [Key]
         public int AdmissionDetailsId { get; set; }
         public int AdmissionId { get; set; }
-        [ForeignKey("AdmissionId")]
         public Admission Admission { get; set; }
         public int RoomId { get; set; }
         [ForeignKey("RoomId")]

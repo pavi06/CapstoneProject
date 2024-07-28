@@ -4,9 +4,9 @@
     {
         public enum DoctorFee
         {
-            Anaesthesiology = 250,
+            anaesthesiology = 250,
             Cardiology = 250,
-            Neurology = 350,
+            neurologist = 350,
             Gastroenterology = 250,
             Orthopaedic = 350,
             Oncology = 300,

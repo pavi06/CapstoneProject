@@ -134,6 +134,7 @@ namespace HospitalManagement
             {
                 options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 options.JsonSerializerOptions.WriteIndented = true;
+                //options.JsonSerializerOptions.Converters.Add(new TimeOnlyJsonConverter());
             });
 
             var app = builder.Build();

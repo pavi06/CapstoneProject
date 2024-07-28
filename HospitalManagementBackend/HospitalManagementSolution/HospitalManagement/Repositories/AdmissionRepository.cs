@@ -29,7 +29,7 @@ namespace HospitalManagement.Repositories
 
         public override async Task<Admission> Get(int key)
         {
-            var admission = await _context.Admissions.Include(p => p.AdmissionDetails).SingleOrDefaultAsync(u => u.PatientId == key);
+            var admission = await _context.Admissions.Include(p => p.AdmissionDetails).SingleOrDefaultAsync(u => u.AdmissionId == key);
             if (admission != null)
             {
                 return admission;

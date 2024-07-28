@@ -10,6 +10,14 @@ namespace HospitalManagement.Repositories
         public AppointmentRepository(HospitalManagementContext context) : base(context)
         {
         }
+        public override Task<Appointment> Add(Appointment item)
+        {
+            if(_context.Appointments.Any(a=>a.DoctorId == item.DoctorId && a.PatientId == item.PatientId && a.Slot == item.Slot && a.AppointmentDate == item.AppointmentDate))
+            {
+                throw new ObjectAlreadyExistsException("Appointment");
+            }
+            return base.Add(item);
+        }
 
         public override async Task<Appointment> Delete(int key)
         {

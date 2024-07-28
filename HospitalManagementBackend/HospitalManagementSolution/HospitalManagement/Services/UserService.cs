@@ -1,5 +1,7 @@
-﻿using HospitalManagement.CustomExceptions;
+﻿using Hangfire;
+using HospitalManagement.CustomExceptions;
 using HospitalManagement.Interfaces;
+using HospitalManagement.Jobs;
 using HospitalManagement.Models;
 using HospitalManagement.Models.DTOs.UserDTOs;
 using Newtonsoft.Json.Linq;
@@ -101,20 +103,20 @@ namespace HospitalManagement.Services
         #region Register
         public async Task<UserReturnDTO> Register(UserRegistrationDTO userDTO)
         {
-            User user = null;
-            UserLoginDetails userLogin = null;
+            User userAdded = null, user = null;
+            UserLoginDetails userLoginAdded = null;
             try
             {
                 user = new User(userDTO.Name, userDTO.DateOfBirth, CalculateAge(userDTO.DateOfBirth), userDTO.Gender, userDTO.EmailId, userDTO.ContactNo, userDTO.Address);
-                userLogin = MapUserDetailsToUser(userDTO);
-                user = await _userRepository.Add(user);
-                userLogin.UserId = user.UserId;
+                var userLogin = MapUserDetailsToUser(userDTO);
+                userAdded = await _userRepository.Add(user);
+                userLogin.UserId = userAdded.UserId;
                 var refToken = _tokenService.GenerateRefreshToken();
                 userLogin.RefreshToken = refToken.RfrshToken;
                 userLogin.CreatedOn = refToken.Created;
                 userLogin.ExpiresOn = refToken.ExpiresOn;
-                userLogin = await _userLoginRepository.Add(userLogin);                
-                UserReturnDTO addedUser = new UserReturnDTO(user.UserId, user.Name,user.EmailId, user.Role, _tokenService.GenerateToken(user), refToken.RfrshToken);
+                userLoginAdded = await _userLoginRepository.Add(userLogin);                
+                UserReturnDTO addedUser = new UserReturnDTO(userAdded.UserId, userAdded.Name, userAdded.EmailId, userAdded.Role, _tokenService.GenerateToken(userAdded), refToken.RfrshToken);
                 return addedUser;
             }
             catch (ObjectAlreadyExistsException)
@@ -122,10 +124,10 @@ namespace HospitalManagement.Services
                 throw new ObjectAlreadyExistsException("User");
             }
             catch (Exception) { }
-            if (user != null)
+            if (userAdded != null)
                 await RevertUserInsert(user);
-            if (userLogin != null && user == null)
-                await RevertUserLoginInsert(userLogin);
+            if (userLoginAdded != null && userAdded == null)
+                await RevertUserLoginInsert(userLoginAdded);
             throw new UnableToRegisterException();
         }
 
@@ -161,6 +163,7 @@ namespace HospitalManagement.Services
                 throw new ObjectNotAvailableException("User");
             }
             //send otp and verify
+            BackgroundJobs.GenerateOTPAndSend(contactNo, user.Name);
             UserLoginReturnDTO loginReturnDTO = await MapUserToLoginReturn(user);
             return loginReturnDTO;
             throw new NotImplementedException();

@@ -21,10 +21,10 @@ namespace HospitalManagement.Services
         #region MapDoctors
         public async Task<List<DoctorReturnDTO>> MapDoctors(List<Doctor> doctors)
         {
-            var doctorList = await Task.WhenAll(doctors.Select(async d =>
+            var doctorList = doctors.Select( d =>
             {
-                var doctor = await _userDetailsRepository.Get(d.DoctorId);
-                var doctorAvailability = await _doctorAvailabilityRepository.Get(d.DoctorId, DateTime.Now.Date);
+                var doctor = _userDetailsRepository.Get(d.DoctorId).Result;
+                var doctorAvailability = _doctorAvailabilityRepository.Get(d.DoctorId, DateTime.Now.Date).Result;
                 Dictionary<String, bool> slotsAvailable = new Dictionary<String, bool>();
                 if (doctorAvailability == null)
                 {                    
@@ -48,7 +48,7 @@ namespace HospitalManagement.Services
                     }
                 }
                 return new DoctorReturnDTO(d.DoctorId, doctor.Name, d.Specialization, d.Experience, d.LanguagesKnown, d.AvailableDays, slotsAvailable);
-            }));
+            });
             return doctorList.ToList();
         }
         #endregion
@@ -56,14 +56,14 @@ namespace HospitalManagement.Services
         #region DoctorsBySpecialization
         public async Task<List<DoctorReturnDTO>> GetAllDoctorsBySpecialization(string specialization)
         {
-            var doctors = _doctorRepository.Get().Result.Where(d => d.Specialization == specialization);
+            var doctors = _doctorRepository.Get().Result.Where(d => d.Specialization.ToLower() == specialization.ToLower()).ToList();
             if (doctors.ToList().Count == 0)
             {
                 throw new ObjectsNotAvailableException("Doctors");
             }
             try
             {
-                return await MapDoctors(doctors.ToList());
+                return await MapDoctors(doctors);
             }
             catch (ObjectNotAvailableException e)
             {
@@ -91,5 +91,6 @@ namespace HospitalManagement.Services
             }
         }
         #endregion
+
     }
 }

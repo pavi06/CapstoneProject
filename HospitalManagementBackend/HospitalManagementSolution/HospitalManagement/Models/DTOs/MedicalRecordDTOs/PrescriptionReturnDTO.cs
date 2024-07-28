@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using HospitalManagement.Models.DTOs.MedicineDTOs;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace HospitalManagement.Models.DTOs.MedicalRecordDTOs
 {
@@ -12,9 +13,9 @@ namespace HospitalManagement.Models.DTOs.MedicalRecordDTOs
         public string DoctorName { get; set; }
         public string DocSpecialization { get; set; }
         public DateTime Date { get; set; } = DateTime.Now.Date;
-        public List<Medication> Prescription { get; set; }
+        public List<MedicationMapperDTO> Prescription { get; set; }
 
-        public PrescriptionReturnDTO(int prescriptionId, int prescriptionFor, int patientId, string patientName, int age, string doctorName, string docSpecialization, List<Medication> prescription)
+        public PrescriptionReturnDTO(int prescriptionId, int prescriptionFor, int patientId, string patientName, int age, string doctorName, string docSpecialization, List<MedicationMapperDTO> prescription)
         {
             PrescriptionId = prescriptionId;
             PrescriptionFor = prescriptionFor;

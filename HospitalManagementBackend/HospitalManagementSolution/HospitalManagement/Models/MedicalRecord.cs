@@ -5,6 +5,7 @@ namespace HospitalManagement.Models
 {
     public class MedicalRecord
     {
+
         [Key]
         public int RecordId { get; set; }
         public int PatientId { get; set; }
@@ -17,5 +18,10 @@ namespace HospitalManagement.Models
         public string Treatment { get; set; }
         public List<Medication> Medication { get; set; }
         public string TreatmentStatus { get; set; }
+
+        public MedicalRecord()
+        {
+        }
+
     }
 }

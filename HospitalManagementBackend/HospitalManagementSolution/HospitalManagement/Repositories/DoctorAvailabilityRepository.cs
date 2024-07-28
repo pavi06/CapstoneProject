@@ -35,7 +35,7 @@ namespace HospitalManagement.Repositories
 
         public async Task<DoctorAvailability> Get(int key1, DateTime key2)
         {
-            var doctorAvailability = await _context.DoctorAvailability.SingleOrDefaultAsync(d => d.DoctorId == key1 && d.Date == key2);
+            var doctorAvailability = await _context.DoctorAvailability.SingleOrDefaultAsync(d => d.DoctorId == key1 && d.AppointmentDate == key2);
             return doctorAvailability;
         }
 
@@ -47,7 +47,7 @@ namespace HospitalManagement.Repositories
 
         public async Task<DoctorAvailability> Update(DoctorAvailability item)
         {
-            if (await Get(item.DoctorId, item.Date) != null)
+            if (await Get(item.DoctorId, item.AppointmentDate) != null)
             {
                 _context.Entry<DoctorAvailability>(item).State = EntityState.Modified;
                 await _context.SaveChangesAsync();

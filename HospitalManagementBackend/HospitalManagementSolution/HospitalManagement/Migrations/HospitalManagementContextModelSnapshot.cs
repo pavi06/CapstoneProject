@@ -223,14 +223,14 @@ namespace HospitalManagement.Migrations
                     b.Property<int>("DoctorId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("Date")
+                    b.Property<DateTime>("AppointmentDate")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("AvailableSlots")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("DoctorId", "Date");
+                    b.HasKey("DoctorId", "AppointmentDate");
 
                     b.ToTable("DoctorAvailability");
                 });

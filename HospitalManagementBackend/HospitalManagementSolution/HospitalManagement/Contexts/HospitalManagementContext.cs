@@ -34,7 +34,7 @@ namespace HospitalManagement.Contexts
             .HasIndex(x => x.ContactNo)
             .IsUnique();
 
-            modelBuilder.Entity<DoctorAvailability>().HasKey(da => new { da.DoctorId, da.Date });
+            modelBuilder.Entity<DoctorAvailability>().HasKey(da => new { da.DoctorId, da.AppointmentDate });
 
             modelBuilder.Entity<Doctor>()
             .Property(d => d.AvailableDays)

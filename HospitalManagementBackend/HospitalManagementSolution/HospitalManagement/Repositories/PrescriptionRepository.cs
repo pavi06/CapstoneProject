@@ -11,6 +11,15 @@ namespace HospitalManagement.Repositories
         {
         }
 
+        public override Task<Prescription> Add(Prescription item)
+        {
+            if(_context.Prescriptions.Any(p=>p.PrescriptionFor == item.PrescriptionFor))
+            {
+                throw new ObjectAlreadyExistsException("Prescription");
+            }
+            return base.Add(item);
+        }
+
         public override async Task<Prescription> Delete(int key)
         {
             try
@@ -29,7 +38,7 @@ namespace HospitalManagement.Repositories
 
         public override async Task<Prescription> Get(int key)
         {
-            var prescription = await _context.Prescriptions.Include(d => d.Patient).Include(d=>d.Doctor).SingleOrDefaultAsync(d => d.PrescriptionId == key);
+            var prescription = await _context.Prescriptions.Include(d => d.Patient).Include(d => d.Doctor).Include(d=>d.Medications).SingleOrDefaultAsync(d => d.PrescriptionId == key);
             if (prescription == null)
                 throw new ObjectNotAvailableException("Prescription");
             return prescription;
@@ -37,7 +46,7 @@ namespace HospitalManagement.Repositories
 
         public override async Task<IEnumerable<Prescription>> Get()
         {
-            var prescriptions = await _context.Prescriptions.Include(d => d.Patient).Include(d => d.Doctor).ToListAsync();
+            var prescriptions = await _context.Prescriptions.Include(d => d.Patient).Include(d => d.Doctor).Include(d=>d.Medications).ToListAsync();
             return prescriptions;
 
         }

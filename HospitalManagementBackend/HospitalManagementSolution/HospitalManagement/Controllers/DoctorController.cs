@@ -77,12 +77,37 @@ namespace HospitalManagement.Controllers
 
         }
 
+        [HttpGet("CreateMedicalRecord")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<string>> CreateMedicalRecords([FromBody] AppointmentMedicalRecordDTO recordDTO)
+        {
+            try
+            {
+                var result = await _doctorService.CreateMedicalRecord(recordDTO);
+                _logger.LogInformation("Medical record created successfully");
+                return Ok(result);
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
+
 
         [HttpGet("GetMedicalRecord")]
         [ProducesResponseType(typeof(List<MedicalRecordReturnDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<List<MedicalRecordReturnDTO>>> GetMedicalRecords(int doctorId, int patientId, string patientType)
+        public async Task<ActionResult<List<MedicalRecordReturnDTO>>> GetMedicalRecords(int doctorId, int patientId)
         {
             try
             {
@@ -110,15 +135,40 @@ namespace HospitalManagement.Controllers
 
 
         [HttpPost("UploadPrescription")]
-        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ProvidePrescriptionDTO), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<String>> ProvidePrescription(ProvidePrescriptionDTO prescriptionDTO)
+        public async Task<ActionResult<ProvidePrescriptionDTO>> ProvidePrescription(ProvidePrescriptionDTO prescriptionDTO)
         {
             try
             {
                  var result = await _doctorService.ProvidePrescriptionForAppointment(prescriptionDTO);
                 _logger.LogInformation("Prescription provided successfully");
+                return Ok(result);
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
+
+        [HttpPost("UpdatePrescription")]
+        [ProducesResponseType(typeof(PrescriptionReturnDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<PrescriptionReturnDTO>> UpdatePrescription(UpdatePrescriptionDTO prescriptionDTO)
+        {
+            try
+            {
+                var result = await _doctorService.UpdatePrescription(prescriptionDTO);
+                _logger.LogInformation("Prescription updated successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)

@@ -1,10 +1,13 @@
-﻿using HospitalManagement.CustomExceptions;
+﻿using Hangfire;
+using HospitalManagement.CustomExceptions;
 using HospitalManagement.Interfaces;
+using HospitalManagement.Jobs;
 using HospitalManagement.Models;
 using HospitalManagement.Models.DTOs.AppointmentDTOs;
 using HospitalManagement.Models.DTOs.MedicalRecordDTOs;
 using HospitalManagement.Models.DTOs.MedicineDTOs;
 using HospitalManagement.Repositories;
+using System.Linq;
 
 namespace HospitalManagement.Services
 {
@@ -12,19 +15,21 @@ namespace HospitalManagement.Services
     {
         private readonly IRepository<int, Appointment> _appointmentRepository;
         private readonly IRepository<int, User> _userDetailsRepository;
+        private readonly IRepository<int, Doctor> _doctorRepository;
         private readonly IRepository<int, MedicalRecord> _medicalRecordsRepository;
         private readonly IRepository<int, Prescription> _prescriptionRepository;
         private readonly IRepository<int, Medication> _medicationRepository;
 
         public DoctorService(IRepository<int, Appointment> appointmentRepository, IRepository<int, User> userDetailsRepository, 
             IRepository<int, MedicalRecord> medicalRecordsRepository, IRepository<int, Prescription> prescriptionRepository,
-            IRepository<int, Medication> medicationRepository)
+            IRepository<int, Medication> medicationRepository, IRepository<int, Doctor> doctorRepository)
         {
             _appointmentRepository = appointmentRepository;
             _userDetailsRepository = userDetailsRepository;
             _medicalRecordsRepository = medicalRecordsRepository;
             _prescriptionRepository = prescriptionRepository;
             _medicationRepository = medicationRepository;
+            _doctorRepository = doctorRepository;
         }
 
         public async Task<List<AppointmentReturnDTO>> GetAllTodayAppointments(int doctorid)
@@ -58,6 +63,8 @@ namespace HospitalManagement.Services
                 var appointment = await _appointmentRepository.Get(appointmentId);
                 appointment.AppointmentStatus = "Cancelled";
                 await _appointmentRepository.Update(appointment);
+                var patientDetails = await _userDetailsRepository.Get(appointment.PatientId);
+                BackgroundJobs.NotificationForPatient(patientDetails.Name, patientDetails.ContactNo, appointment.AppointmentDate);
                 return "Appointment status updated successfully!";
             }
             catch (ObjectNotAvailableException e)
@@ -92,34 +99,103 @@ namespace HospitalManagement.Services
 
         public async Task<PrescriptionReturnDTO> ProvidePrescriptionForAppointment(ProvidePrescriptionDTO prescriptionDTO)
         {
-            var prescriptionAlreadyAvailable = _prescriptionRepository.Get().Result.Where(p => p.PrescriptionFor == prescriptionDTO.PrescriptionFor).FirstOrDefault();
+            Prescription prescription = null;
             try
-            {
-                if (prescriptionAlreadyAvailable == null)
+            {                
+                prescription = await _prescriptionRepository.Add(new Prescription() { PrescriptionFor = prescriptionDTO.PrescriptionFor, PatientId = prescriptionDTO.PatientId, DoctorId = prescriptionDTO.DoctorId });
+                foreach(var m in prescriptionDTO.prescribedMedicine)
                 {
-                    var prescription = await _prescriptionRepository.Add(new Prescription() { PrescriptionFor = prescriptionDTO.PrescriptionFor, PatientId = prescriptionDTO.PatientId, DoctorId = prescriptionDTO.DoctorId });
-                    await Task.WhenAll(prescriptionDTO.prescribedMedicine.Select(async m =>
-                    {
-                        await _medicationRepository.Add(new Medication(m.MedicineName, m.Form, m.Dosage, m.Quantity, m.IntakeTiming, m.Intake, prescription.PrescriptionId));
-                    }));
-                    var patientDetails = await _userDetailsRepository.Get(prescription.PatientId);
-                    return new PrescriptionReturnDTO(prescription.PrescriptionId, prescription.PrescriptionFor,prescription.PatientId,patientDetails.Name,  patientDetails.Age, _userDetailsRepository.Get(prescription.DoctorId).Result.Name, prescription.Doctor.Specialization, prescription.Medications);
+                    await _medicationRepository.Add(new Medication(m.MedicineName, m.Form, m.Dosage, m.Quantity, m.IntakeTiming, m.Intake, prescription.PrescriptionId));
                 }
-                else
-                {
-                    await Task.WhenAll(prescriptionDTO.prescribedMedicine.Select(async m =>
-                    {
-                        await _medicationRepository.Add(new Medication(m.MedicineName, m.Form, m.Dosage, m.Quantity, m.IntakeTiming, m.Intake, prescriptionAlreadyAvailable.PrescriptionId));
-                    }));
-                    var patientDetails = await _userDetailsRepository.Get(prescriptionAlreadyAvailable.PatientId);
-                    return new PrescriptionReturnDTO(prescriptionAlreadyAvailable.PrescriptionId, prescriptionAlreadyAvailable.PrescriptionFor, prescriptionAlreadyAvailable.PatientId, patientDetails.Name, patientDetails.Age, _userDetailsRepository.Get(prescriptionAlreadyAvailable.DoctorId).Result.Name, prescriptionAlreadyAvailable.Doctor.Specialization, prescriptionAlreadyAvailable.Medications);
-                }
+                var patientDetails = await _userDetailsRepository.Get(prescription.PatientId);
+                var doctor = _doctorRepository.Get(prescription.DoctorId).Result;
+                return new PrescriptionReturnDTO(prescription.PrescriptionId, prescription.PrescriptionFor, prescription.PatientId, patientDetails.Name, patientDetails.Age, _userDetailsRepository.Get(prescription.DoctorId).Result.Name, doctor.Specialization, await MapMedicationToDTO(prescription.PrescriptionId));
+                 
             }
-            catch(ObjectNotAvailableException e)
+            catch (ObjectAlreadyExistsException e)
             {
                 throw;
             }
+            catch(Exception e)
+            {
+                if (prescription.PrescriptionId > 1)
+                {
+                    var medications = _medicationRepository.Get().Result.Where(m => m.PrescriptionId == prescription.PrescriptionId).ToList();
+                    foreach (var m in medications)
+                    {
+                        await _medicationRepository.Delete(m.MedicationId);
+                    }
+                    await _prescriptionRepository.Delete(prescription.PrescriptionId);
+                }                              
+                throw;
+            }            
+        }
+
+        public async Task<PrescriptionReturnDTO> UpdatePrescription(UpdatePrescriptionDTO prescriptionDTO)
+        {
+            var prescriptionAlreadyAvailable = await _prescriptionRepository.Get(prescriptionDTO.PrescriptionId);
+            if (prescriptionAlreadyAvailable == null)
+            {
+                throw new ObjectNotAvailableException("Prescription");
+            }
+            var medications = _medicationRepository.Get().Result.Where(m => m.PrescriptionId == prescriptionAlreadyAvailable.PrescriptionId).ToList();
+            foreach (var m in medications)
+            {
+                await _medicationRepository.Delete(m.MedicationId);
+            }
+            foreach (var m in prescriptionDTO.prescribedMedicine)
+            {
+                await _medicationRepository.Add(new Medication(m.MedicineName, m.Form, m.Dosage, m.Quantity, m.IntakeTiming, m.Intake, prescriptionDTO.PrescriptionId));
+            }
+            var patientDetails = await _userDetailsRepository.Get(prescriptionAlreadyAvailable.PatientId);
+            var doctor = _doctorRepository.Get(prescriptionAlreadyAvailable.DoctorId).Result;
+            return new PrescriptionReturnDTO(prescriptionAlreadyAvailable.PrescriptionId, prescriptionAlreadyAvailable.PrescriptionFor, prescriptionAlreadyAvailable.PatientId, patientDetails.Name, patientDetails.Age, _userDetailsRepository.Get(prescriptionAlreadyAvailable.DoctorId).Result.Name, doctor.Specialization, await MapMedicationToDTO(prescriptionAlreadyAvailable.PrescriptionId));
             
+        }
+
+        public async Task<string> CreateMedicalRecord(AppointmentMedicalRecordDTO recordDTO)
+        {
+            try
+            {
+                var prescription = _prescriptionRepository.Get().Result.Where(m => m.PrescriptionFor == recordDTO.AppointmentId).FirstOrDefault();
+                if(prescription.Medications == null)
+                {
+                    throw new ObjectNotAvailableException("Medication");
+                }
+                await _medicalRecordsRepository.Add(new MedicalRecord()
+                {
+                    PatientId = recordDTO.PatientId,
+                    PatientType = recordDTO.PatientType,
+                    DoctorId = recordDTO.DoctorId,
+                    Diagnosis = recordDTO.Diagnosis,
+                    Treatment = recordDTO.Treatment,
+                    Medication = prescription.Medications,
+                    TreatmentStatus = recordDTO.TreatmentStatus
+                });
+            }
+            catch (Exception e)
+            {
+                throw new Exception("Error in adding the record! Try again later");
+            }
+            return $"Medical Record added for the patient - {recordDTO.PatientId}";
+        }
+
+        public async Task<List<MedicationMapperDTO>> MapMedicationToDTO(int prescriptionId)
+        {
+            var medicationsList = _medicationRepository.Get().Result.Where(m => m.PrescriptionId == prescriptionId)
+                    .Select(m => {
+                        return new MedicationMapperDTO(
+                        m.MedicineName,
+                        m.Form,
+                        m.Dosage,
+                        m.Quantity,
+                        m.IntakeTiming,
+                        m.Intake,
+                        m.MedicationId,
+                        m.PrescriptionId);
+                    }).ToList();
+            return medicationsList;
         }
     }
 }
+

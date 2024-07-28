@@ -23,12 +23,14 @@ namespace HospitalManagement.Services
         private readonly IRepository<int, Admission> _admissionRepository;
         private readonly IRepository<int, AdmissionDetails> _admissionDetailsRepository;
         private readonly IRepository<int, Room> _roomRepository;
+        private readonly IRepository<int, Patient> _patientRepository;
 
         public ReceptionistService(IRepository<int, Appointment> appointmentRepository, IRepository<int, Doctor> doctorRepository,
             IRepository<int, User> userDetailsRepository, IRepository<int, WardRoomsAvailability> wardBedAvailabilityRepository,
             IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> doctorAvailabilityRepository, IRepository<int, Bill> billRepository,
             IRepository<int, Admission> inPatientRepository, IRepository<int, AdmissionDetails> inPatientDetailsRepository,
-            IRepository<int, Room> roomRepository) {
+            IRepository<int, Room> roomRepository, IRepository<int, Patient> patientRepository)
+        {
             _appointmentRepository = appointmentRepository;
             _doctorRepository = doctorRepository;
             _userRepository = userDetailsRepository;
@@ -38,6 +40,7 @@ namespace HospitalManagement.Services
             _admissionRepository = inPatientRepository;
             _admissionDetailsRepository = inPatientDetailsRepository;
             _roomRepository = roomRepository;
+            _patientRepository = patientRepository;
         }
 
         #region BookAppointment
@@ -46,17 +49,21 @@ namespace HospitalManagement.Services
             try
             {
                 var doctor = await _doctorRepository.Get(appointmentDTO.DoctorId);
+                if (await _patientRepository.Get(appointmentDTO.PatientId) == null)
+                {
+                    await _patientRepository.Add(new Patient(appointmentDTO.PatientId));
+                }
                 var appointment = await _appointmentRepository.Add(new Appointment(appointmentDTO.AppointmentDate, TimeOnly.Parse(appointmentDTO.Slot), appointmentDTO.DoctorId, doctor.Specialization, appointmentDTO.PatientId, appointmentDTO.Description, "scheduled", appointmentDTO.AppointmentType, appointmentDTO.AppointmentMode));
                 var availability = await _doctorAvailabilityRepository.Get(appointmentDTO.DoctorId, appointmentDTO.AppointmentDate);
                 if (availability == null)
                 {
-                    await _doctorAvailabilityRepository.Add(new DoctorAvailability(doctor.DoctorId, doctor.Slots.Except(new List<TimeOnly>() { TimeOnly.Parse(appointmentDTO.Slot) }).ToList()));
+                    await _doctorAvailabilityRepository.Add(new DoctorAvailability(doctor.DoctorId, appointment.AppointmentDate,doctor.Slots.Except(new List<TimeOnly>() { TimeOnly.Parse(appointmentDTO.Slot) }).ToList()));
                 }
                 else
                 {
                     availability.AvailableSlots.Remove(TimeOnly.Parse(appointmentDTO.Slot));
-                }
-                await _doctorAvailabilityRepository.Update(availability);
+                    await _doctorAvailabilityRepository.Update(availability);
+                }                
                 if (appointment == null)
                 {
                     throw new AppointmentAlreadyRaisedException();
@@ -69,6 +76,7 @@ namespace HospitalManagement.Services
             }
             catch(ObjectNotAvailableException e)
             {
+                await RevertAppointmentAdded(appointmentDTO);
                 throw;
             }
 
@@ -150,12 +158,17 @@ namespace HospitalManagement.Services
         {
             try
             {
-                await _admissionRepository.Add(new Admission(patientDTO.PatientId, patientDTO.DoctorId, patientDTO.Description));
-                await AllocateRoomForPatient(patientDTO.PatientId, patientDTO.WardType, patientDTO.NoOfDays);
+                var res = await _admissionRepository.Add(new Admission(patientDTO.PatientId, patientDTO.DoctorId, patientDTO.Description));
+                await AllocateRoomForPatient(res.AdmissionId, patientDTO.WardType, patientDTO.NoOfDays);
                 return "Patient alloted successfully!";
             }
             catch (ObjectNotAvailableException e)
             {
+                var admission = _admissionRepository.Get().Result.Where(a => a.PatientId == patientDTO.PatientId && a.AdmittedDate == DateTime.Now.Date).FirstOrDefault();
+                if ( admission!= null)
+                {
+                    await _admissionRepository.Delete(admission.AdmissionId);
+                }
                 throw;
             }
         }
@@ -166,7 +179,7 @@ namespace HospitalManagement.Services
         {
             try
             {
-                var admission = await _admissionRepository.Get(patientId);
+                var admission = _admissionRepository.Get().Result.Where(a=>a.PatientId == patientId && a.IsActivePatient == true).FirstOrDefault();
                 admission.DischargeDate = DateTime.Now.Date;
                 admission.IsActivePatient = false;
                 await _admissionRepository.Update(admission);
@@ -194,16 +207,16 @@ namespace HospitalManagement.Services
         {
             try
             {
-                var admission = await _admissionRepository.Get(inPatientid);
+                var admission = _admissionRepository.Get().Result.Where(a => a.PatientId == inPatientid && a.IsActivePatient == true).FirstOrDefault();
                 Dictionary<string, RoomRateDTO> bedAndCost = new Dictionary<string, RoomRateDTO>();
                 var totalAmount = 0.0;
                 foreach (var item in admission.AdmissionDetails)
                 {
-                    var wardType = await _wardBedAvailabilityRepository.Get(item.Room.WardTypeId);
-                    bedAndCost.Add(wardType.WardType, new RoomRateDTO(item.NoOfDays, item.Room.CostsPerDay));
-                    totalAmount += item.NoOfDays * item.Room.CostsPerDay;
+                    var room = _roomRepository.Get(item.RoomId).Result;
+                    bedAndCost.Add(room.WardBed.WardType, new RoomRateDTO(item.NoOfDays, room.CostsPerDay));
+                    totalAmount += item.NoOfDays * room.CostsPerDay;
                 }
-                var doctorFee = (double)Enum.Parse(typeof(DoctorFee), _doctorRepository.Get(admission.DoctorId).Result.Specialization);
+                var doctorFee = (double)(int)Enum.Parse(typeof(DoctorFee), _doctorRepository.Get(admission.DoctorId).Result.Specialization.ToLower(), true);
                 totalAmount += doctorFee;
                 var bill = await _billRepository.Add(new Bill(admission.AdmissionId,inPatientid, "InPatient", admission.Description, totalAmount));
                 var patientDetails = await _userRepository.Get(inPatientid);
@@ -225,11 +238,11 @@ namespace HospitalManagement.Services
             {
                 var appointment = await _appointmentRepository.Get(appointmentid);
                 var doctorSpecialization = appointment.Doctor.Specialization;
-                var doctorFee = (double)Enum.Parse(typeof(DoctorFee), doctorSpecialization);
+                var doctorFee = (double)Enum.Parse(typeof(DoctorFee), doctorSpecialization, true);
                 var doctorDetails = await _userRepository.Get(appointment.DoctorId);
-                var bill = await _billRepository.Add(new Bill(appointmentid,appointment.PatientId, "OutPatient", appointment.Description, doctorFee));
+                var bill = await _billRepository.Add(new Bill(appointmentid,appointment.PatientId, "OutPatient", appointment.Description,doctorFee));
                 var patientDetails = await _userRepository.Get(appointment.PatientId);
-                return new OutPatientBillDTO(bill.BillId, appointment.PatientId, patientDetails.Name, patientDetails.Age, patientDetails.ContactNo, doctorDetails.Name, doctorSpecialization,doctorFee, doctorFee);
+                return new OutPatientBillDTO(bill.BillId, appointment.PatientId, patientDetails.Name, patientDetails.Age, patientDetails.ContactNo, doctorDetails.Name, doctorSpecialization,doctorFee,doctorFee);
             }
             catch (ObjectNotAvailableException e)
             {
@@ -286,24 +299,51 @@ namespace HospitalManagement.Services
         #region AllocateRoomForPatient
         public async Task<string> AllocateRoomForPatient(int admissionId, string wardType, int noOfDays)
         {
+            List<Room> selectedRooms = null; 
             try
             {
-                var selectedRoom = _roomRepository.Get().Result.Where(r => r.WardBed.WardType == wardType && r.IsAllotted == false).Take(1).ToList();
-                await _admissionDetailsRepository.Add(new AdmissionDetails(admissionId, selectedRoom[0].RoomId, noOfDays));
-                selectedRoom[0].IsAllotted = true;
-                await _roomRepository.Update(selectedRoom[0]);
-                var wardBedAvailability = await _wardBedAvailabilityRepository.Get(selectedRoom[0].WardTypeId);
+                selectedRooms = _roomRepository.Get().Result.Where(r => r.WardBed.WardType == wardType && r.IsAllotted == false).Take(1).ToList();
+                await _admissionDetailsRepository.Add(new AdmissionDetails(admissionId, selectedRooms[0].RoomId, noOfDays));
+                selectedRooms[0].IsAllotted = true;
+                await _roomRepository.Update(selectedRooms[0]);
+                var wardBedAvailability = await _wardBedAvailabilityRepository.Get(selectedRooms[0].WardTypeId);
                 wardBedAvailability.RoomsAvailable -= 1;
                 await _wardBedAvailabilityRepository.Update(wardBedAvailability);
                 return "UpdatedSuccessfully!";
             }
             catch(ObjectNotAvailableException e)
             {
+                foreach(var room in selectedRooms) {
+                    room.IsAllotted = false;
+                    await _roomRepository.Update(room);
+                    var wardBedAvailability = await _wardBedAvailabilityRepository.Get(room.WardTypeId);
+                    if (wardBedAvailability !=null)
+                    {
+                        wardBedAvailability.RoomsAvailable += 1;
+                        await _wardBedAvailabilityRepository.Update(wardBedAvailability);
+                    }                    
+                }
+                var ad = _admissionDetailsRepository.Get().Result.FirstOrDefault(ad => ad.AdmissionId == admissionId);
+                if(ad != null)
+                {
+                    await _admissionDetailsRepository.Delete(ad.AdmissionDetailsId);
+                }
+                await _admissionRepository.Delete(admissionId);
                 throw;
             }
             
         }
         #endregion
+
+        public async Task RevertAppointmentAdded(BookAppointmentDTO appointmentDTO)
+        {
+            var appointment = _appointmentRepository.Get().Result.SingleOrDefault(a => a.PatientId == appointmentDTO.PatientId && a.DoctorId == appointmentDTO.DoctorId
+           && a.AppointmentDate == appointmentDTO.AppointmentDate && a.Date == DateTime.Now.Date && a.Slot == TimeOnly.Parse(appointmentDTO.Slot));
+            await _appointmentRepository.Delete(appointment.AppointmentId);
+            var availability = _doctorAvailabilityRepository.Get(appointment.DoctorId, appointment.AppointmentDate).Result;
+            availability.AvailableSlots.Add(TimeOnly.Parse(appointmentDTO.Slot));
+            await _doctorAvailabilityRepository.Update(availability);
+        }
 
     }
 }
