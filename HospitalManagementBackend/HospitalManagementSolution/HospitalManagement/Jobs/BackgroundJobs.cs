@@ -59,17 +59,18 @@ namespace HospitalManagement.Jobs
             var messageOptions = new CreateMessageOptions(new PhoneNumber(phoneNumber))
             {
                 From = new PhoneNumber(twilioSettings.PhoneNo),
-                Body = $"Hi {name}! your One time password is {otp}."
+                Body = $"Hi {name}! your One time password for logging into Hospital management system is {otp}."
             };
 
             var sentMessage = MessageResource.Create(messageOptions);
         }
 
-        public static void GenerateOTPAndSend(string contactNo, string name)
+        public static string GenerateOTPAndSend(string contactNo, string name)
         {
             Random random = new Random();
             int otp = random.Next(10000, 100000);
             BackgroundJob.Enqueue(() =>SendOTPToPatient(contactNo, otp, name));
+            return otp.ToString();
         }
     }
 }

@@ -8817,3 +8817,130 @@ INFO  09:06:56 Server 853cbx3:15052:a59a0f0f successfully announced in 292.6694 
 INFO  09:06:56 Server 853cbx3:15052:a59a0f0f is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
 INFO  09:06:56 2 servers were removed due to timeout
 INFO  09:06:56 Server 853cbx3:15052:a59a0f0f all the dispatchers started
+INFO  09:43:22 Start installing Hangfire SQL objects...
+INFO  09:43:24 Hangfire SQL objects installed.
+INFO  09:43:25 Now listening on: http://localhost:5253
+INFO  09:43:25 Starting Hangfire Server using job storage: 'SQL Server: 853CBX3\SQLEXPRESS@dbHospitalManagementSystem'
+INFO  09:43:25 Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+INFO  09:43:25 Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+INFO  09:43:25 Application started. Press Ctrl+C to shut down.
+INFO  09:43:25 Hosting environment: Development
+INFO  09:43:25 Content root path: C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\
+INFO  09:43:25 Server 853cbx3:3656:b6b6b951 successfully announced in 359.3162 ms
+INFO  09:43:25 Server 853cbx3:3656:b6b6b951 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+INFO  09:43:25 1 servers were removed due to timeout
+INFO  09:43:26 Server 853cbx3:3656:b6b6b951 all the dispatchers started
+ERROR 09:43:28 An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "POST api/User/ExternalLogin" for actions - HospitalManagement.Controllers.UserController.LoginForExternalUsers (HospitalManagement),HospitalManagement.Controllers.UserController.ValidateExternalUsers (HospitalManagement). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+INFO  09:45:10 Start installing Hangfire SQL objects...
+INFO  09:45:11 Hangfire SQL objects installed.
+INFO  09:45:12 Now listening on: http://localhost:5253
+INFO  09:45:12 Starting Hangfire Server using job storage: 'SQL Server: 853CBX3\SQLEXPRESS@dbHospitalManagementSystem'
+INFO  09:45:12 Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+INFO  09:45:12 Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+INFO  09:45:12 Application started. Press Ctrl+C to shut down.
+INFO  09:45:12 Hosting environment: Development
+INFO  09:45:12 Content root path: C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\
+INFO  09:45:12 Server 853cbx3:37988:87bbab06 successfully announced in 319.8953 ms
+INFO  09:45:12 Server 853cbx3:37988:87bbab06 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+INFO  09:45:12 Server 853cbx3:37988:87bbab06 all the dispatchers started
+ERROR 09:45:14 An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "POST api/User/ExternalLogin" for actions - HospitalManagement.Controllers.UserController.LoginForExternalUsers (HospitalManagement),HospitalManagement.Controllers.UserController.ValidateExternalUsers (HospitalManagement). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerDocumentWithoutFilters(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwaggerAsync(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+INFO  09:45:38 Start installing Hangfire SQL objects...
+INFO  09:45:38 Hangfire SQL objects installed.
+INFO  09:45:39 Now listening on: http://localhost:5253
+INFO  09:45:39 Starting Hangfire Server using job storage: 'SQL Server: 853CBX3\SQLEXPRESS@dbHospitalManagementSystem'
+INFO  09:45:39 Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+INFO  09:45:39 Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+INFO  09:45:39 Application started. Press Ctrl+C to shut down.
+INFO  09:45:39 Hosting environment: Development
+INFO  09:45:39 Content root path: C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\
+INFO  09:45:39 Server 853cbx3:25376:6f9fb26a successfully announced in 306.636 ms
+INFO  09:45:39 Server 853cbx3:25376:6f9fb26a is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+INFO  09:45:40 Server 853cbx3:25376:6f9fb26a all the dispatchers started
+WARN  09:46:11 The property 'Doctor.AvailableDays' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  09:46:11 The property 'Doctor.LanguagesKnown' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  09:46:11 The property 'Doctor.Slots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  09:46:11 The property 'DoctorAvailability.AvailableSlots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  09:46:11 The property 'MedicineMaster.DosagesAvailable' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  09:46:11 The property 'MedicineMaster.FormsAvailable' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+INFO  09:46:12 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  09:46:13 Executed DbCommand (75ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [u].[UserId], [u].[Address], [u].[Age], [u].[ContactNo], [u].[DateOfBirth], [u].[EmailId], [u].[Gender], [u].[Name], [u].[Role]
+FROM [Users] AS [u]
+INFO  09:46:13 Otp sent successfull
+FATAL 09:46:42 User not authenticated!
+FATAL 09:47:32 User not authenticated!
+INFO  09:47:47 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  09:47:47 Executed DbCommand (25ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [u].[UserId], [u].[Address], [u].[Age], [u].[ContactNo], [u].[DateOfBirth], [u].[EmailId], [u].[Gender], [u].[Name], [u].[Role]
+FROM [Users] AS [u]
+INFO  09:48:15 Otp sent successfull
+FATAL 09:48:51 User not authenticated!
+INFO  09:50:40 Start installing Hangfire SQL objects...
+INFO  09:50:40 Hangfire SQL objects installed.
+INFO  09:50:41 Now listening on: http://localhost:5253
+INFO  09:50:41 Starting Hangfire Server using job storage: 'SQL Server: 853CBX3\SQLEXPRESS@dbHospitalManagementSystem'
+INFO  09:50:41 Using the following options for SQL Server job storage: Queue poll interval: 00:00:00.
+INFO  09:50:41 Using the following options for Hangfire Server:
+    Worker count: 20
+    Listening queues: 'default'
+    Shutdown timeout: 00:00:15
+    Schedule polling interval: 00:00:15
+INFO  09:50:41 Application started. Press Ctrl+C to shut down.
+INFO  09:50:41 Hosting environment: Development
+INFO  09:50:41 Content root path: C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\
+INFO  09:50:41 Server 853cbx3:17244:5c589f85 successfully announced in 238.8733 ms
+INFO  09:50:41 Server 853cbx3:17244:5c589f85 is starting the registered dispatchers: ServerWatchdog, ServerJobCancellationWatcher, ExpirationManager, CountersAggregator, SqlServerHeartbeatProcess, Worker, DelayedJobScheduler, RecurringJobScheduler...
+INFO  09:50:41 2 servers were removed due to timeout
+INFO  09:50:41 Server 853cbx3:17244:5c589f85 all the dispatchers started
+WARN  09:51:12 The property 'Doctor.AvailableDays' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  09:51:12 The property 'Doctor.LanguagesKnown' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  09:51:12 The property 'Doctor.Slots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  09:51:12 The property 'DoctorAvailability.AvailableSlots' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  09:51:12 The property 'MedicineMaster.DosagesAvailable' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+WARN  09:51:12 The property 'MedicineMaster.FormsAvailable' is a collection or enumeration type with a value converter but with no value comparer. Set a value comparer to ensure the collection/enumeration elements are compared correctly.
+INFO  09:51:12 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  09:51:13 Executed DbCommand (102ms) [Parameters=[], CommandType='Text', CommandTimeout='30']
+SELECT [u].[UserId], [u].[Address], [u].[Age], [u].[ContactNo], [u].[DateOfBirth], [u].[EmailId], [u].[Gender], [u].[Name], [u].[Role]
+FROM [Users] AS [u]
+INFO  09:51:44 Otp sent successfull
+INFO  09:52:54 Entity Framework Core 6.0.32 initialized 'HospitalManagementContext' using provider 'Microsoft.EntityFrameworkCore.SqlServer:6.0.32' with options: None
+INFO  09:52:54 Executed DbCommand (8ms) [Parameters=[@__key_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[CreatedOn], [u].[ExpiresOn], [u].[Password], [u].[PasswordHashKey], [u].[RefreshToken], [u].[Status]
+FROM [UserLoginDetails] AS [u]
+WHERE [u].[UserId] = @__key_0
+INFO  09:52:54 Executed DbCommand (3ms) [Parameters=[@__key_0='?' (DbType = Int32)], CommandType='Text', CommandTimeout='30']
+SELECT TOP(2) [u].[UserId], [u].[CreatedOn], [u].[ExpiresOn], [u].[Password], [u].[PasswordHashKey], [u].[RefreshToken], [u].[Status]
+FROM [UserLoginDetails] AS [u]
+WHERE [u].[UserId] = @__key_0
+INFO  09:52:55 Executed DbCommand (10ms) [Parameters=[@p6='?' (DbType = Int32), @p0='?' (DbType = DateTime2), @p1='?' (DbType = DateTime2), @p2='?' (Size = 8000) (DbType = Binary), @p3='?' (Size = 8000) (DbType = Binary), @p4='?' (Size = 4000), @p5='?' (Size = 4000)], CommandType='Text', CommandTimeout='30']
+SET NOCOUNT ON;
+UPDATE [UserLoginDetails] SET [CreatedOn] = @p0, [ExpiresOn] = @p1, [Password] = @p2, [PasswordHashKey] = @p3, [RefreshToken] = @p4, [Status] = @p5
+WHERE [UserId] = @p6;
+SELECT @@ROWCOUNT;
+INFO  09:52:55 Otp is verified successfull

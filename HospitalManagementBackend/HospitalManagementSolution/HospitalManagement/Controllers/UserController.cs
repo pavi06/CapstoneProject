@@ -66,16 +66,40 @@ namespace HospitalManagement.Controllers
 
         #region ExternalUserLogin
         [HttpPost("ExternalLogin")]
-        [ProducesResponseType(typeof(UserLoginReturnDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(String), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status401Unauthorized)]
-        public async Task<ActionResult<UserLoginReturnDTO>> LoginForExternalUsers([FromBody] string contactNo)
+        public async Task<ActionResult<string>> LoginForExternalUsers([FromBody] UserLoginWithContactDTO userDTO)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    var res = await _userService.LoginWithContactNo(contactNo);
-                    _logger.LogInformation("Login successfull");
+                    await _userService.LoginWithContactNo(userDTO);
+                    _logger.LogInformation("Otp sent successfull");
+                    return Ok("Otp sent successfully!");
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogCritical("User not authenticated!");
+                    return Unauthorized(new ErrorModel(401, ex.Message));
+                }
+            }
+            return BadRequest("All details are not provided. Please check");
+        }
+        #endregion
+
+        #region ExternalUserLogin
+        [HttpPost("VerifyOTPForExternalLogin")]
+        [ProducesResponseType(typeof(UserLoginReturnDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status401Unauthorized)]
+        public async Task<ActionResult<UserLoginReturnDTO>> ValidateExternalUsers([FromBody] string otp)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    var res = await _userService.VerifyOTPAndGiveAccess(otp);
+                    _logger.LogInformation("Otp is verified successfull");
                     return Ok(res);
                 }
                 catch (Exception ex)

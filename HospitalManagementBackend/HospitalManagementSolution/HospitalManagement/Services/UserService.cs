@@ -15,6 +15,8 @@ namespace HospitalManagement.Services
         private readonly IRepository<int, UserLoginDetails> _userLoginRepository;
         private readonly IRepository<int, User> _userRepository;
         private readonly ITokenService _tokenService;
+        protected static String OtpGenerated { get; set; }
+        protected static User currentUser { get; set; }
 
         public UserService(IRepository<int, UserLoginDetails> userLoginRepository, IRepository<int, User> userRepository, ITokenService tokenService)
         {
@@ -155,18 +157,23 @@ namespace HospitalManagement.Services
 
 
         #region LoginWithContactNo
-        public async Task<UserLoginReturnDTO> LoginWithContactNo(string contactNo)
+        public async Task LoginWithContactNo(UserLoginWithContactDTO userDTO)
         {
-            var user = _userRepository.Get().Result.Where(u=>u.ContactNo == contactNo).FirstOrDefault();
-            if(user == null)
+            currentUser = _userRepository.Get().Result.Where(u=>u.ContactNo == userDTO.ContactNumber && u.Name == userDTO.UserName).FirstOrDefault();
+            if(currentUser == null)
             {
                 throw new ObjectNotAvailableException("User");
             }
-            //send otp and verify
-            BackgroundJobs.GenerateOTPAndSend(contactNo, user.Name);
-            UserLoginReturnDTO loginReturnDTO = await MapUserToLoginReturn(user);
-            return loginReturnDTO;
-            throw new NotImplementedException();
+            OtpGenerated = BackgroundJobs.GenerateOTPAndSend(currentUser.ContactNo, currentUser.Name);
+        }
+
+        public async Task<UserLoginReturnDTO> VerifyOTPAndGiveAccess(string otp)
+        {
+            if(OtpGenerated == otp)
+            {
+                return await MapUserToLoginReturn(currentUser);
+            }
+            throw new UnauthorizedAccessException();
         }
         #endregion
 

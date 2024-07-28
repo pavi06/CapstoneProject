@@ -6,6 +6,7 @@ namespace HospitalManagement.Interfaces
     {
         public Task<UserLoginReturnDTO> Login(UserLoginDTO loginDTO);
         public Task<UserReturnDTO> Register(UserRegistrationDTO userDTO);
-        public Task<UserLoginReturnDTO> LoginWithContactNo(string contactNo);
+        public Task LoginWithContactNo(UserLoginWithContactDTO userDTO);
+        public Task<UserLoginReturnDTO> VerifyOTPAndGiveAccess(string otp);
     }
 }
