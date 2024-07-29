@@ -29,7 +29,7 @@ namespace HospitalManagement.Repositories
 
         public override async Task<MedicalRecord> Get(int key)
         {
-            var record = await _context.MedicalRecords.Include(r => r.Doctor).SingleOrDefaultAsync(b => b.RecordId == key);
+            var record = await _context.MedicalRecords.Include(r => r.Doctor).Include(r =>r.Medication).SingleOrDefaultAsync(b => b.RecordId == key);
             if (record == null)
                 throw new ObjectNotAvailableException("MedicalRecord");
             return record;
@@ -37,7 +37,7 @@ namespace HospitalManagement.Repositories
 
         public override async Task<IEnumerable<MedicalRecord>> Get()
         {
-            var records = await _context.MedicalRecords.Include(r => r.Doctor).ToListAsync();
+            var records = await _context.MedicalRecords.Include(r => r.Doctor).Include(r => r.Medication).ToListAsync();
             return records;
 
         }

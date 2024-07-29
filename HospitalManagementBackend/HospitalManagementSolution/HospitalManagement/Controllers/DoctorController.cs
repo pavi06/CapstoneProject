@@ -6,10 +6,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using HospitalManagement.Models.DTOs.MedicalRecordDTOs;
 using HospitalManagement.Services;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace HospitalManagement.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Doctor")]
+    [EnableCors("MyCors")]
     [ApiController]
     public class DoctorController : ControllerBase
     {
@@ -77,7 +81,7 @@ namespace HospitalManagement.Controllers
 
         }
 
-        [HttpGet("CreateMedicalRecord")]
+        [HttpPost("CreateMedicalRecord")]
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]

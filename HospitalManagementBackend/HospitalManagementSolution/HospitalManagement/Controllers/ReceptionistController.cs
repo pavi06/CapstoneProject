@@ -6,10 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 using HospitalManagement.Interfaces;
 using HospitalManagement.Models.DTOs.DoctorDTOs;
 using HospitalManagement.Models.DTOs.PatientDTOs;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace HospitalManagement.Controllers
 {
     [Route("api/[controller]")]
+    [Authorize(Roles = "Receptionist")]
+    [EnableCors("MyCors")]
     [ApiController]
     public class ReceptionistController : ControllerBase
     {
@@ -153,6 +157,7 @@ namespace HospitalManagement.Controllers
             }
 
         }
+
 
         [HttpPost("BillForOutPatient")]
         [ProducesResponseType(typeof(OutPatientBillDTO), StatusCodes.Status200OK)]

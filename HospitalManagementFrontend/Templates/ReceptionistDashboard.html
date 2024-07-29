@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../Assets/styles/common.css">
+    <style>
+        .slotDesign {
+            border: 2px solid #4A249D;
+            border-radius: 20%;
+            padding: 5px;
+            margin: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .slotDesign.notAvailable {
+            background-color: #e9e9e9;
+            color: black;
+            border: none;
+            cursor: not-allowed;
+        }
+
+        .availableSlotBtn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-top: 14px;
+        }
+
+        .doctorImageCard {
+            width: 180px;
+            height: 180px;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../Assets/scripts/common.js"></script>
+    <script defer>
+        document.addEventListener("DOMContentLoaded", () => {
+            var slider = document.getElementById("slider");
+            var nextBtn = document.getElementById("nxtBtn");
+            var prevBtn = document.getElementById("prevBtn");
+            nextBtn.addEventListener("click", () => {
+                slider.style.scrollBehavior = "smooth";
+                slider.scrollLeft += 350;
+            });
+            prevBtn.addEventListener("click", () => {
+                slider.style.scrollBehavior = "smooth";
+                slider.scrollLeft -= 350;
+            });
+        })
+    </script>
+</head>
+
+<body>
+    <nav>
+        <div class="navbar">
+            <i class='bx bx-menu'></i>
+            <div class="logo"><a href="#">Logo</a></div>
+            <div class="nav-links">
+                <div class="sidebar-logo">
+                    <span class="logo-name">Logo</span>
+                    <i class='bx bx-x'></i>
+                </div>
+                <ul class="links">
+                    <li><a href="#">Home</a></li>
+                    <li>
+                        <a href="#">Our Services</a>
+                        <i class='bx bxs-chevron-down htmlcss-arrow arrow  '></i>
+                        <ul class="htmlCss-sub-menu sub-menu">
+                            <li><a href="#">Appointments</a></li>
+                            <li><a href="#">Online Consultation</a></li>
+                            <li><a href="#">Health Plan</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Doctors</a>
+                        <i class='bx bxs-chevron-down js-arrow arrow '></i>
+                        <ul class="js-sub-menu sub-menu">
+                            <li><a href="#">Dermatology</a></li>
+                            <li><a href="#">Neurology</a></li>
+                            <li><a href="#">Gynacology</a></li>
+                            <li><a href="#">..</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Contact us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section style="margin-top: 85px;">
+        <div class="mb-10">
+            <button
+                class="hover:bg-white hover:text-[#4A249D] border-2 mx-5 hover:border-[#4A249D] rounded-md bg-[#4A249D] w-25 py-2 px-5 text-center text-base font-semibold text-white outline-none float-right">
+                Book Appointment
+            </button>
+            <button
+                class="hover:bg-white hover:text-[#4A249D] border-2 mx-5 hover:border-[#4A249D] rounded-md bg-[#4A249D] w-25 py-2 px-5 text-center text-base font-semibold text-white outline-none float-right">
+                New Admission
+            </button>
+            <button
+                class="hover:bg-white hover:text-[#4A249D] border-2 mx-5 hover:border-[#4A249D] rounded-md bg-[#4A249D] w-25 py-2 px-5 text-center text-base font-semibold text-white outline-none float-right">
+                Generate Bill
+            </button>
+        </div>
+        <div style="clear: both;">
+            <h1 class="uppercase text-2xl text-[#4A249D] text-center font-extrabold">Today Appointments</h1>
+            <div class="todayAppointments">
+                <div class="flex">
+                    <div class="w-3/10 px-5 flex items-center justify-center">
+                        <button id="prevBtn"><i class='bx bxs-chevron-left bx-md'></i></button>
+                    </div>
+                    <div id="slider" class="h-50 w-full flex overflow-hidden">
+                        <div class="relative h-90 grid-cols-1  m-5 bg-white shadow-lg rounded-lg border">
+                            <div class="flex flex-row mt-8">
+                                <div class="p-6">
+                                    <h2 class="text-lg font-semibold mb-2">AppointmentId</h2>
+                                    <p>date</p>
+                                    <p>slot</p>
+                                    <p>description</p>
+                                    <p>status</p>
+                                    <p>type</p>
+                                </div>
+                                <div class="p-6">
+                                    <p>doctorName</p>
+                                    <p>specialization</p>
+                                </div>
+                            </div>
+                            <span
+                                class="absolute top-0 right-0 bg-blue-400 text-xs font-semibold px-10 py-3 rounded-tl-lg rounded-bl-lg shadow-lg">
+                                Today
+                            </span>
+                            <div class="flex flex-row justify-center">
+                                <button class="p-3 m-3 bg-[#4A249D]">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="relative h-90 grid-cols-1  m-5 bg-white shadow-lg rounded-lg border">
+                            <div class="flex flex-row mt-8">
+                                <div class="p-6">
+                                    <h2 class="text-lg font-semibold mb-2">AppointmentId</h2>
+                                    <p>date</p>
+                                    <p>slot</p>
+                                    <p>description</p>
+                                    <p>status</p>
+                                    <p>type</p>
+                                </div>
+                                <div class="p-6">
+                                    <p>doctorName</p>
+                                    <p>specialization</p>
+                                </div>
+                            </div>
+                            <span
+                                class="absolute top-0 right-0 bg-green-400 text-xs font-semibold px-10 py-3 rounded-tl-lg rounded-bl-lg shadow-lg">
+                                Today
+                            </span>
+                            <div class="flex flex-row justify-center">
+                                <button class="p-3 m-3 bg-[#4A249D]">Cancel</button>
+                            </div>
+                        </div>
+                        <div class="relative h-90 grid-cols-1  m-5 bg-white shadow-lg rounded-lg border">
+                            <div class="flex flex-row mt-8">
+                                <div class="p-6">
+                                    <h2 class="text-lg font-semibold mb-2">AppointmentId</h2>
+                                    <p>date</p>
+                                    <p>slot</p>
+                                    <p>description</p>
+                                    <p>status</p>
+                                    <p>type</p>
+                                </div>
+                                <div class="p-6">
+                                    <p>doctorName</p>
+                                    <p>specialization</p>
+                                </div>
+                            </div>
+                            <span
+                                class="absolute top-0 right-0 bg-green-400 text-xs font-semibold px-10 py-3 rounded-tl-lg rounded-bl-lg shadow-lg">
+                                Today
+                            </span>
+                            <div class="flex flex-row justify-center">
+                                <button class="p-3 m-3 bg-[#4A249D]">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-3/10 px-5 flex items-center justify-center">
+                        <button id="nxtBtn"><i class='bx bxs-chevron-right bx-md'></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5">
+            <h1 class="uppercase text-2xl text-[#4A249D] text-center font-extrabold">Room Availability Statistics</h1>
+            <div class="flex flex-row flex-wrap m-5 w-150 justify-evenly">
+                <!-- <div class="loader"></div> -->
+                <div class="w-40 h-40 border-[#4A249D] opacity-80 p-5 rounded-full" style="border-width: 15px;">
+                    <div class="flex flex-col align-middle text-center w-full">
+                        <h1 class="text-3xl text-indigo-900">5</h1>
+                        <p>General ward Rooms</p>
+                    </div>
+                </div>
+                <div class="w-40 h-40 border-red-400 opacity-80 p-5 rounded-full" style="border-width: 15px;">
+                    <div class="flex flex-col align-middle text-center w-full">
+                        <h1 class="text-3xl text-red-900">5</h1>
+                        <p>ICU ward Rooms</p>
+                    </div>
+                </div>
+                <div class="w-40 h-40 border-green-400 opacity-80 p-5 rounded-full" style="border-width: 15px;">
+                    <div class="flex flex-col align-middle text-center w-full">
+                        <h1 class="text-3xl text-green-90">5</h1>
+                        <p>Maternity ward Rooms</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5">
+            <h1 class="uppercase text-2xl text-[#4A249D] text-center font-extrabold">Doctor Availability Status</h1>
+            <div class="flex flex-row justify-end my-5">
+                <form class="flex">
+                    <input list="specialityList" name="speciality" id="speciality" placeholder="speciality" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        <datalist id="specialityList">
+                            <option value="Dermatologist">
+                            <option value="Gynacologist">
+                            <option value="Neurologist">
+                            <option value="Cardiologist">
+                        </datalist>
+                    <button class="mx-2 px-3 bg-indigo-100 rounded-lg" onclick="" style="width: fit-content;">Get Doctors</button>
+                </form>
+                <button class="w-25 mx-5 px-3 bg-indigo-100 rounded-lg" onclick="">Load more</button>
+            </div>
+            <div class="flex flex-row flex-wrap m-5 w-150 justify-evenly" style="clear: both;">
+                <div class="relative h-90 grid-cols-1  m-5 bg-white shadow-lg rounded-lg border">
+                    <div class="p-6 mt-8 text-center mx-auto">
+                        <div class="relative mx-auto border-8 border-blue-900 rounded-full overflow-hidden doctorImageCard">
+                            <img src="../image.jpg" alt="doctorImage"
+                                class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h2 class="text-lg font-semibold mb-2">Doctor Name</h2>
+                        <p>speciality</p>
+                        <p>Available slots</p>
+                        <div class="mb-5 mx-auto pt-3 flex flex-wrap" id="slotsAvailable">
+                            <div class="slotDesign">Slot1</div>
+                            <div class="slotDesign notAvailable">Slot2</div>
+                            <div class="slotDesign">Slot3</div>
+                            <div class="slotDesign">Slot4</div>
+                        </div>
+                    </div>
+                    <span
+                        class="absolute top-0 right-0 bg-blue-400 text-xs font-semibold px-10 py-3 rounded-tl-lg rounded-bl-lg shadow-lg">
+                        Dermatologist
+                    </span>
+                </div>
+                <div class="relative h-90 grid-cols-1  m-5 bg-white shadow-lg rounded-lg border">
+                    <div class="p-6 mt-8 text-center mx-auto">
+                        <div class="relative mx-auto border-8 border-blue-900 rounded-full overflow-hidden doctorImageCard">
+                            <img src="../image.jpg" alt="doctorImage"
+                                class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h2 class="text-lg font-semibold mb-2">Doctor Name</h2>
+                        <p>speciality</p>
+                        <p>Available slots</p>
+                        <div class="mb-5 mx-auto pt-3 flex flex-wrap" id="slotsAvailable">
+                            <div class="slotDesign">Slot1</div>
+                            <div class="slotDesign notAvailable">Slot2</div>
+                            <div class="slotDesign">Slot3</div>
+                            <div class="slotDesign">Slot4</div>
+                        </div>
+                    </div>
+                    <span
+                        class="absolute top-0 right-0 bg-blue-400 text-xs font-semibold px-10 py-3 rounded-tl-lg rounded-bl-lg shadow-lg">
+                        Dermatologist
+                    </span>
+                </div>
+                <div class="relative h-90 grid-cols-1  m-5 bg-white shadow-lg rounded-lg border">
+                    <div class="p-6 mt-8 text-center mx-auto">
+                        <div class="relative mx-auto border-8 border-blue-900 rounded-full overflow-hidden doctorImageCard">
+                            <img src="../image.jpg" alt="doctorImage"
+                                class="absolute inset-0 w-full h-full object-cover">
+                        </div>
+                        <h2 class="text-lg font-semibold mb-2">Doctor Name</h2>
+                        <p>speciality</p>
+                        <p>Available slots</p>
+                        <div class="mb-5 mx-auto pt-3 flex flex-wrap" id="slotsAvailable">
+                            <div class="slotDesign">Slot1</div>
+                            <div class="slotDesign notAvailable">Slot2</div>
+                            <div class="slotDesign">Slot3</div>
+                            <div class="slotDesign">Slot4</div>
+                        </div>
+                    </div>
+                    <span
+                        class="absolute top-0 right-0 bg-blue-400 text-xs font-semibold px-10 py-3 rounded-tl-lg rounded-bl-lg shadow-lg">
+                        Dermatologist
+                    </span>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

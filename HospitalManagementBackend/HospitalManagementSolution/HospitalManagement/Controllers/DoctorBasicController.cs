@@ -11,19 +11,19 @@ namespace HospitalManagement.Controllers
 {
     [Route("api/[controller]")]
     [EnableCors("MyCors")]
+    [AllowAnonymous]
     [ApiController]
-    public class HospitalBasicController : ControllerBase
+    public class DoctorBasicController : ControllerBase
     {
         private readonly IHospitalBasicService _hospitalBasicService;
-        private readonly ILogger<HospitalBasicController> _logger;
+        private readonly ILogger<DoctorBasicController> _logger;
 
-        public HospitalBasicController(IHospitalBasicService hospitalBasicService, ILogger<HospitalBasicController> logger)
+        public DoctorBasicController(IHospitalBasicService hospitalBasicService, ILogger<DoctorBasicController> logger)
         {
             _hospitalBasicService = hospitalBasicService;
             _logger = logger;
         }
 
-        [AllowAnonymous]
         [HttpPost("GetAllDoctorsBySpecialization")]
         [ProducesResponseType(typeof(List<DoctorReturnDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
@@ -54,7 +54,7 @@ namespace HospitalManagement.Controllers
 
         }
 
-        [AllowAnonymous]
+
         [HttpPost("GetAllDoctorsBySpecializationWithLimit")]
         [ProducesResponseType(typeof(List<DoctorReturnDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]

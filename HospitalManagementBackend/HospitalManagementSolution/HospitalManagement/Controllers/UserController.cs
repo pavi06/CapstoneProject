@@ -3,10 +3,14 @@ using HospitalManagement.Models.DTOs.UserDTOs;
 using HospitalManagement.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 
 namespace HospitalManagement.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("MyCors")]
+    [AllowAnonymous]
     [ApiController]
     public class UserController : ControllerBase
     {

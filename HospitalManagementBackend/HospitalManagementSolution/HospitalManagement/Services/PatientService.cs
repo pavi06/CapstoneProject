@@ -68,7 +68,7 @@ namespace HospitalManagement.Services
                 if (appointmentDTO.AppointmentMode == "Online")
                 {
                     //generate meet link 
-                    var meetLink = "";
+                    var meetLink = await ScheduledTask.SendEmail(_userRepository.Get(appointmentDTO.PatientId).Result.Name, appointmentDTO.AppointmentDate, TimeOnly.Parse(appointmentDTO.Slot), (DateTime.Now.Date-appointmentDTO.AppointmentDate.Date).Days);
                     return new PatientOnlineAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot.ToString(), appointment.Description, doctorDetails.Name, appointment.Speciality, appointment.AppointmentStatus, appointment.AppointmentType, meetLink);
                 }
                 BackgroundJobs.NotificationForDoctor(doctorDetails.Name, doctorDetails.ContactNo, appointment.AppointmentDate, appointment.Slot);
@@ -304,10 +304,6 @@ namespace HospitalManagement.Services
                     {
                         availableSlots.Add(slot.ToString(), false);
                     }
-                }
-                foreach (var slot in doctor.Slots)
-                {
-                    availableSlots.Add(slot.ToString(), false);
                 }
             }
             else

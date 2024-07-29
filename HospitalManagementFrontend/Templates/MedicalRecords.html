@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../Assets/styles/common.css">
+    <style>
+        .detailsDiv {
+            width: 45%;
+            overflow-wrap: break-word;
+        }
+
+        @media (max-width: 1185px) {
+            .detailsDiv {
+                width: 80%;
+                margin-bottom: 10px;
+            }
+            .tableDiv{
+                width: 80%;
+            }
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../Assets/scripts/common.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="navbar">
+            <i class='bx bx-menu'></i>
+            <div class="logo"><a href="#">Logo</a></div>
+            <div class="nav-links">
+                <div class="sidebar-logo">
+                    <span class="logo-name">Logo</span>
+                    <i class='bx bx-x'></i>
+                </div>
+                <ul class="links">
+                    <li><a href="#">Home</a></li>
+                    <li>
+                        <a href="#">Our Services</a>
+                        <i class='bx bxs-chevron-down htmlcss-arrow arrow  '></i>
+                        <ul class="htmlCss-sub-menu sub-menu">
+                            <li><a href="#">Appointments</a></li>
+                            <li><a href="#">Online Consultation</a></li>
+                            <li><a href="#">Health Plan</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">Doctors</a>
+                        <i class='bx bxs-chevron-down js-arrow arrow '></i>
+                        <ul class="js-sub-menu sub-menu">
+                            <li><a href="#">Dermatology</a></li>
+                            <li><a href="#">Neurology</a></li>
+                            <li><a href="#">Gynacology</a></li>
+                            <li><a href="#">..</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">About us</a></li>
+                    <li><a href="#">Contact us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section style="margin-top: 85px;">
+        <h1 class="uppercase text-3xl text-[#4A249D] text-center font-extrabold">Medical Records</h1>
+        <div class="float-right mb-5">
+            <form class="flex flex-end">
+                <input type="text" name="name" id="name" placeholder="Provide patientId"
+                    class="w-15 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
+                <button class="w-25 mx-5 px-3 bg-indigo-100 rounded-lg" onclick="GetRecords()"><i
+                        class='bx bxs-file-find bx-lg'></i></button>
+            </form>
+        </div>
+        <div id="medicalRecord" style="clear: both;">
+            <div class="bg-white rounded-lg my-10 p-5 bg-blue-500 border-2 mx-auto" style="width: 80%;">
+                <div class="p-2 flex flex-row flex-wrap justify-between recordDiv">
+                    <div id="details" class="px-2 mx-auto detailsDiv">
+                        <h4 class="font-bold text-lg">RecordId : </h4>
+                        <p>Patient Name</p>
+                        <p>ContactNo</p>
+                        <ul class="mt-2 text-wrap">
+                            <li>Recorded Date</li>
+                            <li>Diagnosis :
+                                ffffhhhhhhhhhhhjjjjjjjjjjjjjjjnnnnnnnnnnnnnbbbbbbbbbbbbbbbddddddddddddddssssssssssssssscccccccccxxxxxxxxxxssssssss
+                            </li>
+                            <li>Treatment</li>
+                            <li>Treatment Status</li>
+                        </ul>
+                    </div>
+                    <div id="medications" class="overflow-y-auto h-64 mx-auto tableDiv">
+                        <table class="min-w-full divide-y" id="prescriptionTable">
+                            <thead class="bg-indigo-100">
+                                <tr class="text-center text-black">
+                                    <th scope="col" class="p-3 text-sm font-medium">Medicine</th>
+                                    <th scope="col" class="p-3 text-sm font-medium">Form</th>
+                                    <th scope="col" class="p-3 text-sm font-medium">Dosage</th>
+                                    <th scope="col" class="p-3 text-sm font-medium">Intake</th>
+                                    <th scope="col" class="p-3 text-sm font-medium">IntakeTiming</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr id="templateRow">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">data1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data2</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data3</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data4</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data5</td>
+                                </tr>
+                                <tr id="templateRow">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">data1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data2</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data3</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data4</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data5</td>
+                                </tr>
+                                <tr id="templateRow">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">data1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data2</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data3</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data4</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data5</td>
+                                </tr>
+                                <tr id="templateRow">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">data1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data2</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data3</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data4</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data5</td>
+                                </tr>
+                                <tr id="templateRow">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">data1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data2</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data3</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data4</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg my-10 p-5 bg-blue-500 border-2 mx-auto" style="width: 80%;">
+                <div class="p-2 flex flex-row justify-between">
+                    <div id="details" class="px-2">
+                        <h4 class="font-bold text-lg">RecordId : </h4>
+                        <p>Patient Name</p>
+                        <p>ContactNo</p>
+                        <ul class="mt-2">
+                            <li>Recorded Date</li>
+                            <li>Diagnosis</li>
+                            <li>Treatment</li>
+                            <li>Treatment Status</li>
+                        </ul>
+                    </div>
+                    <div id="medications" class="overflow-y-auto h-64 overflow-x-hidden">
+                        <table class="min-w-full divide-y" id="prescriptionTable">
+                            <thead class="bg-indigo-100">
+                                <tr class="text-center text-black">
+                                    <th scope="col" class="p-3 text-sm font-medium">Medicine</th>
+                                    <th scope="col" class="p-3 text-sm font-medium">Form</th>
+                                    <th scope="col" class="p-3 text-sm font-medium">Dosage</th>
+                                    <th scope="col" class="p-3 text-sm font-medium">Intake</th>
+                                    <th scope="col" class="p-3 text-sm font-medium">IntakeTiming</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr id="templateRow">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">data1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data2</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data3</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data4</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data5</td>
+                                </tr>
+                                <tr id="templateRow">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">data1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data2</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data3</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data4</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data5</td>
+                                </tr>
+                                <tr id="templateRow">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">data1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data2</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data3</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data4</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data5</td>
+                                </tr>
+                                <tr id="templateRow">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">data1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data2</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data3</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data4</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data5</td>
+                                </tr>
+                                <tr id="templateRow">
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800">data1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data2</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data3</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data4</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">data5</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

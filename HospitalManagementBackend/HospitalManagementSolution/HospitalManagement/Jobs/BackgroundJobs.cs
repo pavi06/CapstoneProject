@@ -43,7 +43,7 @@ namespace HospitalManagement.Jobs
                 Body = message
             };
 
-            var sentMessage = MessageResource.Create(messageOptions);
+            MessageResource.Create(messageOptions);
         }
 
         public static void SendOTPToPatient(string phoneNumber, int otp, string name)

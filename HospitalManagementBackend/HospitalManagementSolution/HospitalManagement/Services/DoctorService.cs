@@ -86,7 +86,11 @@ namespace HospitalManagement.Services
                 var medicalRecordList = await Task.WhenAll(medicalRecords.Select(async mr =>
                 {
                     var patient = await _userDetailsRepository.Get(mr.PatientId);
-                    return new MedicalRecordReturnDTO(mr.RecordId, mr.PatientId, patient.Name, patient.ContactNo, mr.Date, mr.Diagnosis, mr.Treatment, mr.Medication, mr.TreatmentStatus);
+                    var medicationList = mr.Medication.Select(m =>
+                    {
+                        return new MedicationDTO(m.MedicineName, m.Form, m.Dosage, m.Quantity, m.IntakeTiming, m.Intake);
+                    });
+                    return new MedicalRecordReturnDTO(mr.RecordId, mr.PatientId, patient.Name, patient.ContactNo, mr.Date, mr.Diagnosis, mr.Treatment, medicationList.ToList(), mr.TreatmentStatus);
                 }));
                 return medicalRecordList.ToList();
             }

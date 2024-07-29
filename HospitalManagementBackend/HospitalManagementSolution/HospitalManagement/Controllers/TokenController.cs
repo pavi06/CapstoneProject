@@ -2,6 +2,7 @@
 using HospitalManagement.Interfaces;
 using HospitalManagement.Models;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -9,6 +10,7 @@ using System.Security.Claims;
 namespace HospitalManagement.Controllers
 {
     [Route("api/[controller]")]
+    [EnableCors("MyCors")]
     [ApiController]
     public class TokenController : ControllerBase
     {

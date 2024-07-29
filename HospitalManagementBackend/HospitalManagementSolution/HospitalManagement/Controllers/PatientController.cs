@@ -12,8 +12,8 @@ using HospitalManagement.Models.DTOs.DoctorDTOs;
 namespace HospitalManagement.Controllers
 {
     [Route("api/[controller]")]
-    //[Authorize(Roles = "User")]
     [EnableCors("MyCors")]
+    //[Authorize(Roles = "User")]
     [ApiController]
     public class PatientController : ControllerBase
     {
