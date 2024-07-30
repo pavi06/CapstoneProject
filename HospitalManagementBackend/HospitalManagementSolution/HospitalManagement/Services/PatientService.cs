@@ -34,6 +34,7 @@ namespace HospitalManagement.Services
         }
         public async Task<PatientAppointmentReturnDTO> BookAppointmentByDoctor(BookAppointmentDTO appointmentDTO)
         {
+            Appointment appointment = null;
             try
             {
                 var doctor = await _doctorRepository.Get(appointmentDTO.DoctorId);
@@ -45,7 +46,6 @@ namespace HospitalManagement.Services
                 {
                     await _patientRepository.Add(new Patient(appointmentDTO.PatientId));
                 }
-                Appointment appointment = null;
                 try
                 {
                     appointment = await _appointmentRepository.Add(new Appointment(appointmentDTO.AppointmentDate, TimeOnly.Parse(appointmentDTO.Slot), appointmentDTO.DoctorId, doctor.Specialization, appointmentDTO.PatientId, appointmentDTO.Description, "scheduled", appointmentDTO.AppointmentType, appointmentDTO.AppointmentMode));
@@ -76,20 +76,29 @@ namespace HospitalManagement.Services
             }
             catch(ObjectNotAvailableException e)
             {
-                await RevertAppointmentAdded(appointmentDTO);
+                if (appointment != null)
+                {
+                    await RevertAppointmentAdded(appointment.AppointmentId);
+                }
                 throw;
             }
 
         }
 
-        public async Task RevertAppointmentAdded(BookAppointmentDTO appointmentDTO)
+        public async Task RevertAppointmentAdded(int appointmentId)
         {
-            var appointment = _appointmentRepository.Get().Result.SingleOrDefault(a=>a.PatientId == appointmentDTO.PatientId && a.DoctorId == appointmentDTO.DoctorId
-            && a.AppointmentDate == appointmentDTO.AppointmentDate && a.Date == DateTime.Now.Date && a.Slot == TimeOnly.Parse(appointmentDTO.Slot));
+            var appointment = await _appointmentRepository.Get(appointmentId);
             await _appointmentRepository.Delete(appointment.AppointmentId);
-            var availability = _doctorAvailabilityRepository.Get(appointment.DoctorId, appointment.AppointmentDate).Result;
-            availability.AvailableSlots.Add(TimeOnly.Parse(appointmentDTO.Slot));
-            await _doctorAvailabilityRepository.Update(availability);
+            try
+            {
+                var availability = _doctorAvailabilityRepository.Get(appointment.DoctorId, appointment.AppointmentDate).Result;
+                availability.AvailableSlots.Add(appointment.Slot);
+                await _doctorAvailabilityRepository.Update(availability);
+            }
+            catch(Exception e)
+            {
+                throw;
+            }           
         }
 
         public async Task<Doctor> GetDoctorAvailableOnThatSlot(string speciality, string preferredTime,string preferredLamguage, DateTime appointmentDate)
@@ -324,7 +333,6 @@ namespace HospitalManagement.Services
                         m.MedicineName,
                         m.Form,
                         m.Dosage,
-                        m.Quantity,
                         m.IntakeTiming,
                         m.Intake,
                         m.MedicationId,

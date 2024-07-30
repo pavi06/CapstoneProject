@@ -35,10 +35,19 @@ namespace HospitalManagement.Controllers
             try
             {
                 Dictionary<string, bool> result = await _patientService.GetAvailableSlotsOfDoctor(checkSlotsDTO);
+                if(result.Count == 0)
+                {
+                    throw new ObjectsNotAvailableException("Slots");
+                }
                 _logger.LogInformation("Doctor slots retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (ObjectsNotAvailableException e)
             {
                 _logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));

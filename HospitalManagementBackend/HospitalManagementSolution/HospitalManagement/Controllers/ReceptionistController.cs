@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Cors;
 namespace HospitalManagement.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "Receptionist")]
+    //[Authorize(Roles = "Receptionist")]
     [EnableCors("MyCors")]
     [ApiController]
     public class ReceptionistController : ControllerBase
@@ -29,11 +29,15 @@ namespace HospitalManagement.Controllers
         [ProducesResponseType(typeof(List<DoctorAvailabilityDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<List<DoctorAvailabilityDTO>>> CheckDoctorAvailability([FromBody] string specialization)
+        public async Task<ActionResult<List<DoctorAvailabilityDTO>>> CheckDoctorAvailability([FromBody] string specialization, int limit, int skip)
         {
             try
             {
-                List<DoctorAvailabilityDTO> result = await _receptionistService.CheckDoctoravailability(specialization);
+                List<DoctorAvailabilityDTO> result = await _receptionistService.CheckDoctoravailability(specialization, limit, skip);
+                if (result.Count == 0)
+                {
+                    throw new ObjectsNotAvailableException("Doctors");
+                }
                 _logger.LogInformation("Available doctors retrieved");
                 return Ok(result);
             }
@@ -234,6 +238,56 @@ namespace HospitalManagement.Controllers
 
         }
 
+        [HttpGet("GetTodayAppointmentDetails")]
+        [ProducesResponseType(typeof(List<ReceptAppointmentReturnDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<List<ReceptAppointmentReturnDTO>>> GetAllTodayAppointmentDetails(int limit, int skip)
+        {
+            try
+            {
+                var result = await _receptionistService.GetAllTodayAppointments(limit, skip);
+                _logger.LogInformation("Appointment details retrieved successfully");
+                return Ok(result);
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
+
+
+        [HttpGet("GetPendingBills")]
+        [ProducesResponseType(typeof(List<PendingBillReturnDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<List<PendingBillReturnDTO>>> GetAllPendingBills()
+        {
+            try
+            {
+                var result = await _receptionistService.GetPendingBills();
+                _logger.LogInformation("Pending bills retrieved successfully");
+                return Ok(result);
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
 
     }
 }

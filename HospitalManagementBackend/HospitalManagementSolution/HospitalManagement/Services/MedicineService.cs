@@ -31,8 +31,15 @@ namespace HospitalManagement.Services
 
         public async Task<MedicineDetailsDTO> GetMedicineDetailsById(int medicineId)
         {
-            var medicine = await _medicineMasterRepository.Get(medicineId);
-            return new MedicineDetailsDTO(medicine.MedicineId, medicine.MedicineName, medicine.DosagesAvailable, medicine.FormsAvailable);
+            try
+            {
+                var medicine = await _medicineMasterRepository.Get(medicineId);
+                return new MedicineDetailsDTO(medicine.MedicineId, medicine.MedicineName, medicine.DosagesAvailable, medicine.FormsAvailable);
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                throw;
+            }
         }
     }
 }

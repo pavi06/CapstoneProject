@@ -1,11 +1,13 @@
 ﻿using HospitalManagement.CustomExceptions;
 using HospitalManagement.Interfaces;
+using HospitalManagement.Migrations;
 using HospitalManagement.Models;
 using HospitalManagement.Models.DTOs.AppointmentDTOs;
 using HospitalManagement.Models.DTOs.DoctorDTOs;
 using HospitalManagement.Models.DTOs.PatientDTOs;
 using HospitalManagement.Repositories;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Numerics;
 using static HospitalManagement.Enums.DoctorFeeBySpecialization;
@@ -24,12 +26,13 @@ namespace HospitalManagement.Services
         private readonly IRepository<int, AdmissionDetails> _admissionDetailsRepository;
         private readonly IRepository<int, Room> _roomRepository;
         private readonly IRepository<int, Patient> _patientRepository;
+        private readonly IRepository<int, Payment> _paymentRepository;
 
         public ReceptionistService(IRepository<int, Appointment> appointmentRepository, IRepository<int, Doctor> doctorRepository,
             IRepository<int, User> userDetailsRepository, IRepository<int, WardRoomsAvailability> wardBedAvailabilityRepository,
             IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> doctorAvailabilityRepository, IRepository<int, Bill> billRepository,
             IRepository<int, Admission> inPatientRepository, IRepository<int, AdmissionDetails> inPatientDetailsRepository,
-            IRepository<int, Room> roomRepository, IRepository<int, Patient> patientRepository)
+            IRepository<int, Room> roomRepository, IRepository<int, Patient> patientRepository, IRepository<int, Payment> paymentRepository)
         {
             _appointmentRepository = appointmentRepository;
             _doctorRepository = doctorRepository;
@@ -41,6 +44,7 @@ namespace HospitalManagement.Services
             _admissionDetailsRepository = inPatientDetailsRepository;
             _roomRepository = roomRepository;
             _patientRepository = patientRepository;
+            _paymentRepository = paymentRepository;
         }
 
         #region BookAppointment
@@ -102,9 +106,9 @@ namespace HospitalManagement.Services
         #endregion
 
         #region CheckDoctorAvailability
-        public async Task<List<Doctor>> GetAllDoctorsAvailableNow(string specialization, TimeOnly timeOfDay, DateTime date)
+        public async Task<List<Doctor>> GetAllDoctorsAvailableNow(string specialization, TimeOnly timeOfDay, DateTime date, int skip, int limit)
         {
-            var doctors = _doctorRepository.Get().Result.Where(d => d.Specialization == specialization && d.ShiftStartTime >= timeOfDay && timeOfDay < d.ShiftEndTime && d.AvailableDays.Contains(date.DayOfWeek.ToString())).OrderByDescending(d => d.Experience).ToList();
+            var doctors = _doctorRepository.Get().Result.Where(d => d.Specialization.ToLower() == specialization.ToLower() && d.ShiftStartTime <= timeOfDay && timeOfDay < d.ShiftEndTime && d.AvailableDays.Contains(date.DayOfWeek.ToString())).OrderByDescending(d => d.Experience).Skip(skip).Take(limit).ToList();
             var availableDoctors = new List<Doctor>();
             if (doctors.Count > 0)
             {
@@ -125,22 +129,27 @@ namespace HospitalManagement.Services
                 }
 
             }
-            throw new ObjectsNotAvailableException("Doctors");
+            return availableDoctors;
         }
 
-        public async Task<List<DoctorAvailabilityDTO>> CheckDoctoravailability(string specialization)
+        public async Task<List<DoctorAvailabilityDTO>> CheckDoctoravailability(string specialization, int limit, int skip)
         {
             try
             {
-                var availableDoctor = await GetAllDoctorsAvailableNow(specialization, TimeOnly.FromTimeSpan(DateTime.Now.TimeOfDay), DateTime.Now.Date);
-                var doctorsList = await Task.WhenAll(availableDoctor.Select(async d =>
+                var availableDoctor = await GetAllDoctorsAvailableNow(specialization, TimeOnly.FromTimeSpan(DateTime.Now.TimeOfDay), DateTime.Now.Date, skip, limit);
+                if (availableDoctor.Count == 0)
+                {
+                    throw new ObjectsNotAvailableException("Doctor");
+                }
+                List<DoctorAvailabilityDTO> doctors = new List<DoctorAvailabilityDTO>();
+                foreach (var d in availableDoctor)
                 {
                     var doctorDetails = await _userRepository.Get(d.DoctorId);
                     var doctorAvailableSlots = _doctorAvailabilityRepository.Get(d.DoctorId, DateTime.Now.Date).Result.AvailableSlots;
-                    return new DoctorAvailabilityDTO(d.DoctorId, doctorDetails.Name, d.Specialization, d.Experience,
-                        d.LanguagesKnown, d.AvailableDays, DateTime.Now.Date, doctorAvailableSlots);
-                }));
-                return doctorsList.ToList();
+                    doctors.Add(new DoctorAvailabilityDTO(d.DoctorId, doctorDetails.Name, d.Specialization, d.Experience,
+                        d.LanguagesKnown, d.AvailableDays, DateTime.Now.Date, doctorAvailableSlots));
+                }
+                return doctors.ToList();
             }
             catch (ObjectNotAvailableException e)
             {
@@ -258,11 +267,7 @@ namespace HospitalManagement.Services
             try
             {
                 var appointment = await _appointmentRepository.Get(appointmentid);
-                var doctorDetails = await _userRepository.Get(appointment.DoctorId);
-                var patientDetails = await _userRepository.Get(appointment.PatientId);
-                return new ReceptAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot,
-                    appointment.PatientId, patientDetails.Name, patientDetails.Age, patientDetails.ContactNo, appointment.Description,
-                    appointment.AppointmentType, appointment.AppointmentStatus, appointment.DoctorId, doctorDetails.Name, appointment.Speciality);
+                return await MapAppointment(appointment);
             }
             catch (ObjectNotAvailableException e)
             {
@@ -345,5 +350,51 @@ namespace HospitalManagement.Services
             await _doctorAvailabilityRepository.Update(availability);
         }
 
+        public async Task<List<ReceptAppointmentReturnDTO>> GetAllTodayAppointments(int limit, int skip)
+        {
+            List<ReceptAppointmentReturnDTO> appointmentList = new List<ReceptAppointmentReturnDTO>();
+            try
+            {
+                var appointments = _appointmentRepository.Get().Result.Where(a => a.AppointmentDate.Date == DateTime.Now.Date).OrderBy(a=>a.Slot).Skip(skip).Take(limit).ToList();
+                if (appointments.Count == 0)
+                {
+                    throw new ObjectsNotAvailableException("Appointments");
+                }
+                foreach(var appointment in appointments)
+                {
+                    appointmentList.Add(await MapAppointment(appointment));
+                }
+                return appointmentList;
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                throw;
+            }
+            catch (ObjectsNotAvailableException e)
+            {
+                throw;
+            }
+        }
+
+        public async Task<ReceptAppointmentReturnDTO> MapAppointment(Appointment appointment)
+        {
+            var doctorDetails = await _userRepository.Get(appointment.DoctorId);
+            var patientDetails = await _userRepository.Get(appointment.PatientId);
+            return new ReceptAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot,
+                appointment.PatientId, patientDetails.Name, patientDetails.Age, patientDetails.ContactNo, appointment.Description,
+                appointment.AppointmentType, appointment.AppointmentStatus, appointment.DoctorId, doctorDetails.Name, appointment.Speciality);
+        }
+
+        public async Task<List<PendingBillReturnDTO>> GetPendingBills()
+        {
+            var bills = _billRepository.Get().Result.Where(b => b.PaymentStatus == "notPaid");
+            var billsList = bills.Select(b =>
+            {
+                var patient = _userRepository.Get(b.PatientId).Result;
+                var paidAmount = _paymentRepository.Get().Result.Where(p => p.BillId == b.BillId).Sum(p=>p.AmountPaid);
+                return new PendingBillReturnDTO(b.PatientId,patient.Name ,patient.ContactNo,b.BillId, b.Date,b.Amount, b.Amount - paidAmount, b.PaymentStatus);
+            }).ToList();
+            return billsList;
+        }
     }
 }

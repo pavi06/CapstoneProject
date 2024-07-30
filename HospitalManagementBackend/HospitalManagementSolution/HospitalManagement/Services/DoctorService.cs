@@ -88,7 +88,7 @@ namespace HospitalManagement.Services
                     var patient = await _userDetailsRepository.Get(mr.PatientId);
                     var medicationList = mr.Medication.Select(m =>
                     {
-                        return new MedicationDTO(m.MedicineName, m.Form, m.Dosage, m.Quantity, m.IntakeTiming, m.Intake);
+                        return new MedicationDTO(m.MedicineName, m.Form, m.Dosage, m.IntakeTiming, m.Intake);
                     });
                     return new MedicalRecordReturnDTO(mr.RecordId, mr.PatientId, patient.Name, patient.ContactNo, mr.Date, mr.Diagnosis, mr.Treatment, medicationList.ToList(), mr.TreatmentStatus);
                 }));
@@ -109,7 +109,7 @@ namespace HospitalManagement.Services
                 prescription = await _prescriptionRepository.Add(new Prescription() { PrescriptionFor = prescriptionDTO.PrescriptionFor, PatientId = prescriptionDTO.PatientId, DoctorId = prescriptionDTO.DoctorId });
                 foreach(var m in prescriptionDTO.prescribedMedicine)
                 {
-                    await _medicationRepository.Add(new Medication(m.MedicineName, m.Form, m.Dosage, m.Quantity, m.IntakeTiming, m.Intake, prescription.PrescriptionId));
+                    await _medicationRepository.Add(new Medication(m.MedicineName, m.Form, m.Dosage, m.IntakeTiming, m.Intake, prescription.PrescriptionId));
                 }
                 var patientDetails = await _userDetailsRepository.Get(prescription.PatientId);
                 var doctor = _doctorRepository.Get(prescription.DoctorId).Result;
@@ -149,7 +149,7 @@ namespace HospitalManagement.Services
             }
             foreach (var m in prescriptionDTO.prescribedMedicine)
             {
-                await _medicationRepository.Add(new Medication(m.MedicineName, m.Form, m.Dosage, m.Quantity, m.IntakeTiming, m.Intake, prescriptionDTO.PrescriptionId));
+                await _medicationRepository.Add(new Medication(m.MedicineName, m.Form, m.Dosage, m.IntakeTiming, m.Intake, prescriptionDTO.PrescriptionId));
             }
             var patientDetails = await _userDetailsRepository.Get(prescriptionAlreadyAvailable.PatientId);
             var doctor = _doctorRepository.Get(prescriptionAlreadyAvailable.DoctorId).Result;
@@ -192,7 +192,6 @@ namespace HospitalManagement.Services
                         m.MedicineName,
                         m.Form,
                         m.Dosage,
-                        m.Quantity,
                         m.IntakeTiming,
                         m.Intake,
                         m.MedicationId,

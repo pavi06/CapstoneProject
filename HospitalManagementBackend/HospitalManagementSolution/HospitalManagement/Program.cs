@@ -117,17 +117,19 @@ namespace HospitalManagement
             builder.Services.AddScoped<IRepository<int, MedicineMaster>, MedicineMasterRepository>();
             builder.Services.AddScoped<IRepository<int, Bill>, BillRepository>();
             builder.Services.AddScoped<IRepository<int, Room>, RoomRepository>();
+            builder.Services.AddScoped<IRepository<int, Payment>, PaymentRepository>();
             builder.Services.AddScoped<IRepository<int, Appointment>, AppointmentRepository>();
             builder.Services.AddScoped<IRepositoryForCompositeKey<int,DateTime, DoctorAvailability>, DoctorAvailabilityRepository>();
             #endregion
 
             #region Services
             builder.Services.AddScoped<IDoctorService, DoctorService>();
-            builder.Services.AddScoped<IHospitalBasicService, HospitalBasicService>();
+            builder.Services.AddScoped<IDoctorBasicService, DoctorBasicService>();
             builder.Services.AddScoped<IPatientService, PatientService>();
             builder.Services.AddScoped<IReceptionistService, ReceptionistService>();
             builder.Services.AddScoped<IUserService, UserService>();
             builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<IMedicineService, MedicineService>();
             #endregion
 
             builder.Services.AddControllers().AddJsonOptions(options =>

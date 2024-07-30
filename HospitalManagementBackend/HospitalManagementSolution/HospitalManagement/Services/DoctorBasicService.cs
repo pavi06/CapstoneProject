@@ -2,17 +2,19 @@
 using HospitalManagement.Interfaces;
 using HospitalManagement.Models;
 using HospitalManagement.Models.DTOs.DoctorDTOs;
+using HospitalManagement.Models.DTOs.PatientDTOs;
 using HospitalManagement.Repositories;
+using Twilio.TwiML.Voice;
 
 namespace HospitalManagement.Services
 {
-    public class HospitalBasicService : IHospitalBasicService
+    public class DoctorBasicService : IDoctorBasicService
     {
         private readonly IRepository<int, Doctor> _doctorRepository;
         private readonly IRepository<int, User> _userDetailsRepository;
         private readonly IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> _doctorAvailabilityRepository;
 
-        public HospitalBasicService(IRepository<int, Doctor> doctorRepository, IRepository<int, User> userDetailsRepository, IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> doctorAvailabilityRepository) { 
+        public DoctorBasicService(IRepository<int, Doctor> doctorRepository, IRepository<int, User> userDetailsRepository, IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> doctorAvailabilityRepository) { 
             _doctorRepository = doctorRepository;
             _userDetailsRepository = userDetailsRepository;
             _doctorAvailabilityRepository = doctorAvailabilityRepository;
@@ -92,5 +94,31 @@ namespace HospitalManagement.Services
         }
         #endregion
 
+        public async Task<List<string>> GetAllSpecializations()
+        {
+            var doctorSpecialization = _doctorRepository.Get().Result.Select(s=> s.Specialization).Distinct().ToList();
+            if (doctorSpecialization.Count == 0)
+            {
+                throw new ObjectsNotAvailableException("Doctors");
+            }
+            try
+            {
+                return doctorSpecialization;
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                throw;
+            }
+        }
+
+        public async Task<int> GetPatientId(PatientFindDTO patientDTO)
+        {
+            var patient = _userDetailsRepository.Get().Result.SingleOrDefault(p => p.Name == patientDTO.PatientName && p.ContactNo == patientDTO.ContactNumber);
+            if(patient == null)
+            {
+                throw new ObjectNotAvailableException("Patient");
+            }
+            return patient.UserId;
+        }
     }
 }

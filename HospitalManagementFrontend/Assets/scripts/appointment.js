@@ -18,14 +18,13 @@ var displaySlots = (data) =>{
 }
 
 
-var getDoctorSlots = (e) =>{
-    var doctorId = 1;
+var getDoctorSlots = () =>{
+    var doctorId = localStorage.getItem('currentDoctorId');
     var date = document.getElementById('date').value;
     fetch(baseUrl + '/Patient/GetDoctorSlots',
         {
             method:'POST',
             headers:{
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxNSIsIkNvbnRhY3RObyI6Iis5MTkwMDM3NDE3MjEiLCJSb2xlIjoiVXNlciIsImV4cCI6MTcyMjI4MTY0Nn0.HLTj171QP06zc2F7LK4bZpms2xvYyEMSkZsbJoSEoqE`,
                 'Content-Type' : 'application/json',                
             },
             body:JSON.stringify({
@@ -40,15 +39,16 @@ var getDoctorSlots = (e) =>{
                 throw new Error('Unauthorized Access!');
             }
             const errorResponse = await res.json();
-            throw new Error(`${errorResponse.errorCode} Error! - ${errorResponse.message}`);
+            throw new Error(`${errorResponse.message}`);
         }
         return await res.json();
     })
     .then(data => {
+        console.log(data)
         displaySlots(data)
     }).catch( error => {
         console.log(error)
-        document.getElementById("bookAppointmentForm").reset();
+        alert(error.message)
         // if(error.message === "Unauthorized Access!"){
         //     logOut()
         // }
@@ -61,7 +61,6 @@ var bookAppointmentByDoctor = (bodyData) =>{
         {
             method:'POST',
             headers:{
-                'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxNSIsIkNvbnRhY3RObyI6Iis5MTkwMDM3NDE3MjEiLCJSb2xlIjoiVXNlciIsImV4cCI6MTcyMjI4MTY0Nn0.HLTj171QP06zc2F7LK4bZpms2xvYyEMSkZsbJoSEoqE`,
                 'Content-Type' : 'application/json',                
             },
             body:JSON.stringify(bodyData)
@@ -81,8 +80,10 @@ var bookAppointmentByDoctor = (bodyData) =>{
         console.log("booked successfully")
         document.getElementById("slotsAvailable").innerHTML="";
         document.getElementById("bookAppointmentForm").reset();
+        //redirect to my appointments page
     }).catch( error => {
         console.log(error)
+        document.getElementById("slotsAvailable").innerHTML="";
         document.getElementById("bookAppointmentForm").reset();
         // if(error.message === "Unauthorized Access!"){
         //     logOut()
@@ -94,6 +95,7 @@ var bookAppointmentByDoctor = (bodyData) =>{
 document.addEventListener("DOMContentLoaded",()=>{
     var btn = document.getElementById("getSlots");
     btn.addEventListener("click", ()=>{
+        console.log("buttonclicked")
         getDoctorSlots();
     })
 
@@ -110,7 +112,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             contactNo: phone,
             appointmentDate: date,
             slot: slot,
-            doctorId: 1,
+            doctorId: localStorage.getItem("currentDoctorId"),
             description: reason,
             appointmentType: type,
             appointmentMode: mode

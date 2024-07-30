@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Cors;
 namespace HospitalManagement.Controllers
 {
     [Route("api/[controller]")]
-    [Authorize(Roles = "Doctor")]
+    //[Authorize(Roles = "Doctor")]
     [EnableCors("MyCors")]
     [ApiController]
     public class DoctorController : ControllerBase

@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../Assets/styles/common.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../Assets/scripts/common.js"></script>
+    <script src="../Assets/scripts/medicalRecord.js"></script>
 </head>
 <body>
     <nav>
@@ -47,28 +48,18 @@
         </div>
     </nav>
     <section style="margin-top: 85px;">
-        <h1 class="uppercase text-3xl text-[#4A249D] text-center font-extrabold">Add Medical Record</h1>
+        <h1 class="uppercase text-3xl text-[#4A249D] text-center font-extrabold mb-10">Add Medical Record</h1>
         <div class="flex items-center justify-center p-12">
             <div class="mx-auto w-full max-w-[500px] bg-white">
                 <form id="bookAppointmentForm">
                     <div class="mb-5">
-                        <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">Patient Name</label>
-                        <input list="patientList" name="name" id="name" placeholder="Patient name" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                        <datalist id="patientList">
-                            <option value="p1">
-                            <option value="p2">
-                            <option value="p3">
-                        </datalist>
-                    </div>
-                    <div class="mb-5">
-                        <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">Diagnosis</label>
-                        <input type="text" name="name" id="name" placeholder="Provide diagnosis here"
+                        <label for="diagnosis" class="mb-3 block text-base font-medium text-[#07074D]">Diagnosis</label>
+                        <input type="text" name="diagnosis" id="diagnosis" placeholder="Provide diagnosis here"
                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
                     </div>  
                     <div class="mb-5">
-                        <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">Treatement</label>
-                        <input type="text" name="name" id="name" placeholder="Provide treatment here"
-                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
+                        <label for="treatment" class="mb-3 block text-base font-medium text-[#07074D]">Treatement</label>
+                        <textarea name="treatment" id="treatment" rows="3" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" placeholder=""></textarea>
                     </div>                  
                     <div class="mb-5">
                         <label for="treatStatus" class="mb-3 block text-base font-medium text-[#07074D]">Treatement status</label>
@@ -80,7 +71,7 @@
                         </datalist>
                     </div>
                     <div>
-                        <button
+                        <button type="button" id="createRecordBtn"
                             class="hover:bg-white hover:text-[#4A249D] hover:border-[#4A249D] hover:border-2 rounded-md bg-[#4A249D] w-full py-3 px-8 text-center text-base font-semibold text-white outline-none">
                             Create Patient Record
                         </button>
@@ -91,3 +82,4 @@
     </section>
 </body>
 </html>
+

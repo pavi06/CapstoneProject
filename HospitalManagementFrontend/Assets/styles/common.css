@@ -290,3 +290,28 @@ nav .navbar .links li:hover .js-sub-menu {
         justify-content: center;
     }
 }
+
+.hide{
+    opacity: 0;
+}
+
+.show{
+    opacity: 1;
+}
+
+.scrollbar-custom::-webkit-scrollbar {
+    height: 10px;
+    width: 5px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-thumb {
+    background-color: #9a7fd4;
+    height: 2px;
+    width: 3px;
+    border-radius: 10px;
+}
+
+.scrollbar-custom::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}

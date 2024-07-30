@@ -66,8 +66,8 @@
         </div>
         <div style="clear: both;">
             <h1 class="uppercase text-2xl text-[#4A249D] text-center font-extrabold mb-5">Pending Payments</h1>
-            <div class="overflow-auto mx-auto" style="clear: both;width: 80%;">
-                <table class="min-w-full divide-y divide-gray-200 text-center">
+            <div class="overflow-auto mx-auto" style="clear: both;width: 90%;">
+                <table id="pendingBillsTable" class="min-w-full divide-y divide-gray-200 text-center">
                     <thead class="bg-indigo-200">
                         <tr class="text-md font-medium">
                             <th scope="col" class="px-6 py-3">
@@ -79,6 +79,8 @@
                             <th scope="col" class="px-6 py-3">
                                 BillId</th>
                             <th scope="col" class="px-6 py-3">
+                                IssueDate</th>
+                            <th scope="col" class="px-6 py-3">
                                 TotalAmount</th>
                             <th scope="col" class="px-6 py-3">
                                 BalanceAmount</th>
@@ -87,22 +89,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-200">
-                        <tr class="whitespace-nowrap text-sm">
-                            <td class="px-6 py-4 font-medium">
-                                01</td>
-                            <td class="px-6 py-4">
-                                Demo</td>
-                            <td class="px-6 py-4">
-                                Gen</td>
-                            <td class="px-6 py-4">
-                                Roomno</td>
-                            <td class="px-6 py-4">
-                                Date</td>
-                            <td class="px-6 py-4">
-                                description</td>
-                            <td class="px-6 py-4">
-                                description</td>
-                        </tr>
+                        
                     </tbody>
                 </table>
             </div>

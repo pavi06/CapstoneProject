@@ -8,6 +8,7 @@ namespace HospitalManagement.Models
         public int PaymentId { get; set; }
         public string PaymentType { get; set; }
         public string PaymentStatus { get; set; }
+        public double AmountPaid { get; set; }
         public int BillId { get; set; }
         public Bill Bill { get; set; }
     }

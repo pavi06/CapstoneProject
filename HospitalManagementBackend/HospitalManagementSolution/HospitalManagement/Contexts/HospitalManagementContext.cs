@@ -27,6 +27,7 @@ namespace HospitalManagement.Contexts
         public DbSet<Room> Rooms { get; set; }
         public DbSet<WardRoomsAvailability> WardBedAvailabilities { get; set; }
         public DbSet<DoctorAvailability> DoctorAvailability { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
