@@ -47,8 +47,9 @@ var addRecord = () =>{
                 'Content-Type' : 'application/json',                
             },
             body:JSON.stringify({
-                appointmentId: 18,
-                patientId: 15,
+                //check if not available in localstorage
+                appointmentId: localStorage.getItem('appointmentId'),
+                patientId: localStorage.getItem('patientId'),
                 patientType: "OutPatient",
                 doctorId: 1,
                 diagnosis: diagnosis,
@@ -65,7 +66,7 @@ var addRecord = () =>{
             const errorResponse = await res.json();
             throw new Error(`${errorResponse.message}`);
         }
-        return await res.json();
+        return await res.text();
     })
     .then(data => {
         console.log(data)

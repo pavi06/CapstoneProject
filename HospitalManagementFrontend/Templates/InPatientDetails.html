@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../Assets/styles/common.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../Assets/scripts/common.js"></script>
+    <script src="../Assets/scripts/inPatientDetails.js"></script>
 </head>
 
 <body>
@@ -57,11 +58,11 @@
                         <div class="w-50 float-right">
                             <input type="text" name="name" id="name" placeholder="Provide patient name"
                                 class="w-15 rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
-                            <button class="w-25 mx-5 px-3 py-2 bg-indigo-100 rounded-lg" onclick="">Search</button>
+                            <button class="w-25 mx-5 px-3 py-2 bg-indigo-100 rounded-lg" onclick="filterTable()">Search</button>
                         </div>
                     </div>
                     <div class="overflow-hidden" style="clear: both;">
-                        <table class="min-w-full divide-y divide-gray-200 text-center">
+                        <table class="min-w-full divide-y divide-gray-200 text-center" id="patientTable">
                             <thead class="bg-indigo-200">
                                 <tr class="text-md font-medium">
                                     <th scope="col" class="px-6 py-3">
@@ -78,63 +79,8 @@
                                         Description</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-gray-200">
-                                <tr class="whitespace-nowrap text-sm">
-                                    <td class="px-6 py-4 font-medium">
-                                        01</td>
-                                    <td class="px-6 py-4">
-                                        Demo</td>
-                                    <td class="px-6 py-4">
-                                        Gen</td>
-                                    <td class="px-6 py-4">
-                                        Roomno</td>
-                                    <td class="px-6 py-4">
-                                        Date</td>
-                                    <td class="px-6 py-4">
-                                        description</td>
-                                </tr>
-                                <tr class="whitespace-nowrap text-sm">
-                                    <td class="px-6 py-4 font-medium">
-                                        01</td>
-                                    <td class="px-6 py-4">
-                                        Demo</td>
-                                    <td class="px-6 py-4">
-                                        Gen</td>
-                                    <td class="px-6 py-4">
-                                        Roomno</td>
-                                    <td class="px-6 py-4">
-                                        Date</td>
-                                    <td class="px-6 py-4">
-                                        description</td>
-                                </tr>
-                                <tr class="whitespace-nowrap text-sm">
-                                    <td class="px-6 py-4 font-medium">
-                                        01</td>
-                                    <td class="px-6 py-4">
-                                        Demo</td>
-                                    <td class="px-6 py-4">
-                                        Gen</td>
-                                    <td class="px-6 py-4">
-                                        Roomno</td>
-                                    <td class="px-6 py-4">
-                                        Date</td>
-                                    <td class="px-6 py-4">
-                                        description</td>
-                                </tr>
-                                <tr class="whitespace-nowrap text-sm">
-                                    <td class="px-6 py-4 font-medium">
-                                        01</td>
-                                    <td class="px-6 py-4">
-                                        Demo</td>
-                                    <td class="px-6 py-4">
-                                        Gen</td>
-                                    <td class="px-6 py-4">
-                                        Roomno</td>
-                                    <td class="px-6 py-4">
-                                        Date</td>
-                                    <td class="px-6 py-4">
-                                        description</td>
-                                </tr>
+                            <tbody class="divide-y divide-gray-200" id="tableBody">                               
+                                
                             </tbody>
                         </table>
                     </div>

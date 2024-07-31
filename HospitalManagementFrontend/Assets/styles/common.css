@@ -315,3 +315,42 @@ nav .navbar .links li:hover .js-sub-menu {
     background: #f1f1f1;
     border-radius: 4px;
 }
+
+.bgChange{
+    background-color: rgb(207, 207, 207);
+    z-index: 1;
+}
+
+.slotDesign {
+    border: 2px solid #4A249D;
+    border-radius: 20%;
+    padding: 8px;
+    margin: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.slotDesign.selected {
+    background-color: #4A249D;
+    color: white;
+}
+
+.slotDesign.notAvailable {
+    background-color: #e9e9e9;
+    color: black;
+    border: none;
+    cursor: not-allowed;
+}
+
+.availableSlotBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 14px;
+}
+
+.none{
+    display: none;
+}

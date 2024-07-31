@@ -12,7 +12,7 @@ namespace HospitalManagement.Interfaces
         public Task<PatientAppointmentReturnDTO> BookAppointmentBySpeciality(BookAppointmentBySpecDTO specAppointmentDTO);
         public Task<List<PatientAppointmentReturnDTO>> MyAppointments(int patientId, int limit, int skip);
         public Task<PrescriptionReturnDTO> MyPrescriptionForAppointment(int patientId, int appointmentId);
-        public Task<List<PrescriptionReturnDTO>> MyPrescriptions(int patientId, int limit, int skip);
+        public Task<List<PrescriptionsReturnDTO>> MyPrescriptions(int patientId, int limit, int skip);
         public Task<string> CancelAppointment(int appointmentId);
         public Task<Doctor> GetDoctorAvailableOnThatSlot(string speciality, string preferredTime, string preferredLanguage,DateTime appointmentDate);
     }

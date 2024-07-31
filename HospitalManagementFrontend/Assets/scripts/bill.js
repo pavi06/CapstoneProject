@@ -9,7 +9,7 @@ var displayBills = (data) =>{
             <td class="px-6 py-4">${bill.patientName}</td>
             <td class="px-6 py-4">${bill.contactNo}</td>
             <td class="px-6 py-4">${bill.billId}</td>
-            <td class="px-6 py-4">${bill.issueDate}</td>
+            <td class="px-6 py-4">${bill.billIssueDate.split('T')[0]}</td>
             <td class="px-6 py-4">${bill.totalAmount}</td>
             <td class="px-6 py-4">${bill.balanceAmount}</td>
             <td class="px-6 py-4">${bill.paymentStatus}</td>
@@ -21,7 +21,7 @@ var displayBills = (data) =>{
 
 
 var loadPendingBills = () =>{
-    fetch('',
+    fetch('http://localhost:5253/api/Receptionist/GetPendingBills',
         {
             method:'GET',
             headers:{
@@ -46,6 +46,14 @@ var loadPendingBills = () =>{
         console.log(error)
         alert(error.message)
     });
+}
+
+var redirectToOutPatientBill = () =>{
+    window.location.href="./outPatientBill.html";
+}
+
+var redirectToInPatientBill = () =>{
+    window.location.href="./inPatientBill.html";
 }
 
 

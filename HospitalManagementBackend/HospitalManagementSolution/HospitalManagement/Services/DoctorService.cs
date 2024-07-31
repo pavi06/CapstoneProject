@@ -41,12 +41,12 @@ namespace HospitalManagement.Services
             }
             try
             {
-                var appointmentList = await Task.WhenAll(appointments.Select(async a =>
+                var appointmentList = appointments.Select( a =>
                 {
-                    var patient = await _userDetailsRepository.Get(a.PatientId);
+                    var patient = _userDetailsRepository.Get(a.PatientId).Result;
                     return new AppointmentReturnDTO(a.AppointmentId, a.AppointmentDate, a.Slot, a.PatientId, patient.Name, patient.Age, patient.ContactNo, a.Description, a.AppointmentType, a.AppointmentStatus);
-                }));
-                return appointmentList.ToList();
+                }).ToList();
+                return appointmentList;
             }
             catch (ObjectNotAvailableException e)
             {
@@ -83,16 +83,16 @@ namespace HospitalManagement.Services
             }
             try
             {
-                var medicalRecordList = await Task.WhenAll(medicalRecords.Select(async mr =>
+                var medicalRecordList = medicalRecords.Select( mr =>
                 {
-                    var patient = await _userDetailsRepository.Get(mr.PatientId);
+                    var patient = _userDetailsRepository.Get(mr.PatientId).Result;
                     var medicationList = mr.Medication.Select(m =>
                     {
                         return new MedicationDTO(m.MedicineName, m.Form, m.Dosage, m.IntakeTiming, m.Intake);
                     });
                     return new MedicalRecordReturnDTO(mr.RecordId, mr.PatientId, patient.Name, patient.ContactNo, mr.Date, mr.Diagnosis, mr.Treatment, medicationList.ToList(), mr.TreatmentStatus);
-                }));
-                return medicalRecordList.ToList();
+                }).ToList();
+                return medicalRecordList;
             }
             
             catch(ObjectNotAvailableException e)

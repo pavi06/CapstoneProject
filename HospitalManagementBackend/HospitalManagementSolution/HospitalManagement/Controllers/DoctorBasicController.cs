@@ -135,5 +135,35 @@ namespace HospitalManagement.Controllers
             }
 
         }
+
+        [HttpPost("GetAdmissionId")]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<int>> GetAdmissionId(PatientFindDTO patientDTO)
+        {
+            try
+            {
+                int result = await _hospitalBasicService.GetAdmissionId(patientDTO);
+                _logger.LogInformation("AdmissionId retrieved successfully");
+                return Ok(result);
+            }
+            catch (ObjectsNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
     }
 }

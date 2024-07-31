@@ -25,5 +25,15 @@ namespace HospitalManagement.Models
             ContactNo = contactNo;
             Address = address;
         }
+
+        public User(string name, DateTime dateOfBirth, int age, string gender, string contactNo, string address)
+        {
+            Name = name;
+            DateOfBirth = dateOfBirth;
+            Age = age;
+            Gender = gender;
+            ContactNo = contactNo;
+            Address = address;
+        }
     }
 }

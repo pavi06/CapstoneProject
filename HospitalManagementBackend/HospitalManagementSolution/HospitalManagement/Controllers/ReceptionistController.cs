@@ -61,14 +61,14 @@ namespace HospitalManagement.Controllers
 
 
         [HttpPost("BookAppointment")]
-        [ProducesResponseType(typeof(ReceptAppointmentReturnDTO), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(int), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ReceptAppointmentReturnDTO>> BookAppointment([FromBody] BookAppointmentDTO appointmentDTO)
+        public async Task<ActionResult<int>> BookAppointment([FromBody] ReceptionistBookAppointmentDTO appointmentDTO)
         {
             try
             {
-                ReceptAppointmentReturnDTO result = await _receptionistService.BookAppointment(appointmentDTO);
+                var result = await _receptionistService.BookAppointment(appointmentDTO);
                 _logger.LogInformation("Appointment booked successfully");
                 return Ok(result);
             }
@@ -277,6 +277,31 @@ namespace HospitalManagement.Controllers
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
+
+        [HttpGet("GetAllInPatientDetails")]
+        [ProducesResponseType(typeof(List<InPatientReturnDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<List<InPatientReturnDTO>>> GetAllInPatientDetails()
+        {
+            try
+            {
+                var result = await _receptionistService.GetAllInPatientDetails();
+                _logger.LogInformation("Patient details retrieved successfully");
+                return Ok(result);
+            }
+            catch (ObjectsNotAvailableException e)
             {
                 _logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));

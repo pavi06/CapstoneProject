@@ -11,5 +11,6 @@ namespace HospitalManagement.Interfaces
         public Task<List<DoctorReturnDTO>> GetAllDoctorsBySpecialization(string specialization, int limit, int skip);
         public Task<List<string>> GetAllSpecializations();
         public Task<int> GetPatientId(PatientFindDTO patientDTO);
+        public Task<int> GetAdmissionId(PatientFindDTO patientDTO);
     }
 }

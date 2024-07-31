@@ -9,7 +9,7 @@ namespace HospitalManagement.Models
         public int AdmissionId { get; set; }
         public int PatientId { get; set; }
         public Patient Patient { get; set; }
-        public int DoctorId { get; set; }
+        public int? DoctorId { get; set; }
         public Doctor DoctorInCharge { get; set; }
         public DateTime AdmittedDate { get; set; } = DateTime.Now.Date;
         public string Description { get; set; }
@@ -21,6 +21,12 @@ namespace HospitalManagement.Models
         {
             PatientId = patientId;
             DoctorId = doctorId;
+            Description = description;
+        }
+
+        public Admission(int patientId, string description)
+        {
+            PatientId = patientId;
             Description = description;
         }
     }

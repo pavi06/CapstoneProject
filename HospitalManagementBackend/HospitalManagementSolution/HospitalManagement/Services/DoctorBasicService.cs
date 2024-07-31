@@ -12,12 +12,16 @@ namespace HospitalManagement.Services
     {
         private readonly IRepository<int, Doctor> _doctorRepository;
         private readonly IRepository<int, User> _userDetailsRepository;
+        private readonly IRepository<int, Admission> _admissionRepository;
         private readonly IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> _doctorAvailabilityRepository;
 
-        public DoctorBasicService(IRepository<int, Doctor> doctorRepository, IRepository<int, User> userDetailsRepository, IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> doctorAvailabilityRepository) { 
+        public DoctorBasicService(IRepository<int, Doctor> doctorRepository, IRepository<int, User> userDetailsRepository, 
+            IRepositoryForCompositeKey<int, DateTime, DoctorAvailability> doctorAvailabilityRepository, IRepository<int, Admission> admissionRepository)
+        {
             _doctorRepository = doctorRepository;
             _userDetailsRepository = userDetailsRepository;
             _doctorAvailabilityRepository = doctorAvailabilityRepository;
+            _admissionRepository = admissionRepository;
         }
 
         #region MapDoctors
@@ -119,6 +123,25 @@ namespace HospitalManagement.Services
                 throw new ObjectNotAvailableException("Patient");
             }
             return patient.UserId;
+        }
+
+        public async Task<int> GetAdmissionId(PatientFindDTO patientDTO)
+        {
+            try
+            {
+                var patient = await GetPatientId(patientDTO);
+                var admission = _admissionRepository.Get().Result.SingleOrDefault(p => p.PatientId == patient && p.IsActivePatient == true);
+                if (admission == null)
+                {
+                    throw new ObjectsNotAvailableException("Admissions");
+                }
+                return admission.AdmissionId;
+            }
+            catch(ObjectNotAvailableException e)
+            {
+                throw;
+            }
+            
         }
     }
 }

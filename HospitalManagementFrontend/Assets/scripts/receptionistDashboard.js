@@ -139,11 +139,14 @@ var displayDoctors = (data) => {
                         class="absolute top-0 right-0 bg-blue-400 text-xs font-semibold px-10 py-3 rounded-tl-lg rounded-bl-lg shadow-lg">
                         ${doctor.specialization}
                     </span>
+                    <button type="button" onclick="bookAppointment(${doctor.doctorId})"
+                        class="hover:bg-white hover:text-[#4A249D] border-2 mx-5 hover:border-[#4A249D] rounded-md bg-[#4A249D] w-25 py-2 px-5 text-center text-base font-semibold text-white outline-none float-right">
+                        Book Appointment
+                    </button>
              </div>
         `;
     });
 }
-
 
 var getDoctors = () =>{
     var speciality = document.getElementById("speciality").value;
@@ -188,6 +191,10 @@ var redirectToBill = () =>{
     window.location.href="./bill.html";
 }
 
+var bookAppointment = (doctorId) => {
+    window.location.href=`./Appointment.html?search=${doctorId}`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     page = 1;
     doctorPage=1;
@@ -195,25 +202,3 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchAppointments();
     getRoomAvailabilityStatictics();
 })
-
-
-
-// 
-
-// {
-//     "General": 4
-//   }
-
-
-
-// http://localhost:5253/api/Receptionist/BookAppointment
-// {
-//     "patientId": 0,
-//     "contactNo": "string",
-//     "appointmentDate": "2024-07-30T09:59:52.289Z",
-//     "slot": "string",
-//     "doctorId": 0,
-//     "description": "string",
-//     "appointmentType": "string",
-//     "appointmentMode": "string"
-//   }

@@ -12,6 +12,7 @@ namespace HospitalManagement.Models
         public int RoomId { get; set; }
         [ForeignKey("RoomId")]
         public Room Room { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now.Date;
         public int NoOfDays { get; set; }
 
         public AdmissionDetails(int admissionId, int roomId, int noOfDays)

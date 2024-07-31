@@ -1,97 +1,6 @@
-var medicineMapper = {};
-
-function addNewRowForTable() {
-    var table = document.getElementById("prescriptionTable").getElementsByTagName('tbody')[0];
-    var templateRow = document.getElementById("templateRow");
-    var newRow = templateRow.cloneNode(true);
-    newRow.style.display = "";
-    let inputs = newRow.querySelectorAll('input');
-    inputs.forEach(input => {
-        input.value = "";
-    });
-    table.appendChild(newRow);
-}
-
-function deleteRow(rowButton) {
-    var table = document.getElementById("prescriptionTable");
-    var row = rowButton.parentNode.parentNode;
-    if (row.rowIndex == 1) {
-        let inputs = row.querySelectorAll('input');
-        inputs.forEach(input => {
-            input.value = "";
-        });
-        return;
-    }
-    table.deleteRow(row.rowIndex);
-}
-
-var providePrescriptionAPIForPatient = (medications) => {
-    var bodyData = {
-        doctorId: 1,
-        patientId: 15,
-        patientType: "OutPatient",
-        prescriptionFor: 20,
-        prescribedMedicine: medications
-    }
-    console.log(bodyData)
-    fetch('http://localhost:5253/api/Doctor/UploadPrescription',
-        {
-            method:'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body:JSON.stringify(bodyData)
-        }
-        )
-        .then(async (res) => {
-            if (!res.ok) {
-                if (res.status === 401) {
-                    throw new Error('Unauthorized Access!');
-                }
-                const errorResponse = await res.json();
-                throw new Error(`${errorResponse.message}`);
-            }
-            return await res.json();
-        })
-        .then(data => {
-            console.log(data)
-        }).catch(error => {
-            console.log(error)
-            alert(error.message)
-        });
-}
-
-var addPrescription = () => {
-    var medications = [];
-    var tableRows = document.getElementsByClassName("tableRows");
-    Array.from(tableRows).forEach(row => {
-        var cells = row.getElementsByTagName('td');
-        var values = {};
-        Array.from(cells).forEach(cell => {
-            var input = cell.querySelector('input');
-            if (input) {
-                values[input.id] = input.value;
-            }
-        });
-        medications.push(values);
-        values = {};
-    });
-    console.log(medications);
-    providePrescriptionAPIForPatient(medications);
-}
-
-var displayDataList = (data) =>{
-    var medList = document.getElementById("medicineList");
-    data.forEach(med =>{
-        medicineMapper[med.medicineName] = med.medicineId;
-        medList.innerHTML+=`
-            <option value="${med.medicineName}" id="${med.medicineId}">
-        `;
-    })
-}
-
-var fetchMedicineNames = () =>{
-    fetch('http://localhost:5253/api/Medicine/GetAllMedicineNames',
+var loadPrescription = (appointmentId) =>{
+    var patientId=15;
+    fetch(`http://localhost:5253/api/Patient/MyPrescriptionForAppointment?patientId=${patientId}&appointmentId=${appointmentId}`,
         {
             method: 'GET',
             headers: {
@@ -110,66 +19,63 @@ var fetchMedicineNames = () =>{
             return await res.json();
         })
         .then(data => {
-            displayDataList(data);
+            displayDetails(data);
         }).catch(error => {
             console.log(error)
             alert(error.message)
         });
-
 }
 
-
-var displayFormList = (data) =>{
-    var formDatalist = document.getElementById("formList");
-    data.formsAvailable.forEach(form =>{
-        formDatalist.innerHTML+=`
-            <option value="${form}">
+var displayTableRecords = (data) =>{
+    var table = document.getElementById("medicineTableBody");
+    var tableRecords = "";
+        data.prescription.forEach(medicine => {
+            tableRecords += `
+            <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">${medicine.medicineName}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">${medicine.form}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">${medicine.dosage}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">${medicine.intake}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800">${medicine.intakeTiming}</td>
+            </tr>
         `;
-    })
-
-    var dosageDatalist = document.getElementById("dosageList");
-    data.dosagesAvailable.forEach(dosage =>{
-        dosageDatalist.innerHTML+=`
-            <option value="${dosage}">
-        `;
-    })
+    });
+    table.innerHTML=tableRecords;
 }
 
-
-var getDetails = (e) =>{
-    var value = e.value.trim();
-    fetch(`http://localhost:5253/api/Medicine/GetDetailsOfMedicine?id=${medicineMapper[value]}`,
-        {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        }
-    )
-        .then(async (res) => {
-            if (!res.ok) {
-                if (res.status === 401) {
-                    throw new Error('Unauthorized Access!');
-                }
-                const errorResponse = await res.json();
-                throw new Error(`${errorResponse.message}`);
-            }
-            return await res.json();
-        })
-        .then(data => {
-            console.log(data)
-            displayFormList(data);
-        }).catch(error => {
-            console.log(error)
-            alert(error.message)
-        });
-
+var displayDetails = (data) =>{
+    document.getElementById("DoctorInfo").innerHTML = `
+        <p>${data.doctorName}&nbsp;&nbsp;</p> - <p>&nbsp;&nbsp;${data.docSpecialization}</p>
+    `;
+    document.getElementById("PatientInfo").innerHTML = `
+        <div class="grid grid-cols-2">
+            <p>Patient Name:</p>
+            <p>${data.patientName}</p>
+        </div>
+        <div class="grid grid-cols-2">
+            <p>Patient Age:</p>
+            <p>${data.age}</p>
+        </div>
+    `;
+    document.getElementById("PrescriptionInfo").innerHTML = `
+        <div class="grid grid-cols-2">
+            <p>Id:</p>
+            <p>${data.prescriptionId}</p>
+        </div>
+        <div class="grid grid-cols-2">
+            <p>Prescribed Date:</p>
+            <p>${data.date.split('T')[0]}</p>
+        </div>
+        <div class="grid grid-cols-2">
+            <p>AppointmentId:</p>
+            <p>${data.prescriptionFor}</p>
+        </div>
+    `;
+    displayTableRecords(data);   
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    var addBtn = document.getElementById("addPrescriptionBtn");
-    addBtn.addEventListener("click", () => {
-        addPrescription();
-    })
-    fetchMedicineNames();
+document.addEventListener("DOMContentLoaded", () =>{
+    const urlParams = new URLSearchParams(window.location.search); 
+    const appointmentId = urlParams.get('search'); 
+    loadPrescription(appointmentId);
 })

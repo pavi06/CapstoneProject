@@ -8,8 +8,7 @@ namespace HospitalManagement.Interfaces
     public interface IReceptionistService
     {
         public Task<List<DoctorAvailabilityDTO>> CheckDoctoravailability(string specialization, int limit, int skip);
-        //public Task<List<Doctor>> GetAllDoctorsAvailableNow(string specialization, TimeOnly timeOfDay, DateTime date, int limit, int skip);
-        public Task<ReceptAppointmentReturnDTO> BookAppointment(BookAppointmentDTO appointmentDTO);
+        public Task<int> BookAppointment(ReceptionistBookAppointmentDTO appointmentDTO);
         public Task<Dictionary<string, int>> CheckBedAvailability();
         public Task<string> CreateInPatient(InPatientDTO patientDTO);
         public Task<string> UpdateInPatient(UpdateInPatientDTO patientDTO);
@@ -19,6 +18,7 @@ namespace HospitalManagement.Interfaces
         public Task<ReceptAppointmentReturnDTO> GetAppointmentDetails(int appointmentid);
         public Task<List<ReceptAppointmentReturnDTO>> GetAllTodayAppointments(int limit, int skip);
         public Task<List<PendingBillReturnDTO>> GetPendingBills();
+        public Task<List<InPatientReturnDTO>> GetAllInPatientDetails();
 
     }
 }

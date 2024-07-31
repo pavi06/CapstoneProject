@@ -40,7 +40,8 @@ namespace HospitalManagement.Migrations
                     b.Property<DateTime?>("DischargeDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DoctorId")
+                    b.Property<int?>("DoctorId")
+                        .IsRequired()
                         .HasColumnType("int");
 
                     b.Property<bool>("IsActivePatient")
@@ -68,6 +69,9 @@ namespace HospitalManagement.Migrations
 
                     b.Property<int>("AdmissionId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("NoOfDays")
                         .HasColumnType("int");

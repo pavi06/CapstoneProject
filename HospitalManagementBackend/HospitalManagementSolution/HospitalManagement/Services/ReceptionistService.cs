@@ -48,16 +48,27 @@ namespace HospitalManagement.Services
         }
 
         #region BookAppointment
-        public async Task<ReceptAppointmentReturnDTO> BookAppointment(BookAppointmentDTO appointmentDTO)
+        public async Task<int> BookAppointment(ReceptionistBookAppointmentDTO appointmentDTO)
         {
             try
             {
                 var doctor = await _doctorRepository.Get(appointmentDTO.DoctorId);
+                if(appointmentDTO.PatientId == null || appointmentDTO.PatientId == 0)
+                {
+                    DateTime today = DateTime.Today;
+                    int age = today.Year - appointmentDTO.DateOfBirth.Year;
+                    if (appointmentDTO.DateOfBirth.Date > today.AddYears(-age))
+                    {
+                        age--;
+                    }
+                    var user = await _userRepository.Add(new User(appointmentDTO.Name, appointmentDTO.DateOfBirth, age, appointmentDTO.Gender, appointmentDTO.ContactNo, appointmentDTO.Address));
+                    appointmentDTO.PatientId = _patientRepository.Add(new Patient(user.UserId)).Result.PatientId;
+                }
                 if (await _patientRepository.Get(appointmentDTO.PatientId) == null)
                 {
                     await _patientRepository.Add(new Patient(appointmentDTO.PatientId));
                 }
-                var appointment = await _appointmentRepository.Add(new Appointment(appointmentDTO.AppointmentDate, TimeOnly.Parse(appointmentDTO.Slot), appointmentDTO.DoctorId, doctor.Specialization, appointmentDTO.PatientId, appointmentDTO.Description, "scheduled", appointmentDTO.AppointmentType, appointmentDTO.AppointmentMode));
+                var appointment = await _appointmentRepository.Add(new Appointment(appointmentDTO.AppointmentDate, TimeOnly.Parse(appointmentDTO.Slot), appointmentDTO.DoctorId, doctor.Specialization, appointmentDTO.PatientId, appointmentDTO.Description, "Scheduled", appointmentDTO.AppointmentType, "Offline"));
                 var availability = await _doctorAvailabilityRepository.Get(appointmentDTO.DoctorId, appointmentDTO.AppointmentDate);
                 if (availability == null)
                 {
@@ -72,10 +83,7 @@ namespace HospitalManagement.Services
                 {
                     throw new AppointmentAlreadyRaisedException();
                 }
-                var doctorDetails = await _userRepository.Get(appointment.DoctorId);
-                var patientDetails = await _userRepository.Get(appointment.PatientId);
-                return new ReceptAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot,
-                    appointment.PatientId, patientDetails.Name, patientDetails.Age, patientDetails.ContactNo, appointment.Description, appointment.AppointmentType, appointment.AppointmentStatus, appointment.DoctorId, doctorDetails.Name, appointment.Speciality);
+                return appointment.AppointmentId;
                 //send notification to doctor
             }
             catch(ObjectNotAvailableException e)
@@ -167,7 +175,19 @@ namespace HospitalManagement.Services
         {
             try
             {
-                var res = await _admissionRepository.Add(new Admission(patientDTO.PatientId, patientDTO.DoctorId, patientDTO.Description));
+                User patient = null;
+                if(patientDTO.PatientId == null)
+                {
+                    DateTime today = DateTime.Today;
+                    int age = today.Year - patientDTO.DateOfBirth.Year;
+                    if (patientDTO.DateOfBirth.Date > today.AddYears(-age))
+                    {
+                        age--;
+                    }
+                    patient = await _userRepository.Add(new User(patientDTO.Name, patientDTO.DateOfBirth,age , patientDTO.Gender, patientDTO.ContactNo, patientDTO.Address));
+                    patientDTO.PatientId = patient.UserId;
+                }
+                var res = await _admissionRepository.Add(new Admission(patientDTO.PatientId, patientDTO.Description));
                 await AllocateRoomForPatient(res.AdmissionId, patientDTO.WardType, patientDTO.NoOfDays);
                 return "Patient alloted successfully!";
             }
@@ -217,21 +237,25 @@ namespace HospitalManagement.Services
             try
             {
                 var admission = _admissionRepository.Get().Result.Where(a => a.PatientId == inPatientid && a.IsActivePatient == true).FirstOrDefault();
+                if (admission == null)
+                {
+                    throw new ObjectsNotAvailableException("Admission");
+                }
                 Dictionary<string, RoomRateDTO> bedAndCost = new Dictionary<string, RoomRateDTO>();
                 var totalAmount = 0.0;
                 foreach (var item in admission.AdmissionDetails)
                 {
                     var room = _roomRepository.Get(item.RoomId).Result;
-                    bedAndCost.Add(room.WardBed.WardType, new RoomRateDTO(item.NoOfDays, room.CostsPerDay));
+                    bedAndCost.Add(room.WardBed.WardType, new RoomRateDTO(room.WardBed.WardType,item.NoOfDays, room.CostsPerDay));
                     totalAmount += item.NoOfDays * room.CostsPerDay;
                 }
-                var doctorFee = (double)(int)Enum.Parse(typeof(DoctorFee), _doctorRepository.Get(admission.DoctorId).Result.Specialization.ToLower(), true);
+                var doctorFee = (double)(int)Enum.Parse(typeof(DoctorFee), _doctorRepository.Get((int)admission.DoctorId).Result.Specialization.ToLower(), true);
                 totalAmount += doctorFee;
                 var bill = await _billRepository.Add(new Bill(admission.AdmissionId,inPatientid, "InPatient", admission.Description, totalAmount));
                 var patientDetails = await _userRepository.Get(inPatientid);
                 await UpdateInPatientDetailsForDischarge(inPatientid, bill.BillId);
                 return new InPatientBillDTO(bill.BillId, bill.Date, inPatientid, patientDetails.Name, patientDetails.Age, patientDetails.ContactNo,
-                    admission.AdmittedDate, (DateTime.Now.Date - admission.AdmittedDate).Days, bedAndCost, doctorFee, totalAmount);
+                    admission.AdmittedDate, (DateTime.Now.Date - admission.AdmittedDate).Days, bedAndCost, doctorFee, totalAmount-doctorFee);
             }
             catch(ObjectNotAvailableException e)
             {
@@ -247,7 +271,7 @@ namespace HospitalManagement.Services
             {
                 var appointment = await _appointmentRepository.Get(appointmentid);
                 var doctorSpecialization = appointment.Doctor.Specialization;
-                var doctorFee = (double)Enum.Parse(typeof(DoctorFee), doctorSpecialization, true);
+                var doctorFee = (double)(int)Enum.Parse(typeof(DoctorFee), doctorSpecialization, true);
                 var doctorDetails = await _userRepository.Get(appointment.DoctorId);
                 var bill = await _billRepository.Add(new Bill(appointmentid,appointment.PatientId, "OutPatient", appointment.Description,doctorFee));
                 var patientDetails = await _userRepository.Get(appointment.PatientId);
@@ -287,6 +311,7 @@ namespace HospitalManagement.Services
                     if (_wardBedAvailabilityRepository.Get(detail.Room.WardTypeId).Result.WardType == patientDTO.WardType)
                     {
                         detail.NoOfDays = patientDTO.NoOfDays;
+                        detail.Date = DateTime.Now.Date;
                         await _admissionDetailsRepository.Update(detail);
                         return "Updated successfully!";
                     }
@@ -340,14 +365,21 @@ namespace HospitalManagement.Services
         }
         #endregion
 
-        public async Task RevertAppointmentAdded(BookAppointmentDTO appointmentDTO)
+        public async Task RevertAppointmentAdded(ReceptionistBookAppointmentDTO appointmentDTO)
         {
             var appointment = _appointmentRepository.Get().Result.SingleOrDefault(a => a.PatientId == appointmentDTO.PatientId && a.DoctorId == appointmentDTO.DoctorId
            && a.AppointmentDate == appointmentDTO.AppointmentDate && a.Date == DateTime.Now.Date && a.Slot == TimeOnly.Parse(appointmentDTO.Slot));
-            await _appointmentRepository.Delete(appointment.AppointmentId);
-            var availability = _doctorAvailabilityRepository.Get(appointment.DoctorId, appointment.AppointmentDate).Result;
-            availability.AvailableSlots.Add(TimeOnly.Parse(appointmentDTO.Slot));
-            await _doctorAvailabilityRepository.Update(availability);
+            try
+            {
+                await _appointmentRepository.Delete(appointment.AppointmentId);
+                var availability = _doctorAvailabilityRepository.Get(appointment.DoctorId, appointment.AppointmentDate).Result;
+                availability.AvailableSlots.Add(TimeOnly.Parse(appointmentDTO.Slot));
+                await _doctorAvailabilityRepository.Update(availability);
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
         }
 
         public async Task<List<ReceptAppointmentReturnDTO>> GetAllTodayAppointments(int limit, int skip)
@@ -387,7 +419,7 @@ namespace HospitalManagement.Services
 
         public async Task<List<PendingBillReturnDTO>> GetPendingBills()
         {
-            var bills = _billRepository.Get().Result.Where(b => b.PaymentStatus == "notPaid");
+            var bills = _billRepository.Get().Result.Where(b => b.PaymentStatus.ToLower() == "not paid");
             var billsList = bills.Select(b =>
             {
                 var patient = _userRepository.Get(b.PatientId).Result;
@@ -395,6 +427,22 @@ namespace HospitalManagement.Services
                 return new PendingBillReturnDTO(b.PatientId,patient.Name ,patient.ContactNo,b.BillId, b.Date,b.Amount, b.Amount - paidAmount, b.PaymentStatus);
             }).ToList();
             return billsList;
+        }
+
+        public async Task<List<InPatientReturnDTO>> GetAllInPatientDetails()
+        {
+            var activePatients = _admissionRepository.Get().Result.Where(a => a.IsActivePatient == true).ToList();
+            if(activePatients == null)
+            {
+                throw new ObjectsNotAvailableException("Patients");
+            }
+            var patientDetails = activePatients.Select( a =>
+            {
+                var maxDate = _admissionDetailsRepository.Get().Result.Where(ad => ad.AdmissionId == a.AdmissionId).Max(ad => ad.Date);
+                var admissionDetails = _admissionDetailsRepository.Get().Result.SingleOrDefault(ad => ad.AdmissionId == a.AdmissionId && ad.Date == maxDate);
+                return new InPatientReturnDTO(a.PatientId, _userRepository.Get(a.PatientId).Result.Name, _roomRepository.Get(admissionDetails.RoomId).Result.WardBed.WardType, admissionDetails.RoomId, a.AdmittedDate, a.Description);
+            }).ToList();
+            return patientDetails;
         }
     }
 }

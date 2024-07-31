@@ -197,10 +197,10 @@ namespace HospitalManagement.Controllers
 
 
         [HttpGet("MyPrescriptions")]
-        [ProducesResponseType(typeof(List<PrescriptionReturnDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<PrescriptionsReturnDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<List<PrescriptionReturnDTO>>> MyPrescriptions(int patientId, int limit, int skip)
+        public async Task<ActionResult<List<PrescriptionsReturnDTO>>> MyPrescriptions(int patientId, int limit, int skip)
         {
             try
             {

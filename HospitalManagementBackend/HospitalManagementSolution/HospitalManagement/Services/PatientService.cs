@@ -236,11 +236,11 @@ namespace HospitalManagement.Services
             }
             try
             {
-                var appointmentList = await Task.WhenAll(appointments.Select(async a =>
+                var appointmentList = appointments.Select( a =>
                 {
-                    var doctorDetails = await _userRepository.Get(a.DoctorId);
+                    var doctorDetails = _userRepository.Get(a.DoctorId).Result;
                     return new PatientAppointmentReturnDTO(a.AppointmentId, a.AppointmentDate, a.Slot.ToString(), a.Description, doctorDetails.Name, a.Speciality, a.AppointmentStatus, a.AppointmentType);
-                }));
+                }).ToList();
                 return appointmentList.ToList();
             }
             catch (ObjectNotAvailableException e)
@@ -269,21 +269,21 @@ namespace HospitalManagement.Services
             }
         }
 
-        public async Task<List<PrescriptionReturnDTO>> MyPrescriptions(int patientId, int limit, int skip)
+        public async Task<List<PrescriptionsReturnDTO>> MyPrescriptions(int patientId, int limit, int skip)
         {
-            var prescriptions = _prescriptionRepository.Get().Result.Where(p=>p.PatientId == patientId).ToList();
+            var prescriptions = _prescriptionRepository.Get().Result.Where(p=>p.PatientId == patientId).Skip(skip).Take(limit).ToList();
             if (prescriptions == null)
             {
                 throw new ObjectsNotAvailableException("Prescription");
             }
             try
             {
-                var prescriptionList = await Task.WhenAll(prescriptions.Select(async prescription =>
+                var prescriptionList = prescriptions.Select(prescription =>
                 {
-                    var patientDetails = await _userRepository.Get(prescription.PatientId);
-                    var doctorDetails = await _userRepository.Get(prescription.DoctorId);
-                    return new PrescriptionReturnDTO(prescription.PrescriptionId, prescription.PrescriptionFor, prescription.PatientId ,patientDetails.Name, patientDetails.Age,doctorDetails.Name, prescription.Doctor.Specialization, await MapMedicationToDTO(prescription.Medications));
-                }));
+                    var patientDetails = _userRepository.Get(prescription.PatientId).Result;
+                    var doctorDetails = _userRepository.Get(prescription.DoctorId).Result;
+                    return new PrescriptionsReturnDTO(prescription.PrescriptionId, prescription.Date, prescription.PrescriptionFor);
+                }).ToList();
                 return prescriptionList.ToList();
             }
             catch (ObjectNotAvailableException e)
