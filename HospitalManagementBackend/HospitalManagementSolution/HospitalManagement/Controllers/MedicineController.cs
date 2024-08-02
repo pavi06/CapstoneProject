@@ -12,7 +12,7 @@ namespace HospitalManagement.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize(Roles ="Doctor")]
+    [Authorize(Roles = "Doctor")]
     [EnableCors("MyCors")]
     public class MedicineController : ControllerBase
     {

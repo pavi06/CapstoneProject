@@ -60,7 +60,7 @@ var removeAllValuesAdded = () =>{
     });
 }
 
-var providePrescriptionAPIForPatient = (medications) => {
+var providePrescriptionAPIForPatient =async (medications) => {
     var bodyData = {
         doctorId: JSON.parse(localStorage.getItem('loggedInUser')).userId,
         patientId: localStorage.getItem('patientId'),
@@ -68,6 +68,7 @@ var providePrescriptionAPIForPatient = (medications) => {
         prescriptionFor: localStorage.getItem('appointmentId'),
         prescribedMedicine: medications
     }
+    await checkForRefresh()
     fetch('http://localhost:5253/api/Doctor/UploadPrescription',
         {
             method:'POST',
@@ -119,9 +120,6 @@ var addPrescription = () => {
         values = {};
     });
     providePrescriptionAPIForPatient(medications);
-    // setTimeout(() => {
-    //     window.location.href="./doctorHome.html";
-    // }, 500);
 }
 
 var displayDataList = (data) =>{
@@ -134,7 +132,8 @@ var displayDataList = (data) =>{
     })
 }
 
-var fetchMedicineNames = () =>{
+var fetchMedicineNames = async () =>{
+    await checkForRefresh()
     fetch('http://localhost:5253/api/Medicine/GetAllMedicineNames',
         {
             method: 'GET',
@@ -180,8 +179,9 @@ var displayFormList = (data) =>{
 }
 
 
-var getDetails = (e) =>{
+var getDetails = async (e) =>{
     var value = e.value.trim();
+    await checkForRefresh()
     fetch(`http://localhost:5253/api/Medicine/GetDetailsOfMedicine?id=${medicineMapper[value]}`,
         {
             method: 'GET',

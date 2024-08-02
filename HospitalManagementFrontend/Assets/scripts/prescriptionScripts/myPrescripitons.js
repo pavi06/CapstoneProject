@@ -6,9 +6,10 @@ var viewPrescription = (appointmentId) => {
     window.location.href=`./prescription.html?search=${appointmentId}`;
 }
 
-var fetchPrescriptions = () =>{
+var fetchPrescriptions = async () =>{
     var patientId = JSON.parse(localStorage.getItem('loggedInUser')).userId;
     const skip = (page - 1) * itemsperpage;
+    await checkForRefresh()
     fetch(`${url}?patientId=${patientId}&limit=${itemsperpage}&skip=${skip}`,
         {
             method:'GET',

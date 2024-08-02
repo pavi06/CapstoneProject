@@ -20,6 +20,7 @@ namespace HospitalManagement.Interfaces
         public Task<List<ReceptAppointmentReturnDTO>> GetAllTodayAppointments(int limit, int skip);
         public Task<List<PendingBillReturnDTO>> GetPendingBills();
         public Task<List<InPatientReturnDTO>> GetAllInPatientDetails();
+        public Task<string> AddDoctorForInPatient(AddDoctorDTO dto);
 
     }
 }

@@ -24,7 +24,8 @@ var displaySpecialities = (data) => {
     });
 }
 
-var fetchSpecialities = () => {
+var fetchSpecialities = async () => {
+    await checkForRefresh()
     fetch('http://localhost:5253/api/DoctorBasic/GetAllSpecialization',
         {
             method: 'GET',

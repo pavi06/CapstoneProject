@@ -1,5 +1,6 @@
-var loadPrescription = (appointmentId) =>{
+var loadPrescription = async (appointmentId) =>{
     var patientId=JSON.parse(localStorage.getItem('loggedInUser')).userId;
+    await checkForRefresh()
     fetch(`http://localhost:5253/api/Patient/MyPrescriptionForAppointment?patientId=${patientId}&appointmentId=${appointmentId}`,
         {
             method: 'GET',

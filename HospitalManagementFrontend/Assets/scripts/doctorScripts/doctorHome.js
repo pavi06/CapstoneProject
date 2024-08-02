@@ -1,4 +1,5 @@
-var fetchAppointments = () => {
+var fetchAppointments = async () => {
+    await checkForRefresh()
     var doctorId = JSON.parse(localStorage.getItem('loggedInUser')).userId;
     console.log(doctorId)
     fetch(`http://localhost:5253/api/Doctor/GetTodayAppointment?doctorId=${doctorId}`, {
@@ -188,7 +189,8 @@ var redirectToMedicalRecord = (appointmentId,patientId) => {
 }
 
 
-var cancelAppointment = (appointmentId) =>{
+var cancelAppointment = async (appointmentId) =>{
+    await checkForRefresh()
     fetch(`http://localhost:5253/api/Doctor/CancelAppointment?appointmentId=${appointmentId}`, {
         method: 'PUT',
         headers: {

@@ -20,7 +20,8 @@ var displayBills = (data) =>{
 }
 
 
-var loadPendingBills = () =>{
+var loadPendingBills = async () =>{
+    await checkForRefresh()
     fetch('http://localhost:5253/api/Receptionist/GetPendingBills',
         {
             method:'GET',

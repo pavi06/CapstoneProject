@@ -81,8 +81,9 @@ var displayAppointments = (data) => {
     });
 }
 
-var fetchAppointments = () => {
+var fetchAppointments = async () => {
     const skip = (page - 1) * itemsperpage;
+    await checkForRefresh()
     fetch(`${url}?limit=${itemsperpage}&skip=${skip}`, {
         method: 'GET',
         headers:{
@@ -132,7 +133,8 @@ var displayRoomAvailability = (data) =>{
     });
 }
 
-var getRoomAvailabilityStatictics = () => {
+var getRoomAvailabilityStatictics = async () => {
+    await checkForRefresh()
     fetch('http://localhost:5253/api/Receptionist/CheckBedAvilability',
         {
             method:'GET',
@@ -214,12 +216,13 @@ var displayDoctors = (data) => {
     });
 }
 
-var getDoctors = () =>{
+var getDoctors = async () =>{
     if(!validate('speciality')){
         alert("Choose the valid speciality");
         return;
     }
     const skip = (doctorPage - 1) * itemsperpage;
+    await checkForRefresh()
     fetch(`${doctorUrl}?limit=${itemsperpage}&skip=${skip}`, {
         method: 'POST',
         headers:{

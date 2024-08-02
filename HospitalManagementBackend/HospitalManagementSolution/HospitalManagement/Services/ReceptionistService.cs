@@ -456,5 +456,24 @@ namespace HospitalManagement.Services
             }).ToList();
             return patientDetails;
         }
+
+        public async Task<string> AddDoctorForInPatient(AddDoctorDTO dto)
+        {
+            try
+            {
+                var admission = await _admissionRepository.Get(dto.AdmissionId);
+                admission.DoctorId = dto.DoctorId;
+                if (await _admissionRepository.Update(admission) != null)
+                {
+                    return "Updatedsuccessfully!";
+                }
+                return "Error";
+            }
+            catch(ObjectNotAvailableException) {
+                throw;
+            }
+            
+            
+        }
     }
 }

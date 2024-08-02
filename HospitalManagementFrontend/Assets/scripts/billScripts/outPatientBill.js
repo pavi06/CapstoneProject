@@ -11,12 +11,13 @@ var displayBill = (data) =>{
     document.getElementById("grandTotal").innerHTML = data.totalAmount + (0.02*data.totalAmount);
 }
 
-var generateBill = () =>{
+var generateBill = async () =>{
     if(!(validateNumber('appointmentId'))){
         alert("Provide a valid id");
         return;
     }
     var appointmentId = document.getElementById("appointmentId").value;
+    await checkForRefresh()
     fetch(`http://localhost:5253/api/Receptionist/BillForOutPatient?appointmentId=${appointmentId}`,
         {
             method:'POST',

@@ -31,12 +31,13 @@ var displaytableData = (data) =>{
     }
 }
 
-var generateBill = () => {
+var generateBill = async () => {
     if(!validateNumber('patientId')){
         alert("Provide a valid id!");
         return;
     }
     var patientId = document.getElementById("patientId").value;
+    await checkForRefresh()
     fetch(`http://localhost:5253/api/Receptionist/BillForInPatient?inPatientid=${patientId}`,
         {
             method:'POST',

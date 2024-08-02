@@ -54,8 +54,9 @@ var displayDoctors = (data) =>{
     });
 }
 
-var fetchDoctors = () =>{
+var fetchDoctors = async() =>{
     const skip =  (page - 1) * itemsperpage;
+    await checkForRefresh()
         fetch(`${url}?limit=${itemsperpage}&skip=${skip}`, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},

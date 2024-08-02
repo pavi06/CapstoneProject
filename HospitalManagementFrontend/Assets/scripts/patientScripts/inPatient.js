@@ -62,7 +62,7 @@ var UpdateTab = (e, lefttag) =>{
                 </div>
         `;
     }
-    else{
+    else if(e.id === "updatePatient"){
         document.getElementById("addDataDynamically").innerHTML=`
         <div id="inPatientUpdate" class="w-full flex flex-col justify-center none">
                     <div class="flex flex-wrap flex-end mr-5 mb-5 mx-auto">
@@ -99,13 +99,40 @@ var UpdateTab = (e, lefttag) =>{
     }
 }
 
-var getPatientId = () =>{
+var Update = (e) =>{
+    e.classList.add('addBgColor');
+    document.getElementById("addDataDynamically").innerHTML=`
+        <div id="inPatientDoctorUpdate" class="w-full flex flex-col justify-center none">
+                    <form id="inPatientDoctorUpdateForm" class="mx-auto text-center" style="width: 40%;">
+                        <div class="mb-5">
+                            <label for="admissionId" class="mb-3 block text-base font-medium text-[#07074D]">AdmissionId</label>
+                            <input type="text" name="admissionId" id="admissionId"
+                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
+                        </div>
+                        <div class="mb-5">
+                            <label for="doctorId" class="mb-3 block text-base font-medium text-[#07074D]">DoctorId</label>
+                            <input type="text" name="doctorId" id="doctorId"
+                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
+                        </div>
+                        <div class="w-full flex justify-center">
+                            <button type="button" id="updateBtn" onclick="updateDoctor()"
+                                class="hover:bg-white hover:text-[#4A249D] hover:border-[#4A249D] border-2 rounded-md bg-[#4A249D] w-50 py-2 px-6 text-center text-base font-semibold text-white outline-none">
+                                Update
+                            </button>
+                        </div>
+                    </form>
+                </div>
+        `;
+}
+
+var getPatientId = async () =>{
     if(!(validateName('name') && validatePhone('contact'))){
         alert("Provide values properly!");
         return;
     }
     var name = document.getElementById("name").value;
     var contactNo = document.getElementById("contact").value;
+    await checkForRefresh();
     fetch('http://localhost:5253/api/DoctorBasic/GetPatientId',
         {
             method:'POST',
@@ -140,7 +167,7 @@ var getPatientId = () =>{
 }
 
 
-var createPatient = () =>{
+var createPatient = async () =>{
     if(!(validate('wardType') && validateNumber('noOfDays') && validate('description'))){
         alert("Provide necessary values to proceed");
         return;
@@ -157,6 +184,7 @@ var createPatient = () =>{
         description: document.getElementById("description").value
     }
     console.log(bodyData)
+    await checkForRefresh()
     fetch('http://localhost:5253/api/Receptionist/AdmissionForPatient',
         {
             method:'POST',
@@ -191,7 +219,7 @@ var createPatient = () =>{
 }
 
 
-var updatePatient = () =>{
+var updatePatient = async () =>{
     console.log(validateNumber('admissionId'))
     console.log(validate('wardType'))
     console.log(validate('noOfDays'))
@@ -204,6 +232,7 @@ var updatePatient = () =>{
         wardType:document.getElementById("wardType").value,
         noOfDays:document.getElementById("noOfDays").value
     }
+    await checkForRefresh()
     fetch('http://localhost:5253/api/Receptionist/UpdateInPatient',
         {
             method:'PUT',
@@ -233,7 +262,7 @@ var updatePatient = () =>{
     window.location.href="./InPatientDetails.html";
 }
 
-var getAdmissionId = () => {
+var getAdmissionId = async () => {
     if(!(validateName('name') && validatePhone('contact'))){
         alert("Provide name and contactno properly to get admission id");
         return;
@@ -241,6 +270,7 @@ var getAdmissionId = () => {
     console.log("inside")
     console.log(document.getElementById("name").value)
     console.log(document.getElementById("contact").value)
+    await checkForRefresh()
     fetch('http://localhost:5253/api/DoctorBasic/GetAdmissionId',
         {
             method:'POST',
@@ -272,4 +302,43 @@ var getAdmissionId = () => {
         console.log(error)
         alert(error.message)
     });
+}
+
+
+var updateDoctor = async () =>{
+    if(!(validateNumber('admissionId') && validateNumber('doctorId'))){
+        alert("Provide all values properly!");
+        return;
+    }
+    var bodyData = {
+        admissionId:document.getElementById("admissionId").value,
+        doctorId:document.getElementById("doctorId").value,
+    }
+    await checkForRefresh()
+    fetch('http://localhost:5253/api/Receptionist/AddDoctorForPatient',
+        {
+            method:'PUT',
+            headers:{
+                'Content-Type' : 'application/json',                
+            },
+            body:JSON.stringify(bodyData)
+        }
+    )
+    .then(async (res) => {
+        if (!res.ok) {
+            if (res.status === 401) {
+                throw new Error('Unauthorized Access!');
+            }
+            const errorResponse = await res.json();
+            throw new Error(`${errorResponse.message}`);
+        }
+        return await res.text();
+    })
+    .then(data => {
+        alert(data)
+    }).catch( error => {
+        console.log(error)
+        alert(error.message)
+    });
+    document.getElementById("inPatientDoctorUpdateForm").reset();
 }

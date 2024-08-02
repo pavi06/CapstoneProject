@@ -1,4 +1,4 @@
-var getPatientId = () => {
+var getPatientId = async () => {
     console.log(!(validateName('patientName') && validatePhone('contactNo')))
     if (!(validateName('patientName') && validatePhone('contactNo'))) {
         alert("Please provide all the necessary details to proceed");
@@ -6,6 +6,7 @@ var getPatientId = () => {
     }
     var name = document.getElementById("patientName").value;
     var contactNo = document.getElementById("contactNo").value;
+    await checkForRefresh()
     fetch('http://localhost:5253/api/DoctorBasic/GetPatientId',
         {
             method: 'POST',
@@ -40,7 +41,7 @@ var getPatientId = () => {
         });
 }
 
-var addRecord = () => {
+var addRecord = async () => {
     if (!validate('diagnosis') && validate('treatment') && validate('treatStatus')) {
         alert("provide all details properly!")
         return;
@@ -48,6 +49,7 @@ var addRecord = () => {
     var diagnosis = document.getElementById("diagnosis").value;
     var treatment = document.getElementById("treatment").value;
     var treatmentStatus = document.getElementById("treatStatus").value;
+    await checkForRefresh()
     fetch('http://localhost:5253/api/Doctor/CreateMedicalRecord',
         {
             method: 'POST',
@@ -90,13 +92,14 @@ var addRecord = () => {
     });
 }
 
-var GetRecords = () => {
+var GetRecords = async () => {
     var doctorId = JSON.parse(localStorage.getItem('loggedInUser')).userId;
     if(!validateNumber('patientId')){
         alert("Provide a valid id");
         return;
     }
     var patientId = document.getElementById("patientId").value;
+    await checkForRefresh()
     fetch(`http://localhost:5253/api/Doctor/GetMedicalRecord?doctorId=${doctorId}&patientId=${patientId}`,
         {
             method: 'GET',

@@ -1,4 +1,5 @@
-var fetchDetails = () =>{
+var fetchDetails = async () =>{
+    await checkForRefresh()
     fetch('http://localhost:5253/api/Receptionist/GetAllInPatientDetails',
         {
             method:'GET',

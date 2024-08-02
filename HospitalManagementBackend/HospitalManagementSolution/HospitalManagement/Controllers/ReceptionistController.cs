@@ -13,7 +13,7 @@ using HospitalManagement.Models.DTOs.BillDTOs;
 namespace HospitalManagement.Controllers
 {
     [Route("api/[controller]")]
-    //[Authorize(Roles = "Receptionist")]
+    [Authorize(Roles = "Receptionist")]
     [EnableCors("MyCors")]
     [ApiController]
     public class ReceptionistController : ControllerBase
@@ -303,6 +303,32 @@ namespace HospitalManagement.Controllers
                 return Ok(result);
             }
             catch (ObjectsNotAvailableException e)
+            {
+                _logger.LogError(e.Message);
+                return NotFound(new ErrorModel(404, e.Message));
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                return BadRequest(new ErrorModel(400, ex.Message));
+            }
+
+        }
+
+
+        [HttpPut("AddDoctorForPatient")]
+        [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
+        [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<string>> AddDoctorInPatient([FromBody] AddDoctorDTO dto)
+        {
+            try
+            {
+                var result = await _receptionistService.AddDoctorForInPatient(dto);
+                _logger.LogInformation("Doctor added successfully");
+                return Ok(result);
+            }
+            catch (ObjectNotAvailableException e)
             {
                 _logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
