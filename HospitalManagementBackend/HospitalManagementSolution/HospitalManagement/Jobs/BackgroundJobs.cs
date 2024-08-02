@@ -33,7 +33,7 @@ namespace HospitalManagement.Jobs
             .AddUserSecrets<Program>()
             .Build();
 
-            var twilioSettings = configuration.GetSection("Twilio").Get<TwilioSecrets>();
+            var twilioSettings = configuration.GetSection("Twilio").Get<Twilio>();
 
             TwilioClient.Init(twilioSettings.AccountSid, twilioSettings.AuthToken);
 
@@ -52,7 +52,7 @@ namespace HospitalManagement.Jobs
             .AddUserSecrets<Program>()
             .Build();
 
-            var twilioSettings = configuration.GetSection("Twilio").Get<TwilioSecrets>();
+            var twilioSettings = configuration.GetSection("Twilio").Get<Twilio>();
 
             TwilioClient.Init(twilioSettings.AccountSid, twilioSettings.AuthToken);
 
