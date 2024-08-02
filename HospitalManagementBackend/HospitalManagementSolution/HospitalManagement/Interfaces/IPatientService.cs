@@ -14,6 +14,5 @@ namespace HospitalManagement.Interfaces
         public Task<PrescriptionReturnDTO> MyPrescriptionForAppointment(int patientId, int appointmentId);
         public Task<List<PrescriptionsReturnDTO>> MyPrescriptions(int patientId, int limit, int skip);
         public Task<string> CancelAppointment(int appointmentId);
-        public Task<Doctor> GetDoctorAvailableOnThatSlot(string speciality, string preferredTime, string preferredLanguage,DateTime appointmentDate);
     }
 }

@@ -7,10 +7,12 @@ namespace HospitalManagement.Jobs
     public class RecurringJobs
     {
         private readonly IRepository<int, Appointment> _appointmentRepository;
+        private readonly ILogger<RecurringJobs> _logger;
 
-        public RecurringJobs(IRepository<int, Appointment> appointmentRepo)
+        public RecurringJobs(IRepository<int, Appointment> appointmentRepo, ILogger<RecurringJobs> logger)
         {
             _appointmentRepository = appointmentRepo;
+            _logger = logger;
         }
 
         public async Task UpdateAppointmentStatus()
@@ -18,16 +20,21 @@ namespace HospitalManagement.Jobs
             var appointments = _appointmentRepository.Get().Result.Where(a=>a.AppointmentDate < DateTime.Now.Date);
             appointments.Select(async a => {
                 a.AppointmentStatus = "Completed";
-                await _appointmentRepository.Update(a);
+                var res = await _appointmentRepository.Update(a);
+                _logger.LogInformation("job trigerred");
+                _logger.LogInformation("res -> ", res.AppointmentId);
             });
         }
 
-        public void StartUpdating()
+        public async Task StartUpdating()
         {
+            //RecurringJob.AddOrUpdate(
+            //    "appointmentUpdatejob",
+            //    () => UpdateAppointmentStatus(), "* * * * *");
+
             RecurringJob.AddOrUpdate(
                 "appointmentUpdatejob",
-                () => UpdateAppointmentStatus(),
-                Cron.MinuteInterval(30));
+                () => Console.WriteLine("hello"), "* * * * *");
         }
     }
 }

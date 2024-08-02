@@ -6,7 +6,7 @@ namespace HospitalManagement.Interfaces
 {
     public interface IDoctorService
     {
-        public Task<List<AppointmentReturnDTO>> GetAllTodayAppointments(int doctorid);
+        public Task<List<DoctorAppointmentReturnDTO>> GetAllScheduledAppointments(int doctorid);
         public Task<string> CancelAppointment(int appointmentId);
         public Task<PrescriptionReturnDTO> ProvidePrescriptionForAppointment(ProvidePrescriptionDTO prescriptionDTO);
         public Task<PrescriptionReturnDTO> UpdatePrescription(UpdatePrescriptionDTO prescriptionDTO);

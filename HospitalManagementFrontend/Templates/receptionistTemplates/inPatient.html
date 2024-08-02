@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../../Assets/styles/common.css">
+    <style>
+        .addBgColor{
+            background-color: #c7d2fe;
+        }
+    </style>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../Assets/scripts/common.js"></script>
+    <script src="../../Assets/scripts/validations.js"></script>
+    <script src="../../Assets/scripts/patientScripts/inPatient.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="navbar">
+            <i class='bx bx-menu'></i>
+            <div class="logo"><a href="#">Logo</a></div>
+            <div class="nav-links">
+                <div class="sidebar-logo">
+                    <span class="logo-name">Logo</span>
+                    <i class='bx bx-x'></i>
+                </div>
+                <ul class="links">
+                    <li><a href="./ReceptionistDashboard.html">Home</a></li>
+                    <li>
+                        <a href="#">Doctors</a>
+                        <i class='bx bxs-chevron-down js-arrow arrow '></i>
+                        <ul class="js-sub-menu sub-menu">
+                            <li><a href="#">Dermatology</a></li>
+                            <li><a href="#">Neurology</a></li>
+                            <li><a href="#">Gynacology</a></li>
+                            <li><a href="#">..</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="./billDetails.html">Bills</a></li>
+                    <li><a href="./InPatientDetails.html">InPatientDetails</a></li>
+                    <li><a onclick="logOut()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section style="margin-top: 95px;">
+        <h1 class="uppercase text-3xl text-[#4A249D] text-center font-extrabold">Manage InPatient</h1>
+        <div class="float-left my-5 ml-10" style="width: 30%;">
+            <div class="w-full">
+                <div class="relative">
+                  <ul class="relative flex flex-wrap p-1 list-none rounded-lg bg-gray-100" data-tabs="tabs" role="list">
+                    <li class="z-30 flex-auto text-center">
+                      <a onclick="UpdateTab(this, 'updatePatient')" id="createPatient" class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 border-0 rounded-lg cursor-pointer text-slate-700">
+                        <span class="ml-1 font-semibold">Create</span>
+                      </a>
+                    </li>
+                    <li class="z-30 flex-auto text-center">
+                      <a onclick="UpdateTab(this, 'createPatient')" id="updatePatient" class="z-30 flex items-center justify-center w-full px-0 py-1 mb-0 border-0 rounded-lg cursor-pointer text-slate-700">
+                        <span class="ml-1 font-semibold">Update</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+            </div> 
+        </div>
+        <div class="p-3" style="clear: both;">
+            <div class="mx-auto w-full bg-white" id="addDataDynamically">
+                
+            </div>
+        </div>
+    </section>    
+</body>
+</html>

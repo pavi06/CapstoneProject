@@ -29,7 +29,7 @@ namespace HospitalManagement.Repositories
 
         public override async Task<Admission> Get(int key)
         {
-            var admission = await _context.Admissions.Include(p => p.AdmissionDetails).SingleOrDefaultAsync(u => u.AdmissionId == key);
+            var admission = await _context.Admissions.Where(a => a.DoctorId == null || a.DoctorId != null).Include(p => p.AdmissionDetails).SingleOrDefaultAsync(u => u.AdmissionId == key);
             if (admission != null)
             {
                 return admission;
@@ -39,7 +39,7 @@ namespace HospitalManagement.Repositories
 
         public override async Task<IEnumerable<Admission>> Get()
         {
-            var admissions = await _context.Admissions.Include(p => p.AdmissionDetails).ToListAsync();
+            var admissions = await _context.Admissions.Where(a => a.DoctorId == null || a.DoctorId != null).Include(p => p.AdmissionDetails).ToListAsync();
             return admissions;
         }
 

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Hospital Management</title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../../Assets/styles/common.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../Assets/scripts/common.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", ()=>{
+        updateForLogInAndOut();
+      })
+    </script>
+   </head>
+<body>
+    <nav>
+        <div class="navbar">
+          <i class='bx bx-menu'></i>
+          <div class="logo"><a href="#">Logo</a></div>
+          <div class="nav-links">
+            <div class="sidebar-logo">
+              <span class="logo-name">Logo</span>
+              <i class='bx bx-x' ></i>
+            </div>
+            <ul class="links">
+              <li><a href="./index.html">Home</a></li>
+              <li><a href="./specialities.html">Our Doctors</a></li>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="../PatientLogin.html" class="logOutNav">SignUp/Login</a></li>
+              <li><a href="./MyAppointments.html" class="logInNav">MyAppointments</a></li>
+              <li><a href="./prescriptionDisplay.html" class="logInNav">MyPrescriptions</a></li>
+              <li><a href="#" onclick="logOut()" class="logInNav">LogOut</a></li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <section style="margin-top: 85px;">
+      <div class="flex flex-wrap gap-4 justify-center mx-auto" style="width: 50%;">
+        <div>
+          <button id="specializationBtn" type="button" onclick="redirectToSpecializations()"
+              class="hover:bg-white hover:text-[#4A249D] hover:border-[#4A249D] hover:border-2 rounded-md bg-[#4A249D] w-full py-3 px-8 text-center text-base font-semibold text-white outline-none">
+              Specializations
+          </button>
+        </div>
+        <div>
+          <button id="bookAppointmentBtn" type="button" onclick="redirectToBookAppointment()"
+              class="hover:bg-white hover:text-[#4A249D] hover:border-[#4A249D] hover:border-2 rounded-md bg-[#4A249D] w-full py-3 px-8 text-center text-base font-semibold text-white outline-none">
+              Book Appointment
+          </button>
+      </div>
+      </div>
+    </section>
+
+     <!-- --modal----- -->
+     <div id="loginInAlert"  class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 ">
+      <div class="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-md">
+          <div class="flex justify-end p-2">
+              <button onclick="closeModal('loginInAlert')" type="button"
+                  class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                  <i class='bx bx-x bx-lg'></i>
+              </button>
+          </div>     
+          <div class="p-6 pt-0 text-center">
+              <h3 class="text-2xl uppercase mt-3 mb-2 font-extrabold">Hi there!</h3>
+              <p>Your need to login to book the appointment.</p>
+              <div class="items-center px-4 py-3">                    
+                 <button id="otpProceedBtn" class="px-4 py-2 bg-[#4A249D] text-white text-base font-medium rounded-md w-70
+                     shadow-sm hover:bg-[#4A249D] focus:outline-none focus:ring-2 focus:bg-[#4A249D]" onclick="redirectToExternalLogin()">
+                     proceed
+                 </button>        
+             </div>
+          </div>     
+      </div>
+  </div>
+</body>
+</html>

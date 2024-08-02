@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../../Assets/styles/common.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../Assets/scripts/common.js"></script>
+    <script src="../../Assets/scripts/validations.js"></script>
+    <script src="../../Assets/scripts/patientScripts/medicalRecord.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="navbar">
+            <i class='bx bx-menu'></i>
+            <div class="logo"><a href="#">Logo</a></div>
+            <div class="nav-links">
+                <div class="sidebar-logo">
+                    <span class="logo-name">Logo</span>
+                    <i class='bx bx-x'></i>
+                </div>
+                <ul class="links">
+                    <li><a href="./doctorHome.html">Home</a></li>
+                    <li><a href="./MedicalRecords.html">Medical Records</a></li>
+                    <li><a onclick="logOut()">LogOut</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section style="margin-top: 85px;">
+        <h1 class="uppercase text-3xl text-[#4A249D] text-center font-extrabold mb-10">Add Medical Record</h1>
+        <div class="flex items-center justify-center p-12">
+            <div class="mx-auto w-full max-w-[500px] bg-white">
+                <form id="addMedicalRecordForm">
+                    <div class="mb-5">
+                        <label for="diagnosis" class="mb-3 block text-base font-medium text-[#07074D]">Diagnosis</label>
+                        <input type="text" name="diagnosis" id="diagnosis" placeholder="Provide diagnosis here" onblur="validate('diagnosis')" required
+                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
+                    </div>  
+                    <div class="mb-5">
+                        <label for="treatment" class="mb-3 block text-base font-medium text-[#07074D]">Treatement</label>
+                        <textarea name="treatment" required onblur="validate('treatment')" id="treatment" rows="3" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" placeholder=""></textarea>
+                    </div>                  
+                    <div class="mb-5">
+                        <label for="treatStatus" class="mb-3 block text-base font-medium text-[#07074D]">Treatement status</label>
+                        <input list="treatStatusList" required name="treatStatus" onblur="validate('treatStatus')" id="treatStatus" placeholder="Treatement status here" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        <datalist id="treatStatusList">
+                            <option value="Initialized">
+                            <option value="Ongoing">
+                            <option value="Completed">
+                        </datalist>
+                    </div>
+                    <div>
+                        <button type="button" id="createRecordBtn"
+                            class="hover:bg-white hover:text-[#4A249D] hover:border-[#4A249D] hover:border-2 rounded-md bg-[#4A249D] w-full py-3 px-8 text-center text-base font-semibold text-white outline-none">
+                            Create Patient Record
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+

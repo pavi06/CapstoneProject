@@ -39,7 +39,7 @@ namespace HospitalManagement.Repositories
         {
             var appointment = await _context.Appointments.Include(a => a.Doctor).Include(a=>a.Patient).SingleOrDefaultAsync(a => a.AppointmentId == key);
             if (appointment == null)
-                throw new ObjectNotAvailableException("Doctor");
+                throw new ObjectNotAvailableException("Appointment");
             return appointment;
         }
 

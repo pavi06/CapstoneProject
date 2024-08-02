@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../../Assets/styles/common.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../Assets/scripts/common.js"></script>
+    <script src="../../Assets/scripts/appointmentScripts/myAppointments.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="navbar">
+          <i class='bx bx-menu'></i>
+          <div class="logo"><a href="#">Logo</a></div>
+          <div class="nav-links">
+            <div class="sidebar-logo">
+              <span class="logo-name">Logo</span>
+              <i class='bx bx-x' ></i>
+            </div>
+            <ul class="links">
+              <li><a href="./index.html">Home</a></li>
+              <li><a href="./specialities.html">Our Doctors</a></li>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Contact Us</a></li>
+              <li><a href="../PatientLogin.html" class="logOutNav">SignUp/Login</a></li>
+              <li><a href="./MyAppointments.html" class="logInNav">MyAppointments</a></li>
+              <li><a href="./prescriptionDisplay.html" class="logInNav">MyPrescriptions</a></li>
+              <li><a href="#" onclick="logOut()" class="logInNav">LogOut</a></li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <section style="margin-top: 95px;">
+        <h1 class="uppercase text-3xl text-[#4A249D] text-center font-extrabold">My Appointments</h1>
+        <div class="my-5 border-b-2 pb-5" style="clear: both;">
+            <div class="flex justify-between">
+                <h1 class="uppercase text-2xl text-[#009fbd] mx-10 font-extrabold">Today Appointments</h1>
+                <div class="w-3/10 px-5 flex items-center justify-center float-right">
+                    <button id="loadMoreDiv" class="text-[#009fbd] hover:opacity-70" onclick="loadMoreData()"><i class='bx bxs-down-arrow-circle bx-md'></i><br>Load more</button>
+                </div>
+            </div>
+            <div class="todayAppointments">
+                <div class="flex">
+                    <div class="w-3/10 px-5 flex items-center justify-center"></div>
+                    <div id="todayAppointment" class="h-50 w-full mb-5 flex overflow-x-auto scrollbar-custom">
+                        <div id="displayInformationToday" class="mt-5 none p-5 mx-auto rounded-lg shadow-lg" style="width: 50%;">
+                            <h1 class="text-red-400 font-semibold text-xl text-center"><i class='bx bxs-bell-ring'></i> &nbsp;No Appointments Are available today! &nbsp;<i class='bx bxs-bell-ring'></i></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-5 border-b-2">
+            <h1 class="uppercase text-2xl text-[#e9c46a] mx-10 font-extrabold">Upcoming Appointments</h1>
+            <div class="upcomingAppointments">
+                <div class="flex">
+                    <div class="w-3/10 px-5 flex items-center justify-center"></div>
+                    <div id="upcomingAppointment" class="h-50 mb-10 w-full flex overflow-x-auto scrollbar-custom">
+                        <div id="displayInformationUpcoming" class="mt-5 none p-5 mx-auto rounded-lg shadow-lg" style="width: 50%;">
+                            <h1 class="text-red-400 font-semibold text-xl text-center"><i class='bx bxs-bell-ring'></i> &nbsp;No Appointments Are available today! &nbsp;<i class='bx bxs-bell-ring'></i></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-5 border-b-2">
+            <h1 class="uppercase text-2xl text-[#36ba98] mx-10 font-extrabold">Completed Appointments</h1>
+            <div class="completedAppointments">
+                <div class="flex">
+                    <div class="w-3/10 px-5 flex items-center justify-center"></div>
+                    <div id="completedAppointment" class="h-50 w-full flex overflow-x-auto scrollbar-custom">
+                        <div id="displayInformationCompleted" class="mt-5 none p-5 mx-auto rounded-lg shadow-lg" style="width: 50%;">
+                            <h1 class="text-red-400 font-semibold text-xl text-center"><i class='bx bxs-bell-ring'></i> &nbsp;No Appointments Are available today! &nbsp;<i class='bx bxs-bell-ring'></i></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

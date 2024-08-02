@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="../../Assets/styles/common.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="../../Assets/scripts/common.js"></script>
+  <script src="../../Assets/scripts/doctorScripts/doctorHome.js"></script>
+</head>
+
+<body>
+  <nav>
+    <div class="navbar">
+      <i class='bx bx-menu'></i>
+      <div class="logo"><a href="#">Logo</a></div>
+      <div class="nav-links">
+        <div class="sidebar-logo">
+          <span class="logo-name">Logo</span>
+          <i class='bx bx-x'></i>
+        </div>
+        <ul class="links">
+          <li><a href="./doctorHome.html">Home</a></li>
+          <li><a href="./MedicalRecords.html">Medical Records</a></li>
+          <li><a onclick="logOut()">LogOut</a></li>
+      </ul>
+      </div>
+    </div>
+  </nav>
+  <section style="margin-top: 85px;">
+    <h1 class="uppercase text-3xl text-[#4A249D] text-center font-extrabold">My Appointments</h1>
+        <div class="my-5 border-b-2 pb-5" style="clear: both;">
+            <div class="flex justify-between">
+                <h1 class="uppercase text-2xl text-[#009fbd] mx-10 font-extrabold">Today Appointments</h1>
+            </div>
+            <div class="todayAppointments">
+                <div class="flex">
+                    <div class="w-3/10 px-5 flex items-center justify-center"></div>
+                    <div id="todayAppointment" class="h-50 w-full mb-5 flex overflow-x-auto scrollbar-custom">
+                        <div id="displayInformationToday" class="mt-5 none p-5 mb-5 border-l-4 border-red-400 bg-red-100 rounded-lg shadow-lg" style="width: 40%;">
+                            <h1 class="font-semibold"><i class='bx bxs-bell-ring bx-lg text-red-500 mr-3'></i>&nbsp;No Appointments available today! &nbsp;</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my-5 border-b-2">
+            <h1 class="uppercase text-2xl text-[#e9c46a] mx-10 font-extrabold">Upcoming Appointments</h1>
+            <div class="upcomingAppointments">
+                <div class="flex"> 
+                    <div class="w-3/10 px-5 flex items-center justify-center"></div>
+                    <div id="upcomingAppointment" class="h-50 mb-10 w-full flex overflow-x-auto scrollbar-custom">
+                        <div id="displayInformationUpcoming" class="mt-5 none p-5 mx-auto rounded-lg shadow-lg" style="width: 50%;">
+                            <h1 class="text-red-400 font-semibold text-xl text-center"><i class='bx bxs-bell-ring'></i> &nbsp;No Appointments Are available today! &nbsp;<i class='bx bxs-bell-ring'></i></h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+  </section>
+</body>
+
+</html>

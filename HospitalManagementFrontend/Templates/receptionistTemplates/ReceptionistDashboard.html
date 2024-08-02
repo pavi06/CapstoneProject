@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="../../Assets/styles/common.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../Assets/scripts/common.js"></script>
+    <script src="../../Assets/scripts/validations.js"></script>
+    <script src="../../Assets/scripts/receptionistScripts/receptionistDashboard.js"></script>
+</head>
+
+<body>
+    <nav>
+        <div class="navbar">
+            <i class='bx bx-menu'></i>
+            <div class="logo"><a href="#">Logo</a></div>
+            <div class="nav-links">
+                <div class="sidebar-logo">
+                    <span class="logo-name">Logo</span>
+                    <i class='bx bx-x'></i>
+                </div>
+                <ul class="links">
+                    <li><a href="./ReceptionistDashboard.html">Home</a></li>
+                    <li>
+                        <a href="#">Doctors</a>
+                        <i class='bx bxs-chevron-down js-arrow arrow '></i>
+                        <ul class="js-sub-menu sub-menu">
+                            <li><a href="#">Dermatology</a></li>
+                            <li><a href="#">Neurology</a></li>
+                            <li><a href="#">Gynacology</a></li>
+                            <li><a href="#">..</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="./billDetails.html">Bills</a></li>
+                    <li><a href="./InPatientDetails.html">InPatientDetails</a></li>
+                    <li><a onclick="logOut()">Logout</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <section style="margin-top: 85px;">
+        <div class="mb-10">
+            <button onclick="redirectToInPatientManagement()"
+                class="hover:bg-white hover:text-[#4A249D] border-2 mx-5 hover:border-[#4A249D] rounded-md bg-[#4A249D] w-25 py-2 px-5 text-center text-base font-semibold text-white outline-none float-right">
+                Admissions
+            </button>
+            <button onclick="redirectToBill()"
+                class="hover:bg-white hover:text-[#4A249D] border-2 mx-5 hover:border-[#4A249D] rounded-md bg-[#4A249D] w-25 py-2 px-5 text-center text-base font-semibold text-white outline-none float-right">
+                Generate Bill
+            </button>
+        </div>
+        <div style="clear: both;">
+            <h1 class="uppercase text-2xl text-[#4A249D] text-center font-extrabold">Today Appointments</h1>
+            <div id="displayInformation" class="mt-5 p-5 mx-auto rounded-lg shadow-lg none" style="width: 50%;">
+                <h1 class="text-red-400 font-semibold text-xl text-center"><i class='bx bxs-bell-ring'></i> &nbsp;No Appointments Are available! &nbsp;<i class='bx bxs-bell-ring'></i></h1>
+            </div>
+            <div class="todayAppointments">
+                <div class="flex">
+                    <div id="slider" class="h-50 mt-0 mx-5 w-full flex overflow-x-auto scrollbar-custom">
+                        
+                    </div>
+                    <div class="w-3/10 px-5 flex items-center justify-center">
+                        <button id="loadMoreDiv" class="text-[#009fbd] hover:opacity-70" onclick="loadMoreData()"><i class='bx bxs-down-arrow-circle bx-md'></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="mt-5">
+            <h1 class="uppercase text-2xl text-[#4A249D] pt-20 text-center font-extrabold">Room Availability Statistics</h1>
+            <div id="roomsAvailability" class="flex flex-row flex-wrap m-5 w-150 justify-evenly">
+                
+            </div>
+        </div>
+        <div class="mt-5">
+            <h1 class="uppercase text-2xl text-[#4A249D] pt-20 text-center font-extrabold">Doctor Availability Status</h1>
+            <div class="flex flex-row justify-end my-5">
+                <form class="flex" id="doctorSpecialityForm">
+                    <input list="specialityList" name="speciality" required onblur="validate('speciality')" id="speciality" placeholder="speciality" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        <datalist id="specialityList">
+                            <option value="Dermatologist">
+                            <option value="Gynacologist">
+                            <option value="Neurologist">
+                            <option value="Cardiologist">
+                        </datalist>
+                    <button type="button"  class="mx-2 px-3 bg-indigo-100 rounded-lg" onclick="getDoctors()" style="width: fit-content;">Get Doctors</button>
+                </form>
+                <button type="button" id="loadMoreDoctor" class="w-25 mx-5 px-3 bg-indigo-100 rounded-lg" onclick="loadMoreDoctors()">Load more</button>
+            </div>
+            <div id="doctorsList" class="flex flex-row flex-wrap m-5 w-150 justify-evenly mb-10" style="clear: both;">
+                               
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

@@ -1,15 +1,10 @@
 ﻿using HospitalManagement.CustomExceptions;
 using HospitalManagement.Interfaces;
-using HospitalManagement.Migrations;
 using HospitalManagement.Models;
 using HospitalManagement.Models.DTOs.AppointmentDTOs;
+using HospitalManagement.Models.DTOs.BillDTOs;
 using HospitalManagement.Models.DTOs.DoctorDTOs;
 using HospitalManagement.Models.DTOs.PatientDTOs;
-using HospitalManagement.Repositories;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Numerics;
 using static HospitalManagement.Enums.DoctorFeeBySpecialization;
 
 namespace HospitalManagement.Services
@@ -153,9 +148,17 @@ namespace HospitalManagement.Services
                 foreach (var d in availableDoctor)
                 {
                     var doctorDetails = await _userRepository.Get(d.DoctorId);
-                    var doctorAvailableSlots = _doctorAvailabilityRepository.Get(d.DoctorId, DateTime.Now.Date).Result.AvailableSlots;
-                    doctors.Add(new DoctorAvailabilityDTO(d.DoctorId, doctorDetails.Name, d.Specialization, d.Experience,
-                        d.LanguagesKnown, d.AvailableDays, DateTime.Now.Date, doctorAvailableSlots));
+                    var doctorAvailable = _doctorAvailabilityRepository.Get(d.DoctorId, DateTime.Now.Date).Result;
+                    if (doctorAvailable!= null && doctorAvailable.AvailableSlots.Count > 0)
+                    {
+                        doctors.Add(new DoctorAvailabilityDTO(d.DoctorId, doctorDetails.Name, d.Specialization, d.Experience,
+                        d.LanguagesKnown, d.AvailableDays, DateTime.Now.Date, doctorAvailable.AvailableSlots));
+                    }
+                    else
+                    {
+                        doctors.Add(new DoctorAvailabilityDTO(d.DoctorId, doctorDetails.Name, d.Specialization, d.Experience,
+                       d.LanguagesKnown, d.AvailableDays, DateTime.Now.Date, _doctorRepository.Get(d.DoctorId).Result.Slots));
+                    }                    
                 }
                 return doctors.ToList();
             }
@@ -186,6 +189,10 @@ namespace HospitalManagement.Services
                     }
                     patient = await _userRepository.Add(new User(patientDTO.Name, patientDTO.DateOfBirth,age , patientDTO.Gender, patientDTO.ContactNo, patientDTO.Address));
                     patientDTO.PatientId = patient.UserId;
+                }
+                if(await _patientRepository.Get(patientDTO.PatientId) == null)
+                {
+                    await _patientRepository.Add(new Patient(patientDTO.PatientId));
                 }
                 var res = await _admissionRepository.Add(new Admission(patientDTO.PatientId, patientDTO.Description));
                 await AllocateRoomForPatient(res.AdmissionId, patientDTO.WardType, patientDTO.NoOfDays);
@@ -234,6 +241,7 @@ namespace HospitalManagement.Services
         #region GenerateBillForInPatient
         public async Task<InPatientBillDTO> GenerateBillForInPatient(int inPatientid)
         {
+            Bill bill = null;
             try
             {
                 var admission = _admissionRepository.Get().Result.Where(a => a.PatientId == inPatientid && a.IsActivePatient == true).FirstOrDefault();
@@ -251,7 +259,7 @@ namespace HospitalManagement.Services
                 }
                 var doctorFee = (double)(int)Enum.Parse(typeof(DoctorFee), _doctorRepository.Get((int)admission.DoctorId).Result.Specialization.ToLower(), true);
                 totalAmount += doctorFee;
-                var bill = await _billRepository.Add(new Bill(admission.AdmissionId,inPatientid, "InPatient", admission.Description, totalAmount));
+                bill = await _billRepository.Add(new Bill(admission.AdmissionId,inPatientid, "InPatient", admission.Description, totalAmount));
                 var patientDetails = await _userRepository.Get(inPatientid);
                 await UpdateInPatientDetailsForDischarge(inPatientid, bill.BillId);
                 return new InPatientBillDTO(bill.BillId, bill.Date, inPatientid, patientDetails.Name, patientDetails.Age, patientDetails.ContactNo,
@@ -259,6 +267,10 @@ namespace HospitalManagement.Services
             }
             catch(ObjectNotAvailableException e)
             {
+                if (bill!= null)
+                {
+                    await _billRepository.Delete(bill.BillId);
+                }
                 throw;
             }
         }

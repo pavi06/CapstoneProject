@@ -11,7 +11,7 @@ namespace HospitalManagement.Models
         public Patient Patient { get; set; }
         public int? DoctorId { get; set; }
         public Doctor DoctorInCharge { get; set; }
-        public DateTime AdmittedDate { get; set; } = DateTime.Now.Date;
+        public DateTime AdmittedDate { get; set; } = DateTime.Now;
         public string Description { get; set; }
         public DateTime? DischargeDate { get; set; }
         public bool IsActivePatient { get; set; } = true;

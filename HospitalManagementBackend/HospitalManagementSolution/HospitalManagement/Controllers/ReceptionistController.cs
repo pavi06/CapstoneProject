@@ -8,6 +8,7 @@ using HospitalManagement.Models.DTOs.DoctorDTOs;
 using HospitalManagement.Models.DTOs.PatientDTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using HospitalManagement.Models.DTOs.BillDTOs;
 
 namespace HospitalManagement.Controllers
 {
@@ -115,7 +116,7 @@ namespace HospitalManagement.Controllers
         [ProducesResponseType(typeof(string), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<string>> AdmissionForInPatient(InPatientDTO patientDTO)
+        public async Task<ActionResult<string>> AdmissionForInPatient([FromBody]InPatientDTO patientDTO)
         {
             try
             {

@@ -1,4 +1,5 @@
-var specialityDescription = { "Dermatologist": "Skin health diagnosis and treatment.", "Neurologist": "nnnn", "Pediatrics": "pppp" }
+var specialityDescription = { "Dermatology": "Skin health diagnosis and treatment.", "Neurology": "nnnn", "Pediatrics": "pppp" ,
+     "Cardiology": "nnnn", "Gynacology": "nnnn"}
 
 var redirectToDoctors = (speciality) => {
     console.log(speciality)
@@ -10,13 +11,13 @@ var displaySpecialities = (data) => {
     var specialitiesDiv = document.getElementById("specialitiesDiv");
     data.forEach(speciality => {
         specialitiesDiv.innerHTML += `
-            <div class="card bg-white shadow-lg rounded-lg text-center m-3" onclick="redirectToDoctors('${speciality}')">
-                <div class="mx-auto mt-5" style="width: 110px; height: 110px; border-radius: 50%; border: 3px solid #4A249D; overflow: hidden; position: relative;">
-                    <img src="../image.jpg" alt="Image" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                </div>
+            <div class="card bg-white shadow-lg rounded-3xl border-t-4 border-[#009fbd] text-center m-3" onclick="redirectToDoctors('${speciality}')">
+                <div class="mx-auto mt-5" style="width: 110px; height: 110px; border-radius: 50%; border: 5px solid #009fbd; overflow: hidden; position: relative;">
+                        <img src="../../image.jpg" alt="Image" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                </div>   
                 <div class="p-4">
-                    <h3 class="text-xl font-semibold mb-2" style="color: #4A249D;">${speciality}</h3>
-                    <p class="text-gray-600">${specialityDescription[speciality]}</p>
+                    <h3 class="text-xl font-bold mb-1" style="color: #4A249D;">${speciality}</h3>
+                    <p>${specialityDescription[speciality]}</p>
                 </div>
             </div>
         `;
@@ -53,5 +54,6 @@ var fetchSpecialities = () => {
 
 
 document.addEventListener("DOMContentLoaded", () => {
+    updateForLogInAndOut();
     fetchSpecialities();
 })

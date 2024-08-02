@@ -32,9 +32,9 @@ namespace HospitalManagement.Services
             _doctorRepository = doctorRepository;
         }
 
-        public async Task<List<AppointmentReturnDTO>> GetAllTodayAppointments(int doctorid)
+        public async Task<List<DoctorAppointmentReturnDTO>> GetAllScheduledAppointments(int doctorid)
         {
-            var appointments = _appointmentRepository.Get().Result.Where(a => a.DoctorId == doctorid && a.AppointmentDate == DateTime.Now.Date).ToList();
+            var appointments = _appointmentRepository.Get().Result.Where(a => a.DoctorId == doctorid && (a.AppointmentDate > DateTime.Now.Date || (a.AppointmentDate == DateTime.Now.Date && a.Slot.Add(TimeSpan.FromMinutes(30)) > TimeOnly.FromTimeSpan(DateTime.Now.TimeOfDay)))).ToList();
             if(appointments == null)
             {
                 throw new ObjectsNotAvailableException("Appointments");
@@ -44,7 +44,14 @@ namespace HospitalManagement.Services
                 var appointmentList = appointments.Select( a =>
                 {
                     var patient = _userDetailsRepository.Get(a.PatientId).Result;
-                    return new AppointmentReturnDTO(a.AppointmentId, a.AppointmentDate, a.Slot, a.PatientId, patient.Name, patient.Age, patient.ContactNo, a.Description, a.AppointmentType, a.AppointmentStatus);
+                    var prescription = _prescriptionRepository.Get().Result.SingleOrDefault(p => p.PrescriptionFor == a.AppointmentId);
+                    var prescriptionStatus = false;
+                    if(prescription != null)
+                    {
+                        prescriptionStatus = true;
+                    }
+                    return new DoctorAppointmentReturnDTO(a.AppointmentId, a.AppointmentDate, a.Slot, a.PatientId, patient.Name, patient.Age, patient.ContactNo, a.Description, a.AppointmentType, a.AppointmentStatus, prescriptionStatus);
+
                 }).ToList();
                 return appointmentList;
             }
@@ -104,6 +111,11 @@ namespace HospitalManagement.Services
         public async Task<PrescriptionReturnDTO> ProvidePrescriptionForAppointment(ProvidePrescriptionDTO prescriptionDTO)
         {
             Prescription prescription = null;
+            var appointment = await _appointmentRepository.Get(prescriptionDTO.PrescriptionFor);
+            if (DateTime.Now < appointment.AppointmentDate || TimeOnly.FromTimeSpan(DateTime.Now.TimeOfDay) < appointment.Slot)
+            {
+                throw new Exception("Cannot Provide prescription before appointment!");
+            }
             try
             {                
                 prescription = await _prescriptionRepository.Add(new Prescription() { PrescriptionFor = prescriptionDTO.PrescriptionFor, PatientId = prescriptionDTO.PatientId, DoctorId = prescriptionDTO.DoctorId });

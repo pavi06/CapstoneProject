@@ -13,7 +13,7 @@ namespace HospitalManagement.Models
         public string? EmailId { get; set; }
         public string ContactNo { get; set; }
         public string Address { get; set; }
-        public string Role { get; set; } = "User";
+        public string Role { get; set; } = "Patient";
 
         public User(string name, DateTime dateOfBirth, int age, string gender, string emailId, string contactNo, string address)
         {

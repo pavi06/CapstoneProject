@@ -67,8 +67,7 @@ namespace HospitalManagement.Services
                 var doctorDetails = await _userRepository.Get(appointment.DoctorId);
                 if (appointmentDTO.AppointmentMode == "Online")
                 {
-                    //generate meet link 
-                    var meetLink = await ScheduledTask.SendEmail(_userRepository.Get(appointmentDTO.PatientId).Result.Name, appointmentDTO.AppointmentDate, TimeOnly.Parse(appointmentDTO.Slot), (DateTime.Now.Date-appointmentDTO.AppointmentDate.Date).Days);
+                    var meetLink = "meetLinkGenerated";
                     return new PatientOnlineAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot.ToString(), appointment.Description, doctorDetails.Name, appointment.Speciality, appointment.AppointmentStatus, appointment.AppointmentType, meetLink);
                 }
                 BackgroundJobs.NotificationForDoctor(doctorDetails.Name, doctorDetails.ContactNo, appointment.AppointmentDate, appointment.Slot);
@@ -101,100 +100,42 @@ namespace HospitalManagement.Services
             }           
         }
 
-        public async Task<Doctor> GetDoctorAvailableOnThatSlot(string speciality, string preferredTime,string preferredLamguage, DateTime appointmentDate)
-        {
-            var doctors = new List<Doctor>();
-            switch (preferredTime.ToLower())
-            {
-                case "forenoon":
-                    doctors = _doctorRepository.Get().Result.Where(d => d.Specialization == speciality && d.ShiftStartTime >= new TimeOnly(7, 0, 0) && d.ShiftEndTime <= new TimeOnly(12, 0, 0) && d.LanguagesKnown.Contains(preferredLamguage) && d.AvailableDays.Contains(appointmentDate.DayOfWeek.ToString())).OrderByDescending(d=>d.Experience).ToList();
-                    break;
-                case "afternoon":
-                    doctors = _doctorRepository.Get().Result.Where(d => d.Specialization == speciality && d.ShiftStartTime >= new TimeOnly(14, 0, 0) && d.ShiftEndTime <= new TimeOnly(18, 0, 0) && d.LanguagesKnown.Contains(preferredLamguage) && d.AvailableDays.Contains(appointmentDate.DayOfWeek.ToString())).OrderByDescending(d => d.Experience).ToList();
-                    break;
-                case "evening":
-                    doctors = _doctorRepository.Get().Result.Where(d => d.Specialization == speciality && d.ShiftStartTime >= new TimeOnly(18, 0, 0) && d.ShiftEndTime <= new TimeOnly(22, 0, 0) && d.LanguagesKnown.Contains(preferredLamguage) && d.AvailableDays.Contains(appointmentDate.DayOfWeek.ToString())).OrderByDescending(d => d.Experience).ToList();
-                    break;
-                default:
-                    throw new InvalidInputException();                    
-            }
-            foreach (var doctor in doctors)
-            {
-                var availability = await _doctorAvailabilityRepository.Get(doctor.DoctorId, appointmentDate);
-                if (availability == null || (availability!=null && availability.AvailableSlots.Count > 0))
-                {
-                        return doctor;
-                }
-            }
-            return null;
-        }
 
-        public async Task<Appointment> ChooseSlot(Doctor doctor, BookAppointmentBySpecDTO specAppointmentDTO)
+        public async Task<Doctor> ChooseSlotFromDoctors(List<Doctor> doctorsAvailable,DateTime date ,TimeOnly preferredTime)
         {
-            var res = await _doctorAvailabilityRepository.Get(doctor.DoctorId, specAppointmentDTO.AppointmentDate);
-            var appointment = new Appointment();
-            if (res == null)
+            Doctor doctorAvailable = null;
+            foreach (var doctor in doctorsAvailable)
             {
-                try
+                var availability = _doctorAvailabilityRepository.Get(doctor.DoctorId, date).Result;
+                if(availability != null)
                 {
-                    appointment = await _appointmentRepository.Add(new Appointment(specAppointmentDTO.AppointmentDate, doctor.Slots[0], doctor.DoctorId, specAppointmentDTO.Speciality, specAppointmentDTO.PatientId, specAppointmentDTO.Description, "scheduled", specAppointmentDTO.AppointmentType, specAppointmentDTO.AppointmentMode));
-                    await _doctorAvailabilityRepository.Add(new DoctorAvailability(doctor.DoctorId, appointment.AppointmentDate, doctor.Slots.Skip(1).ToList()));
+                    doctorAvailable = availability.AvailableSlots.Contains(preferredTime) ? doctor : null;
                 }
-                catch (ObjectAlreadyExistsException e)
+                else
                 {
-                    if (appointment.AppointmentId > 1)
-                    {
-                        await _appointmentRepository.Delete(appointment.AppointmentId);
-                    }
-                    throw;
-                }                
+                    doctorAvailable = doctor.Slots.Contains(preferredTime)? doctor : null;
+                }
             }
-            else
-            {
-                if (res.AvailableSlots.FirstOrDefault() == null)
-                {
-                    throw new ObjectsNotAvailableException("slots");
-                }
-                try
-                {
-                    appointment = await _appointmentRepository.Add(new Appointment(specAppointmentDTO.AppointmentDate, res.AvailableSlots.First(), doctor.DoctorId, specAppointmentDTO.Speciality, specAppointmentDTO.PatientId, specAppointmentDTO.Description, "scheduled", specAppointmentDTO.AppointmentType, specAppointmentDTO.AppointmentMode));
-                    res.AvailableSlots.Remove(res.AvailableSlots.FirstOrDefault());
-                    await _doctorAvailabilityRepository.Update(res);
-                }
-                catch (Exception e)
-                {
-                    if (appointment.AppointmentId > 1)
-                    {
-                        await _appointmentRepository.Delete(appointment.AppointmentId);
-                        res.AvailableSlots.Add(appointment.Slot);
-                        await _doctorAvailabilityRepository.Update(res);
-                    }
-                    throw;
-                }
-               
-            }
-            return appointment; 
+            return doctorAvailable;
         }
 
         public async Task<PatientAppointmentReturnDTO> BookAppointmentBySpeciality(BookAppointmentBySpecDTO specAppointmentDTO)
         {
-            var doctor = await GetDoctorAvailableOnThatSlot(specAppointmentDTO.Speciality, specAppointmentDTO.PreferredTime,specAppointmentDTO.PreferredLanguage, specAppointmentDTO.AppointmentDate);
-            if(doctor == null)
+            var doctorsAvailable = _doctorRepository.Get().Result.Where(d => d.Specialization.ToLower() == specAppointmentDTO.Speciality.ToLower() && d.AvailableDays.Contains(specAppointmentDTO.AppointmentDate.DayOfWeek.ToString()) && d.LanguagesKnown.Contains(specAppointmentDTO.PreferredLanguage)).ToList();
+            var doctor = await ChooseSlotFromDoctors(doctorsAvailable, specAppointmentDTO.AppointmentDate , TimeOnly.Parse(specAppointmentDTO.PreferredTime));
+            if (doctor == null)
             {
                 throw new ObjectsNotAvailableException("Doctor");
             }
-            var appointment = await ChooseSlot(doctor, specAppointmentDTO);
+            var appointment = await _appointmentRepository.Add(new Appointment(specAppointmentDTO.AppointmentDate, TimeOnly.Parse(specAppointmentDTO.PreferredTime), doctor.DoctorId, doctor.Specialization, specAppointmentDTO.PatientId, specAppointmentDTO.Description, "scheduled", specAppointmentDTO.AppointmentType, specAppointmentDTO.AppointmentMode));
             if (specAppointmentDTO.AppointmentMode == "Online")
             {
-                var patientDetails = await _userRepository.Get(specAppointmentDTO.PatientId);
-                ScheduledTask.SendEmail(patientDetails.Name, specAppointmentDTO.AppointmentDate,appointment.Slot,(DateTime.Now.Date-appointment.AppointmentDate).Days);
-                //generate meet link 
-                var meetLink = "";
+                var meetLink = "demomeetlink";
                 return new PatientOnlineAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot.ToString(), appointment.Description, _userRepository.Get(appointment.DoctorId).Result.Name, appointment.Speciality, appointment.AppointmentStatus, appointment.AppointmentType, meetLink);
             }
             var doctorDetails = await _userRepository.Get(doctor.DoctorId);
             BackgroundJobs.NotificationForDoctor(doctorDetails.Name, doctorDetails.ContactNo, appointment.AppointmentDate, appointment.Slot);
-            return new PatientAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot.ToString(), appointment.Description, _userRepository.Get(appointment.DoctorId).Result.Name, appointment.Speciality, appointment.AppointmentStatus, appointment.AppointmentType);                    
+            return new PatientAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot.ToString(), appointment.Description, _userRepository.Get(appointment.DoctorId).Result.Name, appointment.Speciality, appointment.AppointmentStatus, appointment.AppointmentType);
         }
 
         public async Task<string> CancelAppointment(int appointmentId)
@@ -307,11 +248,32 @@ namespace HospitalManagement.Services
                 {
                     foreach(var slot in availability.AvailableSlots)
                     {
-                        availableSlots.Add(slot.ToString(), true);
+                        if (checkSlotsDTO.Date == DateTime.Now.Date)
+                        {
+                            if(slot > TimeOnly.FromTimeSpan(DateTime.Now.TimeOfDay))
+                            {
+                                availableSlots.Add(slot.ToString(), true);
+                            }
+                        }
+                        else
+                        {
+                            availableSlots.Add(slot.ToString(), true);
+                        }
                     }
                     foreach (var slot in doctor.Slots.Except(availability.AvailableSlots))
                     {
-                        availableSlots.Add(slot.ToString(), false);
+                        if (checkSlotsDTO.Date == DateTime.Now.Date)
+                        {
+                            if (slot > TimeOnly.FromTimeSpan(DateTime.Now.TimeOfDay))
+                            {
+                                availableSlots.Add(slot.ToString(), false);
+                            }
+                        }
+                        else
+                        {
+                            availableSlots.Add(slot.ToString(), false);
+                        }
+
                     }
                 }
             }
@@ -319,7 +281,17 @@ namespace HospitalManagement.Services
             {
                 foreach (var slot in doctor.Slots)
                 {
-                    availableSlots.Add(slot.ToString(), true);
+                    if (checkSlotsDTO.Date == DateTime.Now.Date)
+                    {
+                        if (slot > TimeOnly.FromTimeSpan(DateTime.Now.TimeOfDay))
+                        {
+                            availableSlots.Add(slot.ToString(), true);
+                        }
+                    }
+                    else
+                    {
+                        availableSlots.Add(slot.ToString(), true);
+                    }
                 }
             }
             return availableSlots;

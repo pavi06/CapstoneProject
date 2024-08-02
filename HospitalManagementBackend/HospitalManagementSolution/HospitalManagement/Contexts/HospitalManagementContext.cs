@@ -117,6 +117,7 @@ namespace HospitalManagement.Contexts
               .HasOne(ad => ad.DoctorInCharge)
               .WithMany(p => p.Admissions)
               .HasForeignKey(ad => ad.DoctorId)
+              .IsRequired(false)
               .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<AdmissionDetails>()

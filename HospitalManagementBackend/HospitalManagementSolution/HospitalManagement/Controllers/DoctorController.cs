@@ -27,14 +27,14 @@ namespace HospitalManagement.Controllers
         }
 
         [HttpGet("GetTodayAppointment")]
-        [ProducesResponseType(typeof(List<AppointmentReturnDTO>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(List<DoctorAppointmentReturnDTO>), StatusCodes.Status200OK)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status404NotFound)]
         [ProducesResponseType(typeof(ErrorModel), StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<List<AppointmentReturnDTO>>> GetAppointment(int doctorId)
+        public async Task<ActionResult<List<DoctorAppointmentReturnDTO>>> GetAppointment(int doctorId)
         {
             try
             {
-                List<AppointmentReturnDTO> result = await _doctorService.GetAllTodayAppointments(doctorId);
+                List<DoctorAppointmentReturnDTO> result = await _doctorService.GetAllScheduledAppointments(doctorId);
                 _logger.LogInformation("Appointments retrieved successfully");
                 return Ok(result);
             }

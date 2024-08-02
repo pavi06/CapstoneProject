@@ -1,5 +1,6 @@
 ﻿using HospitalManagement.Models;
 using HospitalManagement.Models.DTOs.AppointmentDTOs;
+using HospitalManagement.Models.DTOs.BillDTOs;
 using HospitalManagement.Models.DTOs.DoctorDTOs;
 using HospitalManagement.Models.DTOs.PatientDTOs;
 
