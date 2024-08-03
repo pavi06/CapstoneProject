@@ -12,28 +12,26 @@
     <script src="../../Assets/scripts/doctorScripts/doctor.js"></script>
 </head>
 <body>
-    <nav>
-        <div class="navbar">
-          <i class='bx bx-menu'></i>
-          <div class="logo"><a href="#">Logo</a></div>
-          <div class="nav-links">
-            <div class="sidebar-logo">
-              <span class="logo-name">Logo</span>
-              <i class='bx bx-x' ></i>
-            </div>
-            <ul class="links">
-              <li><a href="./index.html">Home</a></li>
-              <li><a href="./specialities.html">Our Doctors</a></li>
-              <li><a href="#">About us</a></li>
-              <li><a href="#">Contact Us</a></li>
-              <li><a href="../PatientLogin.html" class="logOutNav">SignUp/Login</a></li>
-              <li><a href="./MyAppointments.html" class="logInNav">MyAppointments</a></li>
-              <li><a href="./prescriptionDisplay.html" class="logInNav">MyPrescriptions</a></li>
-              <li><a href="#" onclick="logOut()" class="logInNav">LogOut</a></li>
-            </ul>
-          </div>
-        </div>
-    </nav>
+    <div class="loader"></div>
+    <nav class="md:flex md:items-center md:justify-between p-5 align-middle bg-[#4a249d] text-white"
+  style="position: fixed;width: 100%;z-index: 1000;">
+  <div class="flex justify-between items-center">
+    <img src="../../Assets/images/logo_bg.png" style="width: 15%;" />
+    <a class="cursor-pointer mx-2 mt-0 md:hidden block text-white" onclick="menu(this)"><i class="bi bi-list-task fs-4" name="menu"
+        style="font-size: 2rem;"></i></a>
+  </div>
+  <ul
+    class="md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-[#4a249d]  w-full left-0 md:w-auto md:py-0 py-5 md:pt-0 pl-7 md:opacity-100  opacity-0  top-[-400px] transition-all ease-in duration-300">
+    <li class="uppercase m-4 md:my-0"><a href="./index.html" class="active">Home</a></li>
+    <li class="uppercase m-4  md:my-0"><a href="./specialities.html">OurDoctors</a></li>
+    <li class="uppercase m-4  md:my-0"><a href="#">Aboutus</a></li>
+    <li class="uppercase m-4  md:my-0"><a href="#">Contact</a></li>
+    <li class="uppercase m-4  md:my-0 logOutNav"><a href="../PatientLogin.html">SignUp/LogIn</a></li>
+    <li class="uppercase m-4  md:my-0 logInNav"><a href="./MyAppointments.html">MyAppointments</a></li>
+    <li class="uppercase m-4  md:my-0 logInNav"><a href="./prescriptionDisplay.html">MyPrescriptions</a></li>
+    <li class="uppercase m-4  md:my-0 logInNav"><a href="#" onclick="logOut()">LogOut</a></li>
+  </ul>
+</nav>
     <section style="clear: both;margin-top: 100px;margin-bottom: 100px;">
         <h1 class="text-center text-2xl uppercase font-extrabold text-[#4A249D]">Our <span id="specialityHeader">Dermatology</span> Doctors</h1>
         <div id="doctors" style="clear: both;">
@@ -60,6 +58,27 @@
                    <button id="otpProceedBtn" class="px-4 py-2 bg-[#4A249D] text-white text-base font-medium rounded-md w-70
                        shadow-sm hover:bg-[#4A249D] focus:outline-none focus:ring-2 focus:bg-[#4A249D]" onclick="redirectToExternalLogin()">
                        proceed
+                   </button>        
+               </div>
+            </div>     
+        </div>
+    </div>
+
+    <div id="alertModal"  class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 ">
+        <div class="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-md">
+            <div class="flex justify-end p-2">
+                <button onclick="closeModal('alertModal')" type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                    <i class='bx bx-x bx-lg'></i>
+                </button>
+            </div>     
+            <div class="p-6 pt-0 text-center">
+                <h3 class="text-2xl uppercase mt-3 mb-2 font-extrabold" id="headerMessage"></h3>
+                <p id="message"></p>
+                <div class="items-center px-4 py-3">
+                   <button id="otpProceedBtn" class="px-4 py-2 bg-[#4A249D] text-white text-base font-medium rounded-md w-70
+                       shadow-sm hover:bg-[#4A249D] focus:outline-none focus:ring-2 focus:bg-[#4A249D]" onclick="closeModal('alertModal')">
+                       Ok
                    </button>        
                </div>
             </div>     

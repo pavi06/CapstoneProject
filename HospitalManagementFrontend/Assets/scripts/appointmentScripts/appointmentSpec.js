@@ -1,11 +1,16 @@
 const baseUrl ="http://localhost:5253/api";
 var bookAppointmentBySpeciality = (bodyData) =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
+        openModal('alertModal', "Error", "Unauthorized Access!");
+        return;
+    }
     console.log(bodyData)
     fetch(baseUrl + '/Patient/BookAppointmentBySpeciality',
         {
             method:'POST',
             headers:{
-                'Content-Type' : 'application/json',                
+                'Content-Type' : 'application/json', 
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`              
             },
             body:JSON.stringify(bodyData)
         }
@@ -16,19 +21,16 @@ var bookAppointmentBySpeciality = (bodyData) =>{
                 throw new Error('Unauthorized Access!');
             }
             const errorResponse = await res.json();
-            throw new Error(`${errorResponse.errorCode} Error! - ${errorResponse.message}`);
+            throw new Error(`${errorResponse.message}`);
         }
         return await res.json();
     })
     .then(data => {
-        console.log("booked successfully")
-        console.log(data)
-        alert("succesfully added")
+        openModal('alertModal', "Success", "Appointment Booked Successfully!");
         document.getElementById("bookAppointmentForm").reset();
         document.getElementById("infoModel").style.display='block';
     }).catch( error => {
-        console.log(error)
-        alert(error.message)
+        openModal('alertModal', "Error", error.message);
     });
 }
 
@@ -39,13 +41,17 @@ var redirectToAppointments = () =>{
 
 
 document.addEventListener("DOMContentLoaded",()=>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
+        openModal('alertModal', "Error", "Unauthorized Access!");
+        return;
+    }
     updateForLogInAndOut()
     var bookBtn = document.getElementById("bookAppointment");
     bookBtn.addEventListener("click", ()=>{
         var patientId = JSON.parse(localStorage.getItem('loggedInUser')).userId;
         if(!(validatePhone('phone') && validateDate('date') && validate('preferredTime') && validate('specialist')
         && validate('preferredMode') && validate('preferredLanguage')&& validate('preferredType')&& validate('description') && patientId)){
-            alert("provide all details poperly to proceed!");
+            openModal('alertModal', "Error", "provide all details poperly to proceed!");
         }
         var bodyData = {
             patientId : patientId,

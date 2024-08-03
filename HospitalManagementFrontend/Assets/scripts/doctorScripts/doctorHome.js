@@ -1,11 +1,16 @@
 var fetchAppointments = async () => {
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
+        return;
+    }
     await checkForRefresh()
+    displayAppointmentsSkeleton();
     var doctorId = JSON.parse(localStorage.getItem('loggedInUser')).userId;
-    console.log(doctorId)
     fetch(`http://localhost:5253/api/Doctor/GetTodayAppointment?doctorId=${doctorId}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`
         },
     }).then(async (res) => {
         if (!res.ok) {
@@ -18,22 +23,115 @@ var fetchAppointments = async () => {
         return await res.json();
     }).then(data => {
         displayAppointments(data);
+        displayAppointmentsSkeletonRemove();
     }).catch(error => {
         if (error.message === 'Unauthorized Access!') {
-            alert("Unauthorized Access!")
+            openModal('alertModal', "Error", "UnAuthorized Access!");
         } else {
-            alert(error.message);
+            openModal('alertModal', "Error", error.message);
         }
     });
 }
 
+var displayAppointmentsSkeleton = () =>{
+    document.getElementById('todayAppointment').innerHTML=`
+        <div class="relative h-90 m-5 pb-5 bg-white md:w-80 shadow-lg border-t-4 border-[#009fbd] rounded-2xl grow-0 shrink-0 basis-2/5">
+    <div class="grid grid-cols-2 mt-8">
+        <div class="pl-4 pr-0">
+            <div class="grid grid-cols-3">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+        </div>
+        <div class="pl-1 pr-4">
+            <div class="font-semibold text-lg">
+                <div class="w-48 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+    </div>
+    <div class="absolute top-0 right-0 bg-[#009fbd] text-md uppercase font-semibold px-5 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-2xl shadow-lg">
+        <div class="w-20 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </div>
+    <div class="flex flex-row flex-wrap justify-evenly mt-5">
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full py-2 px-4 my-1 bg-[#009fbd] text-[#f6f5f5] font-bold rounded-lg border-2 border-[#009fbd] hover:bg-[#f6f5f5] hover:text-[#009fbd] cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full px-4 py-2 my-1 bg-[#009fbd] text-[#f6f5f5] border-[#009fbd] border-2 font-bold rounded-lg hover:bg-[#f6f5f5] hover:text-[#009fbd] cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full py-2 px-4 my-1 bg-[#009fbd] text-[#f6f5f5] border-[#009fbd] border-2 rounded-lg cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    `;
+
+}
+
+var displayAppointmentsSkeletonRemove = () =>{
+    document.getElementById('todayAppointment').innerHTML="";
+}
+
 var displayAppointments = (data) => {
-    console.log(data)
     var todayDiv = document.getElementById("todayAppointment");
     var upcomingDiv = document.getElementById("upcomingAppointment");
     const todayDate = new Date();
     const today = `${todayDate.getFullYear()}-${(todayDate.getMonth() + 1).toString().padStart(2, '0')}-${todayDate.getDate().toString().padStart(2, '0')}`;
-    console.log(today)
     data.forEach(appointment => {
         var negated = appointment.prescriptionAddedOrNot ? "none" : ""; 
         var color = appointment.appointmentStatus.toLowerCase() === "cancelled"?"text-red-400" : "" 
@@ -190,11 +288,16 @@ var redirectToMedicalRecord = (appointmentId,patientId) => {
 
 
 var cancelAppointment = async (appointmentId) =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
+        return;
+    }
     await checkForRefresh()
     fetch(`http://localhost:5253/api/Doctor/CancelAppointment?appointmentId=${appointmentId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`
         },
     }).then(async (res) => {
         if (!res.ok) {
@@ -206,19 +309,23 @@ var cancelAppointment = async (appointmentId) =>{
         }
         return await res.text();
     }).then(data => {
-        alert(data);
+        openModal('alertModal', "Success", data);
         document.getElementById(`cancelTag${appointmentId}`).classList.remove('hide');
         document.getElementById(`backgroundDiv${appointmentId}`).classList.remove('hide');
     }).catch(error => {
         if (error.message === 'Unauthorized Access!') {
-            alert("Unauthorized Access!")
+            openModal('alertModal', "Error", "UnAuthorized Access!");
         } else {
-            alert(error.message);
+            openModal('alertModal', "Error", error.message);
         }
     });
 }
 
 
 document.addEventListener("DOMContentLoaded", () => {
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
+        return;
+    }
     fetchAppointments();
 })

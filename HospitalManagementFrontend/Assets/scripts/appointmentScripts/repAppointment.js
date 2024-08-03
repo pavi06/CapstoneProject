@@ -1,6 +1,10 @@
 var doctorId = 0;
 
 var getPatientId = () =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Receptionist"){
+        alert("Unauthorized Access!");
+        return;
+    }
     if(!(validateName('patientName') && validatePhone('contactNo'))){
         alert("Provide valid Patient name and contactno to get patient id!");
         return;
@@ -9,7 +13,8 @@ var getPatientId = () =>{
         {
             method:'POST',
             headers:{
-                'Content-Type' : 'application/json',                
+                'Content-Type' : 'application/json', 
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`               
             },
             body:JSON.stringify({
                 patientName: document.getElementById("patientName").value,
@@ -28,13 +33,10 @@ var getPatientId = () =>{
         return await res.json();
     })
     .then(data => {
-        console.log(data)
         var id = document.getElementById("idDisplay");
         id.innerHTML=data;
-        alert(data)
     }).catch( error => {
-        console.log(error)
-        alert(error.message)
+        openModal('alertModal', "Error", error.message);        
     });
 }
 
@@ -58,15 +60,21 @@ var displaySlots = (data) =>{
 
 
 var getDoctorSlots = () =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Receptionist"){
+        openModal('alertModal', "Error","Unauthorized Access!");
+        return;
+    }
     if(!(validateDate('date'))){
-        alert("Provide valid date to get slots");
+        alert();
+        openModal('alertModal', "Error","Provide valid date to get slots");
         return;
     }
     fetch('http://localhost:5253/api/Patient/GetDoctorSlots',
         {
             method:'POST',
             headers:{
-                'Content-Type' : 'application/json',                
+                'Content-Type' : 'application/json', 
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`               
             },
             body:JSON.stringify({
                 doctorId: doctorId,
@@ -85,27 +93,29 @@ var getDoctorSlots = () =>{
         return await res.json();
     })
     .then(data => {
-        console.log(data)
         displaySlots(data)
     }).catch( error => {
-        console.log(error)
-        alert(error.message)
+        openModal('alertModal', "Error",error.message);
     });
 }
 
 var bookAppointment = () => {
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Receptionist"){
+        openModal('alertModal', "Error","Unauthorized Access!");
+        return;
+    }
     var patientId = parseInt(document.getElementById("idDisplay").textContent, 10);
     var slot = document.querySelector(".slotDesign.selected").textContent;
     if(!(patientId)){
         if(!(validateName('name') && validate('dob') && validate('gender') && validatePhone('contactNo') && validate('address') && validateDate('date')
         && validate('preferredType') && validate('description') && slot)){
-            alert("provide all patient details to proceed");
+            openModal('alertModal', "Error","provide all patient details to proceed");
             return;
         }
     }
     else{
         if(!(validatePhone('contactNo') && validateDate('date') && validate('preferredType') && validate('description') && slot)){
-            alert("Provide all necessary appointment details to proceed");
+            openModal('alertModal', "Error","Provide all necessary appointment details to proceed");
             return;
         }
     }
@@ -123,12 +133,12 @@ var bookAppointment = () => {
         description: document.getElementById("description").value,
         appointmentType: document.getElementById("preferredType").value,
     } 
-    console.log(bodyData)
     fetch('http://localhost:5253/api/Receptionist/BookAppointment',
         {
             method:'POST',
             headers:{
-                'Content-Type' : 'application/json',                
+                'Content-Type' : 'application/json',
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`                
             },
             body:JSON.stringify(bodyData)
         }
@@ -144,8 +154,7 @@ var bookAppointment = () => {
         return await res.json();
     })
     .then(data => {
-        console.log("booked successfully")
-        console.log(data);
+        openModal('alertModal', "Success","Appointment Booked Successfully!");
         document.getElementById("slotsAvailable").innerHTML="";
         document.getElementById("bookAppointmentForm").reset();
         document.getElementById("patientName").value="";
@@ -153,13 +162,17 @@ var bookAppointment = () => {
         document.getElementById("idDisplay").innerHTML="";
         window.location.href="./ReceptionistDashboard.html";
     }).catch( error => {
-        console.log(error)
+        openModal('alertModal', "Error",error.message);
         document.getElementById("slotsAvailable").innerHTML="";
         document.getElementById("bookAppointmentForm").reset();
     });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Receptionist"){
+        openModal('alertModal', "Error","Unauthorized Access!");
+        return;
+    }
     const urlParams = new URLSearchParams(window.location.search); 
     doctorId = urlParams.get('search'); 
     var appointmentBtn = document.getElementById("bookAppointmentBtn");

@@ -1,10 +1,16 @@
 var fetchDetails = async () =>{
     await checkForRefresh()
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Receptionist"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
+        return;
+    }
+    displayDataSkeleton();
     fetch('http://localhost:5253/api/Receptionist/GetAllInPatientDetails',
         {
             method:'GET',
             headers:{
-                'Content-Type' : 'application/json',                
+                'Content-Type' : 'application/json', 
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`               
             }
         }
     )
@@ -19,11 +25,40 @@ var fetchDetails = async () =>{
         return await res.json();
     })
     .then(data => {
+        removeDateSkeleton();
         displayData(data)
     }).catch( error => {
-        console.log(error)
-        alert(error.message)
+        openModal('alertModal', "Error", error.message);
     });
+}
+
+var displayDataSkeleton = () =>{
+    document.getElementById("tableBody").innerHTML = `
+        <tr class="bg-white border-b">
+    <td class="px-6 py-4 font-medium">
+        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-40 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-48 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+</tr>
+    `;
+}
+
+var removeDateSkeleton = () =>{
+    document.getElementById("tableBody").innerHTML ="";
 }
 
 var displayData = (data) =>{
@@ -66,5 +101,9 @@ var filterTable = () => {
 }
 
 document.addEventListener("DOMContentLoaded", () =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Receptionist"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
+        return;
+    }
     fetchDetails();
 })

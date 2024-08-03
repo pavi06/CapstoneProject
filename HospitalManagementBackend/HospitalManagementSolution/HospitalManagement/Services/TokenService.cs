@@ -41,7 +41,7 @@ namespace HospitalManagement.Services
                 new Claim("Role",user.Role)
             };
             var credentials = new SigningCredentials(_key, SecurityAlgorithms.HmacSha256);
-            var myToken = new JwtSecurityToken(null, null, claims, expires: DateTime.Now.AddMinutes(3), signingCredentials: credentials);
+            var myToken = new JwtSecurityToken(null, null, claims, expires: DateTime.Now.AddMinutes(20), signingCredentials: credentials);
             token = new JwtSecurityTokenHandler().WriteToken(myToken);
             return token;
         }

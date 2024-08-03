@@ -12,19 +12,23 @@
     <script src="../../Assets/scripts/billScripts/inPatientBill.js"></script>
 </head>
 <body>
+    <div class="loader"></div>
     <section id="billForm" class="m-5">
         <div class="float-right mb-5 ml-10">
             <form class="flex">
-                <input type="text" name="patientId" required id="patientId" placeholder="patientId" onblur="validateNumber('patientId')" class=" mx-2 w-40 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                <div class="flex flex-col">
+                    <input type="text" name="patientId" required id="patientId" placeholder="patientId" onblur="validateNumber('patientId')" class=" mx-2 w-40 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    <span id="patientIdtext" class="text-xs ml-3 none mt-0"></span>
+                </div>
                 <button type="button" class="mx-2 px-3 bg-indigo-100 rounded-lg" onclick="generateBill()" style="width: fit-content;">Generate Bill</button>
             </form>
         </div>
         <div class="flex flex-col mx-auto my-5 p-5" style="clear: both;">
             <div class="h-20 w-50 text-center">
-                <h1 class="font-extrabold text-2xl text-indigo-800">Hospital Name</h1>
-                <p>Location , Address<span>ContactNo</span></p>
+                <h1 class="font-extrabold text-2xl text-indigo-800">RSVPB Multispeciality Hospital</h1>
+                <p>No 15 Gandhi Nagar, Anna Street,<br>Nungambakkam, Chennai, Tamil Nadu <span>+044 89087890</span></p>
             </div>
-            <div class="grid grid-cols-3 h-30 mx-auto mt-10" style="width: 65%;">
+            <div class="grid grid-cols-4 h-30 mx-auto mt-10" style="width: 65%;">
                 <div class="font-semibold col-span-2">
                     <div class="grid-cols-2">
                         <div>Receipt Id </div>
@@ -99,5 +103,26 @@
             </div>
         </div>
     </section>
+
+    <div id="alertModal"  class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 ">
+        <div class="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-md">
+            <div class="flex justify-end p-2">
+                <button onclick="closeModal('alertModal')" type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                    <i class='bx bx-x bx-lg'></i>
+                </button>
+            </div>     
+            <div class="p-6 pt-0 text-center">
+                <h3 class="text-2xl uppercase mt-3 mb-2 font-extrabold" id="headerMessage"></h3>
+                <p id="message"></p>
+                <div class="items-center px-4 py-3">
+                   <button id="otpProceedBtn" class="px-4 py-2 bg-[#4A249D] text-white text-base font-medium rounded-md w-70
+                       shadow-sm hover:bg-[#4A249D] focus:outline-none focus:ring-2 focus:bg-[#4A249D]" onclick="closeModal('alertModal')">
+                       Ok
+                   </button>        
+               </div>
+            </div>     
+        </div>
+    </div>
 </body>
 </html>

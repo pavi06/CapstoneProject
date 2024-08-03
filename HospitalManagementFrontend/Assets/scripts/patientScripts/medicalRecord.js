@@ -1,7 +1,10 @@
 var getPatientId = async () => {
-    console.log(!(validateName('patientName') && validatePhone('contactNo')))
     if (!(validateName('patientName') && validatePhone('contactNo'))) {
-        alert("Please provide all the necessary details to proceed");
+        openModal('alertModal', "Error", "Please provide all the necessary details to proceed");
+        return;
+    }
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
         return;
     }
     var name = document.getElementById("patientName").value;
@@ -11,8 +14,8 @@ var getPatientId = async () => {
         {
             method: 'POST',
             headers: {
-                // 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxNSIsIkNvbnRhY3RObyI6Iis5MTkwMDM3NDE3MjEiLCJSb2xlIjoiVXNlciIsImV4cCI6MTcyMjI4MTY0Nn0.HLTj171QP06zc2F7LK4bZpms2xvYyEMSkZsbJoSEoqE`,
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`
             },
             body: JSON.stringify({
                 patientName: name,
@@ -31,19 +34,20 @@ var getPatientId = async () => {
             return await res.json();
         })
         .then(data => {
-            console.log(data)
             var id = document.getElementById("idDisplay");
             id.innerHTML = data;
-            alert(data)
         }).catch(error => {
-            console.log(error)
-            alert(error.message)
+            openModal('alertModal', "Error", error.message);
         });
 }
 
 var addRecord = async () => {
     if (!validate('diagnosis') && validate('treatment') && validate('treatStatus')) {
-        alert("provide all details properly!")
+        openModal('alertModal', "Error", "Provide all data properly!");
+        return;
+    }
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
         return;
     }
     var diagnosis = document.getElementById("diagnosis").value;
@@ -54,8 +58,8 @@ var addRecord = async () => {
         {
             method: 'POST',
             headers: {
-                // 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJVc2VySWQiOiIxNSIsIkNvbnRhY3RObyI6Iis5MTkwMDM3NDE3MjEiLCJSb2xlIjoiVXNlciIsImV4cCI6MTcyMjI4MTY0Nn0.HLTj171QP06zc2F7LK4bZpms2xvYyEMSkZsbJoSEoqE`,
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`
             },
             body: JSON.stringify({
                 appointmentId: localStorage.getItem('appointmentId'),
@@ -79,15 +83,12 @@ var addRecord = async () => {
             return await res.text();
         })
         .then(data => {
-            console.log(data)
-            alert(data)
             window.location.href="./MedicalRecords.html";
         }).catch(error => {
             if(error.message==="Prescription Not available!"){
-                alert(error.message+"Add prescription and then add the medical record!");
+                openModal('alertModal', "Error", error.message+"Add prescription and then add the medical record!");
             }
-            console.log(error)
-            alert(error.message)
+            openModal('alertModal', "Error", error.message);
         document.getElementById("addMedicalRecordForm").reset();
     });
 }
@@ -95,16 +96,22 @@ var addRecord = async () => {
 var GetRecords = async () => {
     var doctorId = JSON.parse(localStorage.getItem('loggedInUser')).userId;
     if(!validateNumber('patientId')){
-        alert("Provide a valid id");
+        openModal('alertModal', "Error", "Provide a valid Id!");
+        return;
+    }
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
         return;
     }
     var patientId = document.getElementById("patientId").value;
     await checkForRefresh()
+    displayRecordsSkeleton();
     fetch(`http://localhost:5253/api/Doctor/GetMedicalRecord?doctorId=${doctorId}&patientId=${patientId}`,
         {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`
             },
         }
     )
@@ -119,13 +126,15 @@ var GetRecords = async () => {
             return await res.json();
         })
         .then(data => {
-            console.log(data)
-            document.getElementById("medicalRecord").innerHTML="";
+            displayRecordsSkeletonRemove();
             displayRecords(data);
         }).catch(error => {
-            console.log(error)
-            alert(error.message)
+            openModal('alertModal', "Error", error.message);
         });
+}
+
+var displayRecordsSkeletonRemove = () =>{
+    document.getElementById("medicalRecord").innerHTML = ""; 
 }
 
 var displayRecords = (data) => {
@@ -140,7 +149,6 @@ var displayRecords = (data) => {
     }
     data.forEach(record => {
         var tableRecords = "";
-        console.log(record.medications)
         record.medications.forEach(medicine => {
             tableRecords += `
             <tr>
@@ -204,7 +212,108 @@ var displayRecords = (data) => {
     });
 }
 
+var displayRecordsSkeleton = () =>{
+    document.getElementById('').innerHTML = `
+        <div class="bg-white rounded-3xl border-t-4 border-[#009fbd] shadow-lg my-10 p-5 mx-auto" style="width: 80%;">
+    <div class="flex font-bold text-xl text-[#009fbd] ml-5 mb-3">
+        <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+        <div class="w-40 h-6 bg-gray-300 animate-pulse rounded ml-4"></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mx-5 sm:grid-cols-1">
+        <div class="grid grid-cols-2">
+            <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+            <div class="w-48 h-4 bg-gray-300 animate-pulse rounded ml-2"></div>
+        </div>
+        <div class="grid grid-cols-2">
+            <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+            <div class="w-48 h-4 bg-gray-300 animate-pulse rounded ml-2"></div>
+        </div>
+        <div class="grid grid-cols-2">
+            <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+            <div class="w-48 h-4 bg-gray-300 animate-pulse rounded ml-2"></div>
+        </div>
+        <div class="grid grid-cols-2">
+            <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+            <div class="w-48 h-4 bg-gray-300 animate-pulse rounded ml-2"></div>
+        </div>
+        <div class="grid grid-cols-2">
+            <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+            <div class="w-48 h-4 bg-gray-300 animate-pulse rounded ml-2"></div>
+        </div>
+        <div class="grid grid-cols-2">
+            <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+            <div class="w-48 h-4 bg-gray-300 animate-pulse rounded ml-2"></div>
+        </div>
+    </div>
+    <div id="medications" class="overflow-y-auto h-50 mt-5 mx-auto">
+        <table class="min-w-full divide-y">
+            <thead class="bg-[#009fbd]">
+                <tr class="text-center text-black">
+                    <th scope="col" class="p-3 uppercase font-semibold text-[#f6f5f5] text-sm font-medium">
+                        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </th>
+                    <th scope="col" class="p-3 uppercase font-semibold text-[#f6f5f5] text-sm font-medium">
+                        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </th>
+                    <th scope="col" class="p-3 uppercase font-semibold text-[#f6f5f5] text-sm font-medium">
+                        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </th>
+                    <th scope="col" class="p-3 uppercase font-semibold text-[#f6f5f5] text-sm font-medium">
+                        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </th>
+                    <th scope="col" class="p-3 uppercase font-semibold text-[#f6f5f5] text-sm font-medium">
+                        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+                <tr class="text-center">
+                    <td class="px-6 py-4">
+                        <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </td>
+                </tr>
+                <tr class="text-center">
+                    <td class="px-6 py-4">
+                        <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </td>
+                    <td class="px-6 py-4">
+                        <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+    `;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
+        return;
+    }
     if (document.getElementById("createRecordBtn")) {
         var btn = document.getElementById("createRecordBtn");
         btn.addEventListener("click", () => {

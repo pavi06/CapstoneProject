@@ -15,12 +15,12 @@ namespace HospitalManagement.Jobs
             _logger = logger;
         }
 
-        public async Task UpdateAppointmentStatus()
+        public void UpdateAppointmentStatus()
         {
-            var appointments = _appointmentRepository.Get().Result.Where(a=>a.AppointmentDate < DateTime.Now.Date);
+            var appointments = _appointmentRepository.Get().Result.Where(a=>a.AppointmentDate <= DateTime.Now.Date && a.Slot < TimeOnly.FromTimeSpan(DateTime.Now.TimeOfDay));
             appointments.Select(async a => {
                 a.AppointmentStatus = "Completed";
-                var res = await _appointmentRepository.Update(a);
+                var res = _appointmentRepository.Update(a).Result;
                 _logger.LogInformation("job trigerred");
                 _logger.LogInformation("res -> ", res.AppointmentId);
             });
@@ -28,13 +28,13 @@ namespace HospitalManagement.Jobs
 
         public async Task StartUpdating()
         {
-            //RecurringJob.AddOrUpdate(
-            //    "appointmentUpdatejob",
-            //    () => UpdateAppointmentStatus(), "* * * * *");
-
             RecurringJob.AddOrUpdate(
                 "appointmentUpdatejob",
-                () => Console.WriteLine("hello"), "* * * * *");
+                () => UpdateAppointmentStatus(), "*/5 * * * *");
+
+            //RecurringJob.AddOrUpdate(
+            //    "appointmentUpdatejob",
+            //    () => Console.WriteLine("hello"), "* * * * *");
         }
     }
 }

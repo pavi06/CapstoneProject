@@ -15,7 +15,6 @@ var displayBill = (data) => {
 
 var displaytableData = (data) =>{
     var roomDiv = document.getElementById("tableBody");
-    console.log(data)
     for (const key in data) {
         if (data.hasOwnProperty(key)) {
             const roomRateDTO = data[key];
@@ -31,18 +30,59 @@ var displaytableData = (data) =>{
     }
 }
 
+var displayDataSkeleton = () =>{
+    document.getElementById("tableBody").innerHTML=`
+          <tr class="whitespace-nowrap text-sm">
+    <td class="px-6 py-4">
+        <div class="w-20 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-20 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-28 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4">
+        <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+</tr> 
+    `;
+}
+
+var displayDataSkeletonRemove = () =>{
+    document.getElementById("tableBody").innerHTML="";
+}
+
 var generateBill = async () => {
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Receptionist"){
+        openModal('alertModal', "Error","Unauthorized Access!");
+        return;
+    }
     if(!validateNumber('patientId')){
-        alert("Provide a valid id!");
+        openModal('alertModal', "Error","Provide a valid id!");
         return;
     }
     var patientId = document.getElementById("patientId").value;
+    displayDataSkeleton()
     await checkForRefresh()
     fetch(`http://localhost:5253/api/Receptionist/BillForInPatient?inPatientid=${patientId}`,
         {
             method:'POST',
             headers:{
-                'Content-Type' : 'application/json',                
+                'Content-Type' : 'application/json',  
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`              
             },
         }
     )
@@ -57,10 +97,9 @@ var generateBill = async () => {
         return await res.json();
     })
     .then(data => {
-        console.log(data)
+        displayDataSkeletonRemove()
         displayBill(data)
     }).catch( error => {
-        console.log(error)
-        alert(error.message)
+        openModal('alertModal', "Error", error.message);
     });
 }

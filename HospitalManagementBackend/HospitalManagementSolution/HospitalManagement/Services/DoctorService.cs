@@ -119,6 +119,8 @@ namespace HospitalManagement.Services
             try
             {                
                 prescription = await _prescriptionRepository.Add(new Prescription() { PrescriptionFor = prescriptionDTO.PrescriptionFor, PatientId = prescriptionDTO.PatientId, DoctorId = prescriptionDTO.DoctorId });
+                appointment.AppointmentStatus = "Completed";
+                await _appointmentRepository.Update(appointment);   
                 foreach(var m in prescriptionDTO.prescribedMedicine)
                 {
                     await _medicationRepository.Add(new Medication(m.MedicineName, m.Form, m.Dosage, m.IntakeTiming, m.Intake, prescription.PrescriptionId));

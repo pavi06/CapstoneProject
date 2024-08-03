@@ -1,30 +1,10 @@
-let navbar = document.querySelector(".navbar");
-
-let navLinks = document.querySelector(".nav-links");
-let menuOpenBtn = document.querySelector(".navbar .bx-menu");
-let menuCloseBtn = document.querySelector(".nav-links .bx-x");
-menuOpenBtn.onclick = function() {
-navLinks.style.left = "0";
-}
-menuCloseBtn.onclick = function() {
-navLinks.style.left = "-100%";
+function menu(element) {
+    let list = document.querySelector('ul');
+    element.name === 'menu' ? (element.name = "close", list.classList.add('top-[80px]'), list.classList.add('opacity-100')) : (element.name = "menu", list.classList.remove('top-[80px]'), list.classList.remove('opacity-100'))
 }
 
 
-let htmlcssArrow = document.querySelector(".htmlcss-arrow");
-htmlcssArrow.onclick = function() {
- navLinks.classList.toggle("show1");
-}
-let moreArrow = document.querySelector(".more-arrow");
-moreArrow.onclick = function() {
- navLinks.classList.toggle("show2");
-}
-let jsArrow = document.querySelector(".js-arrow");
-jsArrow.onclick = function() {
- navLinks.classList.toggle("show3");
-}
-
-function signUp(){
+function signIn(){
     if(!(validateEmail('email') && validatePassword('password'))){
         alert("provide all values properly");
         return;
@@ -53,7 +33,6 @@ function signUp(){
             return await res.json();
     })
     .then(data => {
-            console.log("login successfully")
             localStorage.setItem('loggedInUser',JSON.stringify(data));
             localStorage.setItem('isLoggedIn',true)
             if(data.role==="Receptionist"){
@@ -62,12 +41,60 @@ function signUp(){
                 window.location.href="./doctorTemplates/doctorHome.html"
             }
     }).catch(error => {
-            console.log(error.message)
+            openModal('alertModal', "Error", error.message);
     });
 }
 
-function externalSignUp(){
-    console.log("inside chcek")
+function signUp(){
+    if(!(validateName('name') && validateDate('dob') && validate('gender') && validateEmail('email') && validatePhone('phone')
+    && validate('address') && validatePassword('password') && validateConfirmPassword('confirmpassword', 'password'))){
+        alert("provide all values properly");
+        return;
+    }
+    var bodyData={
+        name: document.getElementById("name").value,
+        dateOfBirth: document.getElementById("dob").value,
+        gender: document.getElementById("gender").value,
+        emailId: document.getElementById("email").value,
+        contactNo: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        password: document.getElementById("password").value
+    }
+    fetch('http://localhost:5253/api/User/Register',
+        {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body:JSON.stringify(bodyData)
+        }
+    )
+    .then(async (res) => {
+            if (!res.ok) {
+                if (res.status === 401) {
+                    throw new Error('Unauthorized Access!');
+                }
+                const errorResponse = await res.json();
+                throw new Error(`${errorResponse.message}`);
+            }
+            return await res.text();
+    })
+    .then(data => {
+        localStorage.setItem('loggedInUser',JSON.stringify(data));
+        localStorage.setItem('isLoggedIn',true)
+        if(localStorage.getItem("redirectionURL")){
+            window.location.href = localStorage.getItem("redirectionURL");
+        }
+        else{
+            window.location.href="./patientTemplates/index.html";
+        }
+    }).catch(error => {
+            openModal('alertModal', "Error", error.message);
+    });
+}
+
+
+function externalSignIn(){
     if(!(validateName('name') && validatePhone('contactno'))){
         alert("provide all values properly");
         return;
@@ -76,7 +103,6 @@ function externalSignUp(){
         userName: document.getElementById("name").value,
         contactNumber: document.getElementById("contactno").value
     }
-    console.log("herer")
     fetch('http://localhost:5253/api/User/ExternalLogin',
         {
             method: 'POST',
@@ -97,21 +123,27 @@ function externalSignUp(){
             return await res.text();
     })
     .then(data => {
-        console.log(data)
         document.getElementById('otpModel').style.display = 'block'
     }).catch(error => {
-            console.log(error.message)
+         openModal('alertModal', "Error", error.message);
     }); 
 }
 
-function openModal(modalId) {
+function openModal(modalId, status, message) {
+    document.getElementById("headerMessage").innerHTML=status;
+    if(status === "Error"){
+        document.getElementById("headerMessage").style.color="Red";
+    }else{
+        document.getElementById("headerMessage").style.color="Green";
+    }
+    document.getElementById("message").innerHTML=message;
+    document.getElementById(modalId).style.display = 'block'
     document.getElementById(modalId).classList.remove('hidden')
-    document.getElementById(modalId).classList.add('block')
 }
 
 function closeModal(modalId) {
+    document.getElementById(modalId).style.display = 'none'
     document.getElementById(modalId).classList.add('hidden')
-    document.getElementById(modalId).classList.remove('block')
 }
 
 function externalLoginVerification(){
@@ -136,7 +168,6 @@ function externalLoginVerification(){
             return await res.json();
     })
     .then(data => {
-        console.log(data)
         localStorage.setItem('loggedInUser',JSON.stringify(data));
         localStorage.setItem('isLoggedIn',true)
         if(localStorage.getItem("redirectionURL")){
@@ -146,7 +177,7 @@ function externalLoginVerification(){
             window.location.href="./patientTemplates/index.html";
         }
     }).catch(error => {
-        console.log(error.message)
+        openModal('alertModal', "Error", error.message);
     }); 
 }
 
@@ -204,16 +235,14 @@ function redirectToExternalLogin (){
 function logOut(){
     if(JSON.parse(localStorage.getItem('loggedInUser')).role === "Patient"){
         localStorage.clear();
+        window.history.replaceState({}, '', './index.html');
         window.location.href="./index.html"               
     }
     else{
         localStorage.clear();
+        window.history.replaceState({}, '', '../login.html');
         window.location.href="../login.html"
     }   
-    window.history.pushState(null, "", window.location.href)
-    window.onpopstate = function (){
-        window.history.pushState(null, "", window.location.href);
-    }
 }
 
 
@@ -227,11 +256,9 @@ function checkTokenAboutToExpiry(accessToken){
     }
     const currentTimestamp = Math.floor(Date.now() / 1000);
     const timeUntilExpiry = payload.exp - currentTimestamp; //diff in sec
-    if (timeUntilExpiry <= 120) {
-        console.log('Token is about to expire within 2 minutes.');
+    if (timeUntilExpiry <= 300) {
         return "Refresh";
     } else {
-        console.log('Token is valid for more than 2 minutes.');
         return "Not about to expire!";
     }
 }
@@ -252,8 +279,7 @@ function parseJwt(token) {
 
 
 function refreshToken(){
-    console.log("refresh token method------")
-    fetch('http://localhost:5058/api/Token/refreshToken', {
+    fetch('http://localhost:5253/api/Token/refreshToken', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -265,7 +291,6 @@ function refreshToken(){
     })
     .then(async(res) => {
         if (!res.ok) {
-            console.log("rmeove user")
             throw new Error('Unauthorized Access!');
         }
         return await res.json();
@@ -279,7 +304,7 @@ function refreshToken(){
         loggedInUser.refreshToken = data.refreshToken;
         localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
     }).catch(error => {
-        addAlert(error.message);
+        openModal('alertModal', "Error", error.message);
         setTimeout((error)=>{
             if(error.message === "Unauthorized Access!"){
                 logOut();
@@ -288,12 +313,23 @@ function refreshToken(){
     });    
 }
 
-var checkForRefresh = async () =>{
-    var res = await checkTokenAboutToExpiry(JSON.parse(localStorage.getItem('loggedInUser')).accessToken);
+async function checkForRefresh(){
+    if(localStorage.getItem('loggedInUser')){
+        var res = await checkTokenAboutToExpiry(JSON.parse(localStorage.getItem('loggedInUser')).accessToken);
         if (res === "Refresh") {
             await refreshToken();
         } else if (res === "Invalid accessToken!") {
             alert("Invalid AccessToken!");
             return;
         }
+    }
 }
+
+function redirectToPatientLoginPage(){
+    window.location.href="./PatientLogin.html";
+}
+
+function redirectToPatientRegisterPage(){
+    window.location.href="./register.html";
+}
+

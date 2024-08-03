@@ -15,6 +15,8 @@ namespace HospitalManagement.Models
         public List<Admission> Admissions { get; set; }
         public List<Prescription> Prescriptions { get; set; }
 
+        public Patient() { }
+
         public Patient(int patientId)
         {
             PatientId = patientId;

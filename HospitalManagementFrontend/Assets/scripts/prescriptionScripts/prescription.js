@@ -1,11 +1,18 @@
 var loadPrescription = async (appointmentId) =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
+        openModal('alertModal', "Error", "Unauthorized Access!");
+        return;
+    }
     var patientId=JSON.parse(localStorage.getItem('loggedInUser')).userId;
     await checkForRefresh()
+    displayDetailsSKeleton ();
+    displayTableRecordsSkeleton();
     fetch(`http://localhost:5253/api/Patient/MyPrescriptionForAppointment?patientId=${patientId}&appointmentId=${appointmentId}`,
         {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`
             },
         }
     )
@@ -20,10 +27,11 @@ var loadPrescription = async (appointmentId) =>{
             return await res.json();
         })
         .then(data => {
+            displayDetailsSKeletonRemove()
+            displayTableRecordsSkeletonRemove();
             displayDetails(data);
         }).catch(error => {
-            console.log(error)
-            alert(error.message)
+            openModal('alertModal', "Error", error.message);
         });
 }
 
@@ -42,6 +50,75 @@ var displayTableRecords = (data) =>{
         `;
     });
     table.innerHTML=tableRecords;
+}
+
+var displayTableRecordsSkeleton = () =>{
+    document.getElementById("medicineTableBody").innerHTML=`    
+        <tr class="bg-white border-b">
+    <td class="px-6 py-4 whitespace-nowrap text-sm">
+        <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm">
+        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm">
+        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm">
+        <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+    <td class="px-6 py-4 whitespace-nowrap text-sm">
+        <div class="w-32 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </td>
+</tr>`;
+}
+
+var displayTableRecordsSkeletonRemove = () =>{
+    document.getElementById("medicineTableBody").innerHTML="";
+}
+
+var displayDetailsSKeleton = () =>{
+    document.getElementById("DoctorInfo").innerHTML = `
+<div id="DoctorInfo" class="p-4">
+    <div class="flex items-center space-x-4">
+        <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+        <div class="w-40 h-6 bg-gray-300 animate-pulse rounded"></div>
+    </div>
+</div>
+<div id="PatientInfo" class="p-4">
+    <div class="grid grid-cols-2 gap-4">
+        <div class="flex items-center space-x-4">
+            <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+        </div>
+    </div>
+</div>
+<div id="PrescriptionInfo" class="p-4">
+    <div class="grid grid-cols-2 gap-4">
+        <div class="flex items-center space-x-4">
+            <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+        </div>
+    </div>
+</div>
+
+    `;
+}
+
+var displayDetailsSKeletonRemove = () =>{
+    document.getElementById("DoctorInfo").innerHTML ="";
 }
 
 var displayDetails = (data) =>{
@@ -76,6 +153,10 @@ var displayDetails = (data) =>{
 }
 
 document.addEventListener("DOMContentLoaded", () =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
+        return;
+    }
     updateForLogInAndOut();
     const urlParams = new URLSearchParams(window.location.search); 
     const appointmentId = urlParams.get('search'); 

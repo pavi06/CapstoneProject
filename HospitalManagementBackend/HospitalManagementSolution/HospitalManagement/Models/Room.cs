@@ -12,5 +12,10 @@ namespace HospitalManagement.Models
         public WardRoomsAvailability WardBed { get; set; }
         public bool IsAllotted { get; set; } = false;
         public Double CostsPerDay { get; set; }
+
+        public Room()
+        {
+        }
     }
+
 }

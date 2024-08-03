@@ -12,42 +12,36 @@
     <script src="../../Assets/scripts/appointmentScripts/repAppointment.js"></script>
 </head>
 <body>
-    <nav>
-        <div class="navbar">
-            <i class='bx bx-menu'></i>
-            <div class="logo"><a href="#">Logo</a></div>
-            <div class="nav-links">
-                <div class="sidebar-logo">
-                    <span class="logo-name">Logo</span>
-                    <i class='bx bx-x'></i>
-                </div>
-                <ul class="links">
-                    <li><a href="./ReceptionistDashboard.html">Home</a></li>
-                    <li>
-                        <a href="#">Doctors</a>
-                        <i class='bx bxs-chevron-down js-arrow arrow '></i>
-                        <ul class="js-sub-menu sub-menu">
-                            <li><a href="#">Dermatology</a></li>
-                            <li><a href="#">Neurology</a></li>
-                            <li><a href="#">Gynacology</a></li>
-                            <li><a href="#">..</a></li>
-                        </ul>
-                    </li>
-                    <li><a href="./billDetails.html">Bills</a></li>
-                    <li><a href="./InPatientDetails.html">InPatientDetails</a></li>
-                    <li><a onclick="logOut()">Logout</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+    <div class="loader"></div>
+    <nav class="md:flex md:items-center md:justify-between p-5 align-middle bg-[#4a249d] text-white"
+    style="position: fixed;width: 100%;z-index: 1000;">
+    <div class="flex justify-between items-center">
+      <img src="../../Assets/images/logo_bg.png" style="width: 15%;" />
+      <a class="cursor-pointer mx-2 mt-0 md:hidden block text-white" onclick="menu(this)"><i class="bi bi-list-task fs-4" name="menu"
+          style="font-size: 2rem;"></i></a>
+    </div>
+    <ul
+      class="md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-[#4a249d]  w-full left-0 md:w-auto md:py-0 py-5 md:pt-0 pl-7 md:opacity-100  opacity-0  top-[-400px] transition-all ease-in duration-300">
+      <li class="uppercase m-4 md:my-0"><a href="./ReceptionistDashboard.html">Home</a></li>
+      <li class="uppercase m-4  md:my-0 logInNav"><a href="./billDetails.html">Bills</a></li>
+      <li class="uppercase m-4  md:my-0 logInNav"><a href="./InPatientDetails.html">InPatientDetails</a></li>
+      <li class="uppercase m-4  md:my-0 logInNav"><a href="#" onclick="logOut()">LogOut</a></li>
+    </ul>
+  </nav>
     <section style="margin-top: 85px;">
         <h1 class="uppercase text-2xl text-[#4A249D] text-center font-extrabold">Book Appointment</h1>
         <div class="float-right mt-5">
-            <form class="flex">
-                <div class="w-30 py-3 px-5 rounded-md ring-1 mr-3 ring-[#e0e0e0]" id="idDisplay"></div>
-                <input type="text" name="patientName" id="patientName" required placeholder="patientName" class="w-40 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                <input type="text" name="contactNo" id="contactNo" required placeholder="contactNo" class=" mx-2 w-40 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
-                <button type="button" class="mx-2 px-3 bg-indigo-100 rounded-lg" onclick="getPatientId()" style="width: fit-content;">Get Patient</button>
+            <form class="flex flex-row flex-wrap mx-auto text-center">
+                <div class="w-30 py-3 px-5 my-4 rounded-md ring-1 mx-3 ring-[#e0e0e0]" style="width: fit-content;" id="idDisplay"></div>
+                <div class="flex flex-col my-4">
+                    <input type="text" name="patientName" id="patientName" onblur="validateName('patientName')" required placeholder="patientName" class="w-40 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    <span id="patientNametext" class="text-xs ml-3 none mt-0"></span>
+                </div>
+                <div class="flex flex-col my-4">
+                    <input type="text" name="contactNo" id="contactNo" onblur="validatePhone('contactNo')" required placeholder="contactNo" class=" mx-2 w-40 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                    <span id="contactNotext" class="text-xs ml-3 none mt-0"></span>
+                </div>
+                <button type="button" class="mx-2 mt-2 mb-4 px-3 bg-indigo-100 rounded-lg" onclick="getPatientId()" style="width: fit-content;">Get Patient</button>
             </form>
         </div>
         <div style="clear: both;">
@@ -60,6 +54,7 @@
                                     <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">Name</label>
                                     <input type="text" name="name" id="name" onblur="validateName('name')"
                                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
+                                    <span id="nametext" class="text-xs ml-3 none mt-0"></span>
                                 </div>
                             </div>
                             <div class="w-full px-3 sm:w-1/2">
@@ -68,6 +63,7 @@
                                         <label for="dob" class="mb-3 block text-base font-medium text-[#07074D]">Date Of Birth</label>
                                         <input type="date" name="dob" id="dob" onblur="validate('dob')"
                                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
+                                        <span id="dobtext" class="text-xs ml-3 none mt-0"></span>
                                     </div>
                                 </div>
                             </div>
@@ -84,13 +80,15 @@
                                         <option value="Female">
                                         <option value="Other">
                                     </datalist>
+                                    <span id="gendertext" class="text-xs ml-3 none mt-0"></span>
                                 </div>
                             </div>
                             <div class="w-full px-3 sm:w-1/2">
                                 <div class="mb-5">
                                     <div class="mb-5">
-                                        <label for="contactNo" class="mb-3 block text-base font-medium text-[#07074D]">ContactNumber</label>
-                                        <input type="tel" required onblur="validatePhone('contactNo')" name="contactNo" id="contactNo" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                        <label for="contactno" class="mb-3 block text-base font-medium text-[#07074D]">ContactNumber</label>
+                                        <input type="tel" required onblur="validatePhone('contactno')" name="contactno" id="contactno" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                        <span id="contactnotext" class="text-xs ml-3 none mt-0"></span>
                                     </div>
                                 </div>
                             </div>
@@ -99,6 +97,7 @@
                             <div class="mb-5">
                                 <label for="address" class="mb-3 block text-base font-medium text-[#07074D]">Address</label>
                                 <textarea name="address" id="address" onblur="validate('address')"  rows="3" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" placeholder="address here"></textarea>
+                                <span id="addresstext" class="text-xs ml-3 none mt-0"></span>
                             </div>
                         </div>
                         <div class="-mx-3 flex flex-wrap">
@@ -107,6 +106,7 @@
                                     <label for="date" class="mb-3 block text-base font-medium text-[#07074D]">Appointment Date</label>
                                     <input type="date" name="date" id="date" placeholder="Appointmentdate here"  required onblur="validateDate('date')"
                                         class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
+                                    <span id="datetext" class="text-xs ml-3 none mt-0"></span>
                                 </div>
                             </div>
                             <div class="availableSlotBtn">
@@ -128,12 +128,14 @@
                                 <option value="General CheckUp">
                                 <option value="Speciality consultation">
                             </datalist>
+                            <span id="preferredTypetext" class="text-xs ml-3 none mt-0"></span>
                         </div>
                         <div class="mb-5">
                             <label for="description" class="mb-3 block text-base font-medium text-[#07074D]">Reason for
                                 appointment</label>
                             <input type="text" required onblur="validate('description')" name="description" id="description" placeholder="Provide your reason here"
                                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
+                            <span id="descriptiontext" class="text-xs ml-3 none mt-0"></span>
                         </div>
                         <div>
                             <button id="bookAppointmentBtn" type="button"
@@ -146,5 +148,26 @@
             </div>
         </div>
     </section>
+
+    <div id="alertModal"  class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 ">
+        <div class="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-md">
+            <div class="flex justify-end p-2">
+                <button onclick="closeModal('alertModal')" type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                    <i class='bx bx-x bx-lg'></i>
+                </button>
+            </div>     
+            <div class="p-6 pt-0 text-center">
+                <h3 class="text-2xl uppercase mt-3 mb-2 font-extrabold" id="headerMessage"></h3>
+                <p id="message"></p>
+                <div class="items-center px-4 py-3">
+                   <button id="otpProceedBtn" class="px-4 py-2 bg-[#4A249D] text-white text-base font-medium rounded-md w-70
+                       shadow-sm hover:bg-[#4A249D] focus:outline-none focus:ring-2 focus:bg-[#4A249D]" onclick="closeModal('alertModal')">
+                       Ok
+                   </button>        
+               </div>
+            </div>     
+        </div>
+    </div>
 </body>
 </html>

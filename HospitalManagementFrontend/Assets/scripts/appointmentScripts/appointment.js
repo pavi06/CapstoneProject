@@ -19,19 +19,22 @@ var displaySlots = (data) =>{
 
 
 var getDoctorSlots = () =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
+        return;
+    }
     var doctorId = localStorage.getItem('currentDoctorId');
     var date = document.getElementById('date').value;
-    console.log(validateDate('date'))
-    console.log(doctorId)
     if(!(doctorId && validateDate('date'))){
-        alert("Verify you selected the doctor and provided the date to get slots!");
+        openModal('alertModal', "Error", "Verify you selected the doctor and provided the date to get slots!");
         return;
     }
     fetch(baseUrl + '/Patient/GetDoctorSlots',
         {
             method:'POST',
             headers:{
-                'Content-Type' : 'application/json',                
+                'Content-Type' : 'application/json',  
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`              
             },
             body:JSON.stringify({
                 doctorId: doctorId,
@@ -50,20 +53,23 @@ var getDoctorSlots = () =>{
         return await res.json();
     })
     .then(data => {
-        console.log(data)
         displaySlots(data)
     }).catch( error => {
-        console.log(error)
-        alert(error.message)
+        openModal('alertModal', "Error", error.message);
     });
 }
 
 var bookAppointmentByDoctor = (bodyData) =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
+        openModal('alertModal', "Error", "Unauthorized Access!");
+        return;
+    }
     fetch(baseUrl + '/Patient/BookAppointmentByDoctor',
         {
             method:'POST',
             headers:{
-                'Content-Type' : 'application/json',                
+                'Content-Type' : 'application/json', 
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`               
             },
             body:JSON.stringify(bodyData)
         }
@@ -74,17 +80,17 @@ var bookAppointmentByDoctor = (bodyData) =>{
                 throw new Error('Unauthorized Access!');
             }
             const errorResponse = await res.json();
-            throw new Error(`${errorResponse.errorCode} Error! - ${errorResponse.message}`);
+            throw new Error(`${errorResponse.message}`);
         }
         return await res.json();
     })
     .then(data => {
-        console.log("booked successfully")
+        openModal('alertModal', "Success", data);
         document.getElementById("slotsAvailable").innerHTML="";
         document.getElementById("bookAppointmentForm").reset();
         document.getElementById("infoModel").style.display='block';
     }).catch( error => {
-        console.log(error)
+        openModal('alertModal', "Error", error.message);
         document.getElementById("slotsAvailable").innerHTML="";
         document.getElementById("bookAppointmentForm").reset();
     });
@@ -96,13 +102,16 @@ var redirectToAppointments = () =>{
 
 
 document.addEventListener("DOMContentLoaded",()=>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
+        openModal('alertModal', "Error", "UnAuthorized Success!");
+        return;
+    }
     updateForLogInAndOut();
     if(!(JSON.parse(localStorage.getItem('loggedInUser')).role === "Patient")){
         document.getElementById("loginInfoModel").classList.remove("hidden");
     }
     var btn = document.getElementById("getSlots");
     btn.addEventListener("click", ()=>{
-        console.log("buttonclicked")
         getDoctorSlots();
     })
 
@@ -110,16 +119,9 @@ document.addEventListener("DOMContentLoaded",()=>{
     bookBtn.addEventListener("click", ()=>{
         var slot = document.querySelector(".slotDesign.selected").textContent;
         var patientId = JSON.parse(localStorage.getItem('loggedInUser')).userId;
-        console.log(validatePhone('phone'))
-        console.log(validateDate('date'))
-        console.log(validate('preferredMode'))
-        console.log(validate('preferredType'))
-        console.log(validate('description'))
-        console.log(slot)
-        console.log(patientId)
         if(!(validatePhone('phone') && validateDate('date') && validate('preferredMode') && validate('preferredType')
         && validate('description') && slot && patientId)){
-            alert("Provide all details properly!");
+            openModal('alertModal', "Error", "Provide all details properly!");
             return;
         }
         var bodyData = {

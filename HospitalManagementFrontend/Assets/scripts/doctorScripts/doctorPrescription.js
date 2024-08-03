@@ -19,7 +19,7 @@ var checkAllValuesAreFilledForBeforeRow = () =>{
 function addNewRowForTable() {
     var tableBody = document.getElementById("prescriptionTable").getElementsByTagName('tbody')[0];
     if(!checkAllValuesAreFilledForBeforeRow()){
-        alert("provide the data properly to add new!");
+        openModal('alertModal', "Error", "provide the data properly to add new!");
         return;
     };
     var templateRow = document.getElementById("templateRow");
@@ -61,6 +61,10 @@ var removeAllValuesAdded = () =>{
 }
 
 var providePrescriptionAPIForPatient =async (medications) => {
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "Unauthorized Access!");
+        return;
+    }
     var bodyData = {
         doctorId: JSON.parse(localStorage.getItem('loggedInUser')).userId,
         patientId: localStorage.getItem('patientId'),
@@ -74,6 +78,7 @@ var providePrescriptionAPIForPatient =async (medications) => {
             method:'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`
             },
             body:JSON.stringify(bodyData)
         }
@@ -89,11 +94,9 @@ var providePrescriptionAPIForPatient =async (medications) => {
             return await res.json();
         })
         .then(data => {
-            console.log("prescription added successfully")
-            alert(data)
+            openModal('alertModal', "Success", data);
         }).catch(error => {
-            console.log(error)
-            alert(error.message)
+            openModal('alertModal', "Error", error.message);
         });
         setTimeout(() => {
             removeAllValuesAdded();
@@ -101,8 +104,12 @@ var providePrescriptionAPIForPatient =async (medications) => {
 }
 
 var addPrescription = () => {
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "Unauthorized Access!");
+        return;
+    }
     if(!checkAllValuesAreFilledForBeforeRow()){
-        alert("provide the data properly to add new!");
+        openModal('alertModal', "Error", "provide the data properly to add new!");
         return;
     };
     var medications = [];
@@ -133,12 +140,17 @@ var displayDataList = (data) =>{
 }
 
 var fetchMedicineNames = async () =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
+        return;
+    }
     await checkForRefresh()
     fetch('http://localhost:5253/api/Medicine/GetAllMedicineNames',
         {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`
             },
         }
     )
@@ -155,8 +167,7 @@ var fetchMedicineNames = async () =>{
         .then(data => {
             displayDataList(data);
         }).catch(error => {
-            console.log(error)
-            alert(error.message)
+            openModal('alertModal', "Error", error.message);
         });
 
 }
@@ -180,6 +191,10 @@ var displayFormList = (data) =>{
 
 
 var getDetails = async (e) =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
+        return;
+    }
     var value = e.value.trim();
     await checkForRefresh()
     fetch(`http://localhost:5253/api/Medicine/GetDetailsOfMedicine?id=${medicineMapper[value]}`,
@@ -187,6 +202,7 @@ var getDetails = async (e) =>{
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`
             },
         }
     )
@@ -201,16 +217,18 @@ var getDetails = async (e) =>{
             return await res.json();
         })
         .then(data => {
-            console.log(data)
             displayFormList(data);
         }).catch(error => {
-            console.log(error)
-            alert(error.message)
+            openModal('alertModal', "Error", error.message);
         });
 
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
+        openModal('alertModal', "Error", "UnAuthorized Access!");
+        return;
+    }
     var addBtn = document.getElementById("addPrescriptionBtn");
     addBtn.addEventListener("click", () => {
         addPrescription();

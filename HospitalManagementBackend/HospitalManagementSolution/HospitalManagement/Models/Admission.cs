@@ -17,6 +17,7 @@ namespace HospitalManagement.Models
         public bool IsActivePatient { get; set; } = true;
         public List<AdmissionDetails> AdmissionDetails { get; set; }
 
+        public Admission() { }
         public Admission(int patientId, int doctorId, string description)
         {
             PatientId = patientId;

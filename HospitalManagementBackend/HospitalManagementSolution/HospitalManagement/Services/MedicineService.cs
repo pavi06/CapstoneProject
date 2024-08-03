@@ -22,10 +22,10 @@ namespace HospitalManagement.Services
             {
                 throw new ObjectsNotAvailableException("Medicines");
             }
-            var medicineList = await Task.WhenAll(medicines.Select(async m =>
+            var medicineList = medicines.Select( m =>
             {
                 return new MedicineReturnDTO(m.MedicineId, m.MedicineName);
-            }));
+            });
             return medicineList.ToList();
         }
 

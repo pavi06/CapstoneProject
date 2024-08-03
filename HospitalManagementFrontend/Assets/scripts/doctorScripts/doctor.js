@@ -2,6 +2,51 @@ var url = "http://localhost:5253/api/DoctorBasic/GetAllDoctorsBySpecializationWi
 var page = 1;
 const itemsperpage = 10;
 
+var displayDoctorsSkeleton = () =>{
+    document.getElementById("doctors").innerHTML =`
+        <div class="bg-white rounded-lg my-10 p-5 border-b-2 mx-auto" style="width:900px">
+    <div class="relative border-4 border-[#4A249D] rounded-full overflow-hidden">
+        <div class="w-full h-full bg-gray-300 animate-pulse"></div>
+    </div>
+    <div class="ml-4 flex-1 p-5 border-t-3 border-b-3 border-l-3 border-blue-900 rounded-tl-lg rounded-bl-lg">
+        <ul>
+            <li class="p-2">
+                <div class="grid grid-cols-2">
+                    <div class="w-48 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    <div class="w-48 h-4 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </li>
+            <li class="p-2">
+                <div class="grid grid-cols-2">
+                    <div class="w-48 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    <div class="w-48 h-4 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </li>
+            <li class="p-2">
+                <div class="grid grid-cols-2">
+                    <div class="w-48 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    <div class="w-48 h-4 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </li>
+            <li class="p-2">
+                <div class="grid grid-cols-2">
+                    <div class="w-48 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    <div class="w-48 h-4 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </li>
+            <li class="p-2">
+                <div class="grid grid-cols-2">
+                    <div class="w-24 h-4 bg-gray-300 animate-pulse rounded"></div>
+                    <div class="w-48 h-4 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+
+    `;
+}
+
 var displayDoctors = (data) =>{
     var doctorDiv = document.getElementById("doctors");
     data.forEach(doctor => {
@@ -54,9 +99,14 @@ var displayDoctors = (data) =>{
     });
 }
 
+var displayDoctorsSkeletonRemove = () =>{
+    document.getElementById("doctors").innerHTML="";
+};
+
 var fetchDoctors = async() =>{
     const skip =  (page - 1) * itemsperpage;
     await checkForRefresh()
+    displayDoctorsSkeleton();
         fetch(`${url}?limit=${itemsperpage}&skip=${skip}`, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
@@ -71,12 +121,13 @@ var fetchDoctors = async() =>{
                 }
                 return await res.json();
         }).then(data => {
+            displayDoctorsSkeletonRemove();
             displayDoctors(data);
         }).catch(error => {
             if (error.message === 'Unauthorized Access!') {
-                alert("Unauthorized Access!")
+                openModal('alertModal', "Error", "UnAuthorized Access!");
             } else {
-                alert(error.message);
+                openModal('alertModal', "Error", error.message);
                 if(error.message == "No Doctors are available!"){
                     document.getElementById('loadMoreDiv').classList.add("hide");
                 }

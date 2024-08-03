@@ -22,5 +22,8 @@ namespace HospitalManagement.Models
         public List<MedicalRecord> MedicalRecords { get; set; }
         public List<Admission> Admissions { get; set; }
 
+        public Doctor()
+        {
+        }
     }
 }

@@ -17,6 +17,8 @@ namespace HospitalManagement.Models
         public string PaymentStatus { get; set; } = "Not Paid";
         public List<Payment> Payments { get; set; }
 
+        public Bill() { }
+
         public Bill(int billGeneratedFor, int patientId, string patientType, string description, double amount)
         {
             BillGeneratedFor = billGeneratedFor;

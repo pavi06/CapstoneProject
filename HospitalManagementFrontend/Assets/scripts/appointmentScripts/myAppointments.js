@@ -2,6 +2,272 @@ var url="http://localhost:5253/api/Patient/MyAppointments";
 var page = 1;
 const itemsperpage = 15;
 
+var displayAppointmentsSkeleton = () =>{
+    document.getElementById("todayAppointment").innerHTML=`
+         <div class="relative h-90 m-5 pb-5 bg-white md:w-80 shadow-lg border-t-4 border-[#009fbd] rounded-2xl grow-0 shrink-0 basis-2/5">
+    <div class="grid grid-cols-2 mt-8">
+        <div class="pl-4 pr-0">
+            <div class="grid grid-cols-3">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+        </div>
+        <div class="pl-1 pr-4">
+            <div class="font-semibold text-lg">
+                <div class="w-48 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+    </div>
+    <div class="absolute top-0 right-0 bg-[#009fbd] text-md uppercase font-semibold px-5 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-2xl shadow-lg">
+        <div class="w-20 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </div>
+    <div class="flex flex-row flex-wrap justify-evenly mt-5">
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full py-2 px-4 my-1 bg-[#009fbd] text-[#f6f5f5] font-bold rounded-lg border-2 border-[#009fbd] hover:bg-[#f6f5f5] hover:text-[#009fbd] cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full px-4 py-2 my-1 bg-[#009fbd] text-[#f6f5f5] border-[#009fbd] border-2 font-bold rounded-lg hover:bg-[#f6f5f5] hover:text-[#009fbd] cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full py-2 px-4 my-1 bg-[#009fbd] text-[#f6f5f5] border-[#009fbd] border-2 rounded-lg cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    `;
+
+    document.getElementById("upcomingAppointment").innerHTML=`
+         <div class="relative h-90 m-5 pb-5 bg-white md:w-80 shadow-lg border-t-4 border-[#009fbd] rounded-2xl grow-0 shrink-0 basis-2/5">
+    <div class="grid grid-cols-2 mt-8">
+        <div class="pl-4 pr-0">
+            <div class="grid grid-cols-3">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+        </div>
+        <div class="pl-1 pr-4">
+            <div class="font-semibold text-lg">
+                <div class="w-48 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+    </div>
+    <div class="absolute top-0 right-0 bg-[#009fbd] text-md uppercase font-semibold px-5 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-2xl shadow-lg">
+        <div class="w-20 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </div>
+    <div class="flex flex-row flex-wrap justify-evenly mt-5">
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full py-2 px-4 my-1 bg-[#009fbd] text-[#f6f5f5] font-bold rounded-lg border-2 border-[#009fbd] hover:bg-[#f6f5f5] hover:text-[#009fbd] cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full px-4 py-2 my-1 bg-[#009fbd] text-[#f6f5f5] border-[#009fbd] border-2 font-bold rounded-lg hover:bg-[#f6f5f5] hover:text-[#009fbd] cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full py-2 px-4 my-1 bg-[#009fbd] text-[#f6f5f5] border-[#009fbd] border-2 rounded-lg cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    `;
+
+    document.getElementById("completedAppointment").innerHTML=`
+         <div class="relative h-90 m-5 pb-5 bg-white md:w-80 shadow-lg border-t-4 border-[#009fbd] rounded-2xl grow-0 shrink-0 basis-2/5">
+    <div class="grid grid-cols-2 mt-8">
+        <div class="pl-4 pr-0">
+            <div class="grid grid-cols-3">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-3 mt-1">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="col-span-2">
+                    <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+                </div>
+            </div>
+        </div>
+        <div class="pl-1 pr-4">
+            <div class="font-semibold text-lg">
+                <div class="w-48 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+            <div class="grid grid-cols-2 mt-2">
+                <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>
+                <div class="w-32 h-6 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+    </div>
+    <div class="absolute top-0 right-0 bg-[#009fbd] text-md uppercase font-semibold px-5 py-2 rounded-tl-2xl rounded-br-2xl rounded-tr-2xl shadow-lg">
+        <div class="w-20 h-4 bg-gray-300 animate-pulse rounded"></div>
+    </div>
+    <div class="flex flex-row flex-wrap justify-evenly mt-5">
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full py-2 px-4 my-1 bg-[#009fbd] text-[#f6f5f5] font-bold rounded-lg border-2 border-[#009fbd] hover:bg-[#f6f5f5] hover:text-[#009fbd] cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full px-4 py-2 my-1 bg-[#009fbd] text-[#f6f5f5] border-[#009fbd] border-2 font-bold rounded-lg hover:bg-[#f6f5f5] hover:text-[#009fbd] cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+        <div class="flex flex-row justify-center mx-auto">
+            <div class="w-full py-2 px-4 my-1 bg-[#009fbd] text-[#f6f5f5] border-[#009fbd] border-2 rounded-lg cursor-pointer">
+                <div class="w-32 h-8 bg-gray-300 animate-pulse rounded"></div>
+            </div>
+        </div>
+    </div>
+</div>
+    `;
+}
+
+var displayAppointmentsSkeletonRemove = () =>{
+    document.getElementById("completedAppointment").innerHTML="";
+    document.getElementById("todayAppointment").innerHTML="";
+    document.getElementById("upcomingAppointment").innerHTML="";
+};
+
 var displayAppointments = (data) =>{
     var todayAppointment = document.getElementById("todayAppointment");
     var upcomingAppointment = document.getElementById("upcomingAppointment");
@@ -15,7 +281,6 @@ var displayAppointments = (data) =>{
             hideOrNot="hidden";
             color="text-red-400"
         }
-        console.log(hideOrNot)
         if(appointment.appointmentDate.split('T')[0] === today){
             todayAppointment.innerHTML+=`
                         <div class="relative h-90 m-5 pb-5 bg-white md:w-80 shadow-lg border-t-4 border-[#009fbd] rounded-2xl grow-0 shrink-0 basis-2/5">
@@ -69,7 +334,6 @@ var displayAppointments = (data) =>{
             `;
         }
         else if(appointment.appointmentStatus.toLowerCase() === "scheduled" && appointment.appointmentDate.split('T')[0] > today){
-            console.log("here")
             upcomingAppointment.innerHTML+=`
                     <div class="relative h-90 m-5 pb-5 bg-white md:w-80 shadow-lg border-t-4 border-[#e9c46a] rounded-2xl grow-0 shrink-0 basis-2/5">
                             <div class="grid grid-cols-2 mt-12">
@@ -176,7 +440,6 @@ var displayAppointments = (data) =>{
         if(todayAppointment.children.length < 1){
             document.getElementById("displayInformationToday").classList.remove('none');
         }
-        console.log(upcomingAppointment.childNodes.length)
         if(upcomingAppointment.childNodes.length <1 ){
             document.getElementById("displayInformationUpcoming").classList.remove('none');
         }
@@ -187,10 +450,15 @@ var displayAppointments = (data) =>{
 }
 
 var cancelAppointment = (appointmentId) =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
+        openModal('alertModal', "Error", "Unauthorized Access!");
+        return;
+    }
     fetch(`http://localhost:5253/api/Patient/CancelAppointment?appointmentId=${appointmentId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`
         }
     }).then(async (res) => {
         if (!res.ok) {
@@ -202,12 +470,12 @@ var cancelAppointment = (appointmentId) =>{
         }
         return await res.text();
     }).then(data => {
-        alert(data);
+        openModal('alertModal', "Success", data);
     }).catch(error => {
         if (error.message === 'Unauthorized Access!') {
-            alert("Unauthorized Access!")
+            openModal('alertModal', "Error", "Unauthorized Access!");
         } else {
-            alert(error.message);
+            openModal('alertModal', "Error", error.message);
         }
     });
     getAllAppointments();
@@ -218,13 +486,19 @@ var viewPrescription = (appointmentId) =>{
 }
 
 var getAllAppointments = () =>{
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
+        openModal('alertModal', "Error", "Unauthorized Access!");
+        return;
+    }
     const skip = (page - 1) * itemsperpage;
     var patientId = JSON.parse(localStorage.getItem('loggedInUser')).userId; 
+    displayAppointmentsSkeleton();
     fetch(`${url}?patientId=${patientId}&limit=${itemsperpage}&skip=${skip}`,
         {
             method:'GET',
             headers:{
-                'Content-Type' : 'application/json',                
+                'Content-Type' : 'application/json', 
+                'Authorization': `Bearer ${JSON.parse(localStorage.getItem('loggedInUser')).accessToken}`               
             },
         }
     )
@@ -239,9 +513,13 @@ var getAllAppointments = () =>{
         return await res.json();
     })
     .then(data => {
+        displayAppointmentsSkeletonRemove();
+        if(data.length === 0){
+            openModal('alertModal', "Error", "No more appointments available!");
+        }
         displayAppointments(data)
     }).catch( error => {
-        console.log(error)
+        openModal('alertModal', "Error", error.message);
     });    
 }
 
@@ -251,6 +529,10 @@ var loadMoreData = () =>{
 }
 
 document.addEventListener("DOMContentLoaded",() => {
+    if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
+        openModal('alertModal', "Error", "Unauthorized Access!");
+        return;
+    }
     updateForLogInAndOut();
     page=1;
     getAllAppointments();
