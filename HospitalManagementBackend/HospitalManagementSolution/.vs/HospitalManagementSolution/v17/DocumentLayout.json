@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|c:\\capstoneproject\\hospitalmanagementbackend\\hospitalmanagementsolution\\hospitalmanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|solutionrelative:hospitalmanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|c:\\capstoneproject\\hospitalmanagementbackend\\hospitalmanagementsolution\\hospitalmanagement\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|solutionrelative:hospitalmanagement\\dockerfile||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|c:\\capstoneproject\\hospitalmanagementbackend\\hospitalmanagementsolution\\hospitalmanagement\\services\\medicineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|solutionrelative:hospitalmanagement\\services\\medicineservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -41,10 +49,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|c:\\capstoneproject\\hospitalmanagementbackend\\hospitalmanagementsolution\\hospitalmanagement\\services\\doctorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|solutionrelative:hospitalmanagement\\services\\doctorservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|c:\\capstoneproject\\hospitalmanagementbackend\\hospitalmanagementsolution\\hospitalmanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|solutionrelative:hospitalmanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|c:\\capstoneproject\\hospitalmanagementbackend\\hospitalmanagementsolution\\hospitalmanagement\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -206,17 +210,17 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Program.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Program.cs",
               "ToolTip": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Program.cs",
               "RelativeToolTip": "HospitalManagement\\Program.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAHoAAAAWAAAA",
+              "ViewState": "AQIAAA4AAAAAAAAAAAAewCYAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-02T18:10:18.245Z",
               "IsPinned": true,
@@ -224,20 +228,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
+              "Title": "Dockerfile",
+              "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Dockerfile",
+              "RelativeDocumentMoniker": "HospitalManagement\\Dockerfile",
+              "ToolTip": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Dockerfile",
+              "RelativeToolTip": "HospitalManagement\\Dockerfile",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2024-08-03T19:15:08.08Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "MedicineService.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Services\\MedicineService.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Services\\MedicineService.cs",
               "ToolTip": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Services\\MedicineService.cs",
               "RelativeToolTip": "HospitalManagement\\Services\\MedicineService.cs",
-              "ViewState": "AQIAABgAAAAAAAAAAADwvxsAAAAOAAAA",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAuwBkAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-03T17:11:58.615Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "User.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\User.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\User.cs",
@@ -245,12 +262,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\User.cs",
               "ViewState": "AQIAAAUAAAAAAAAAAAAAwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T17:08:28.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T17:08:28.901Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "UserLoginDetails.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\UserLoginDetails.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\UserLoginDetails.cs",
@@ -258,12 +274,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\UserLoginDetails.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T17:08:24.538Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T17:08:24.538Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "Doctor.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\Doctor.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\Doctor.cs",
@@ -271,12 +286,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\Doctor.cs",
               "ViewState": "AQIAABEAAAAAAAAAAAAuwBMAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T16:40:37.96Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T16:40:37.96Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "DoctorRepository.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Repositories\\DoctorRepository.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Repositories\\DoctorRepository.cs",
@@ -284,12 +298,11 @@
               "RelativeToolTip": "HospitalManagement\\Repositories\\DoctorRepository.cs",
               "ViewState": "AQIAAB4AAAAAAAAAAAAkwCoAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T17:34:53.123Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T17:34:53.123Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "TokenService.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Services\\TokenService.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Services\\TokenService.cs",
@@ -297,12 +310,11 @@
               "RelativeToolTip": "HospitalManagement\\Services\\TokenService.cs",
               "ViewState": "AQIAAAQAAAAAAAAAAAAowDAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T09:59:51.998Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T09:59:51.998Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "UserService.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Services\\UserService.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Services\\UserService.cs",
@@ -310,12 +322,11 @@
               "RelativeToolTip": "HospitalManagement\\Services\\UserService.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAAAK8AAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T01:03:38.317Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T01:03:38.317Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "Bill.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\Bill.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\Bill.cs",
@@ -323,12 +334,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\Bill.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAA1wBEAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T16:33:33.072Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T16:33:33.072Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "UserController.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Controllers\\UserController.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Controllers\\UserController.cs",
@@ -336,12 +346,11 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\UserController.cs",
               "ViewState": "AQIAAC0AAAAAAAAAAAAYwGMAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T16:08:25.355Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T16:08:25.355Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "BackgroundJobs.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Jobs\\BackgroundJobs.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Jobs\\BackgroundJobs.cs",
@@ -349,12 +358,11 @@
               "RelativeToolTip": "HospitalManagement\\Jobs\\BackgroundJobs.cs",
               "ViewState": "AQIAABIAAAAAAAAAAAAYwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T09:46:41.157Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T09:46:41.157Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "Admission.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\Admission.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\Admission.cs",
@@ -362,12 +370,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\Admission.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAAwBcAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T13:50:30.07Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T13:50:30.07Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "PatientController.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Controllers\\PatientController.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Controllers\\PatientController.cs",
@@ -375,12 +382,11 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\PatientController.cs",
               "ViewState": "AQIAADwAAAAAAAAAAAAYwBAAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T11:09:21.507Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T11:09:21.507Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "DoctorService.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Services\\DoctorService.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Services\\DoctorService.cs",
@@ -393,7 +399,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 18,
               "Title": "PatientRepositoryTests.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagementTests\\RepositoryTests\\PatientRepositoryTests.cs",
               "RelativeDocumentMoniker": "HospitalManagementTests\\RepositoryTests\\PatientRepositoryTests.cs",
@@ -401,12 +407,11 @@
               "RelativeToolTip": "HospitalManagementTests\\RepositoryTests\\PatientRepositoryTests.cs",
               "ViewState": "AQIAADAAAAAAAAAAAADwv0MAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T08:39:56.213Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T08:39:56.213Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "JobController.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Controllers\\JobController.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Controllers\\JobController.cs",
@@ -419,7 +424,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "RoomRepository.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Repositories\\RoomRepository.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Repositories\\RoomRepository.cs",
@@ -427,12 +432,11 @@
               "RelativeToolTip": "HospitalManagement\\Repositories\\RoomRepository.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T08:29:22.265Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T08:29:22.265Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "RecurringJobs.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Jobs\\RecurringJobs.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Jobs\\RecurringJobs.cs",
@@ -440,12 +444,11 @@
               "RelativeToolTip": "HospitalManagement\\Jobs\\RecurringJobs.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAAwBsAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T09:38:44.41Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T09:38:44.41Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 20,
               "Title": "RoomRepositoryTests.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagementTests\\RepositoryTests\\RoomRepositoryTests.cs",
               "RelativeDocumentMoniker": "HospitalManagementTests\\RepositoryTests\\RoomRepositoryTests.cs",
@@ -458,7 +461,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 19,
               "Title": "Patient.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\Patient.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\Patient.cs",
@@ -466,12 +469,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\Patient.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAkwBIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T13:50:21.59Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T13:50:21.59Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 21,
               "Title": "ObjectNotAvailableException.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\CustomExceptions\\ObjectNotAvailableException.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\CustomExceptions\\ObjectNotAvailableException.cs",
@@ -479,12 +481,11 @@
               "RelativeToolTip": "HospitalManagement\\CustomExceptions\\ObjectNotAvailableException.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T12:41:22.665Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T12:41:22.665Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 23,
               "Title": "UserRegistrationDTO.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\DTOs\\UserDTOs\\UserRegistrationDTO.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\DTOs\\UserDTOs\\UserRegistrationDTO.cs",
@@ -492,12 +493,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\UserDTOs\\UserRegistrationDTO.cs",
               "ViewState": "AQIAAA4AAAAAAAAAAAA3wBUAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T01:19:10.429Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T01:19:10.429Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 22,
               "Title": "Room.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\Room.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\Room.cs",
@@ -505,12 +505,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\Room.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T08:18:47.528Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T08:18:47.528Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 29,
               "Title": "DoctorBasicController.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Controllers\\DoctorBasicController.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Controllers\\DoctorBasicController.cs",
@@ -518,12 +517,11 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\DoctorBasicController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAIBJwBMAAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T13:00:12.276Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T13:00:12.276Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 25,
               "Title": "PatientService.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Services\\PatientService.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Services\\PatientService.cs",
@@ -531,12 +529,11 @@
               "RelativeToolTip": "HospitalManagement\\Services\\PatientService.cs",
               "ViewState": "AQIAAN8AAAAAAAAAAAAIwHkAAAB/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T02:29:22.64Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T02:29:22.64Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 24,
               "Title": "ReceptionistController.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Controllers\\ReceptionistController.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Controllers\\ReceptionistController.cs",
@@ -544,12 +541,11 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\ReceptionistController.cs",
               "ViewState": "AQIAABwAAAAAAAAAAAAQwA8AAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T14:18:14.148Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T14:18:14.148Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 27,
               "Title": "MedicineController.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Controllers\\MedicineController.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Controllers\\MedicineController.cs",
@@ -557,12 +553,11 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\MedicineController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T16:08:00.371Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T16:08:00.371Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 26,
               "Title": "TokenController.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Controllers\\TokenController.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Controllers\\TokenController.cs",
@@ -570,12 +565,11 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\TokenController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T16:08:23.181Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T16:08:23.181Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 30,
               "Title": "DoctorBasicService.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Services\\DoctorBasicService.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Services\\DoctorBasicService.cs",
@@ -588,7 +582,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 35,
               "Title": "PrescriptionRepository.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Repositories\\PrescriptionRepository.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Repositories\\PrescriptionRepository.cs",
@@ -601,7 +595,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 28,
               "Title": "DoctorController.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Controllers\\DoctorController.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Controllers\\DoctorController.cs",
@@ -609,12 +603,11 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\DoctorController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T05:16:27.168Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T05:16:27.168Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 36,
               "Title": "AppointmentRepository.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Repositories\\AppointmentRepository.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Repositories\\AppointmentRepository.cs",
@@ -622,12 +615,11 @@
               "RelativeToolTip": "HospitalManagement\\Repositories\\AppointmentRepository.cs",
               "ViewState": "AQIAACIAAAAAAAAAAAAUwDIAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T15:43:50.604Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T15:43:50.604Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "ReceptionistService.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Services\\ReceptionistService.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Services\\ReceptionistService.cs",
@@ -640,7 +632,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "IReceptionistService.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Interfaces\\IReceptionistService.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Interfaces\\IReceptionistService.cs",
@@ -648,12 +640,11 @@
               "RelativeToolTip": "HospitalManagement\\Interfaces\\IReceptionistService.cs",
               "ViewState": "AQIAAA0AAAAAAAAAAAAzwBYAAABDAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T14:02:06.052Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T14:02:06.052Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "Twilio.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Jobs\\Twilio.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Jobs\\Twilio.cs",
@@ -661,12 +652,11 @@
               "RelativeToolTip": "HospitalManagement\\Jobs\\Twilio.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T14:10:49.516Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T14:10:49.516Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "AddDoctorDTO.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\DTOs\\PatientDTOs\\AddDoctorDTO.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\DTOs\\PatientDTOs\\AddDoctorDTO.cs",
@@ -674,12 +664,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\PatientDTOs\\AddDoctorDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T15:32:57.344Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T15:32:57.344Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 37,
               "Title": "IDoctorService.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Interfaces\\IDoctorService.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Interfaces\\IDoctorService.cs",
@@ -687,12 +676,11 @@
               "RelativeToolTip": "HospitalManagement\\Interfaces\\IDoctorService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T05:15:56.091Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T05:15:56.091Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 38,
               "Title": "BookAppointmentBySpecDTO.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\BookAppointmentBySpecDTO.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\BookAppointmentBySpecDTO.cs",
@@ -700,12 +688,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\BookAppointmentBySpecDTO.cs",
               "ViewState": "AQIAABoAAAAAAAAAAIA3wCcAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T06:41:29.49Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T06:41:29.49Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 39,
               "Title": "IPatientService.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Interfaces\\IPatientService.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Interfaces\\IPatientService.cs",
@@ -713,12 +700,11 @@
               "RelativeToolTip": "HospitalManagement\\Interfaces\\IPatientService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T07:15:27.387Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T07:15:27.387Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 39,
+              "DocumentIndex": 40,
               "Title": "DoctorAppointmentReturnDTO.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\DoctorAppointmentReturnDTO.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\DoctorAppointmentReturnDTO.cs",
@@ -726,12 +712,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\DoctorAppointmentReturnDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T05:11:46.545Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T05:11:46.545Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 40,
+              "DocumentIndex": 41,
               "Title": "AppointmentReturnDTO.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\AppointmentReturnDTO.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\AppointmentReturnDTO.cs",
@@ -739,12 +724,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\AppointmentReturnDTO.cs",
               "ViewState": "AQIAAA0AAAAAAAAAAAAwwBUAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T05:12:36.774Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T05:12:36.774Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 41,
+              "DocumentIndex": 42,
               "Title": "AdmissionRepository.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Repositories\\AdmissionRepository.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Repositories\\AdmissionRepository.cs",
@@ -752,12 +736,11 @@
               "RelativeToolTip": "HospitalManagement\\Repositories\\AdmissionRepository.cs",
               "ViewState": "AQIAACQAAAAAAAAAAAAcwCsAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T17:33:38.626Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T17:33:38.626Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 42,
+              "DocumentIndex": 43,
               "Title": "RoomRateDTO.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\DTOs\\BillDTOs\\RoomRateDTO.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\DTOs\\BillDTOs\\RoomRateDTO.cs",
@@ -765,12 +748,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\BillDTOs\\RoomRateDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T12:54:52.18Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T12:54:52.18Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 43,
+              "DocumentIndex": 44,
               "Title": "InPatientBillDTO.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\DTOs\\BillDTOs\\InPatientBillDTO.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\DTOs\\BillDTOs\\InPatientBillDTO.cs",
@@ -778,12 +760,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\BillDTOs\\InPatientBillDTO.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAA7wA4AAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T03:00:21.51Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T03:00:21.51Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 44,
+              "DocumentIndex": 45,
               "Title": "AdmissionDetails.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\AdmissionDetails.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\AdmissionDetails.cs",
@@ -791,12 +772,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\AdmissionDetails.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAQwA4AAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T13:48:36.725Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T13:48:36.725Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 45,
+              "DocumentIndex": 46,
               "Title": "InPatientReturnDTO.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\DTOs\\PatientDTOs\\InPatientReturnDTO.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\DTOs\\PatientDTOs\\InPatientReturnDTO.cs",
@@ -804,12 +784,11 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\PatientDTOs\\InPatientReturnDTO.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAA1wBMAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T12:48:10.488Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T12:48:10.488Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 46,
+              "DocumentIndex": 47,
               "Title": "IDoctorBasicService.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Interfaces\\IDoctorBasicService.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Interfaces\\IDoctorBasicService.cs",
@@ -817,12 +796,11 @@
               "RelativeToolTip": "HospitalManagement\\Interfaces\\IDoctorBasicService.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAIBJwBAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T15:59:48.936Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T15:59:48.936Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 47,
+              "DocumentIndex": 48,
               "Title": "DoctorFeeBySpecialization.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Enums\\DoctorFeeBySpecialization.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Enums\\DoctorFeeBySpecialization.cs",
@@ -830,12 +808,11 @@
               "RelativeToolTip": "HospitalManagement\\Enums\\DoctorFeeBySpecialization.cs",
               "ViewState": "AQIAAAUAAAAAAAAAAAAAwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T12:33:17.212Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T12:33:17.212Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 48,
+              "DocumentIndex": 49,
               "Title": "OutPatientBillDTO.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Models\\DTOs\\BillDTOs\\OutPatientBillDTO.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Models\\DTOs\\BillDTOs\\OutPatientBillDTO.cs",
@@ -843,8 +820,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\BillDTOs\\OutPatientBillDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T11:43:19.538Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T11:43:19.538Z"
             }
           ]
         }
