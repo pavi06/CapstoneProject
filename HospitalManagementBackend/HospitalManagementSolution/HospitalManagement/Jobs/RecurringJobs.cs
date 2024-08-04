@@ -28,9 +28,9 @@ namespace HospitalManagement.Jobs
 
         public async Task StartUpdating()
         {
-            RecurringJob.AddOrUpdate(
-                "appointmentUpdatejob",
-                () => UpdateAppointmentStatus(), "*/5 * * * *");
+            //RecurringJob.AddOrUpdate(
+            //    "appointmentUpdatejob",
+            //    () => UpdateAppointmentStatus(), "*/5 * * * *");
 
             //RecurringJob.AddOrUpdate(
             //    "appointmentUpdatejob",

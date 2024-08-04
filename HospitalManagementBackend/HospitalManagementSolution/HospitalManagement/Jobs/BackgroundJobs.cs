@@ -4,11 +4,16 @@ using Twilio.Types;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Hangfire;
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
 
 namespace HospitalManagement.Jobs
 {
     public class BackgroundJobs
-    {
+    {        
+
         public static void NotificationForPatient(string name, string contactNo,DateTime appointmentDate )
         {
             BackgroundJob.Enqueue(() => SendNotification(contactNo
@@ -27,15 +32,21 @@ namespace HospitalManagement.Jobs
                     , $"Hello Dr.{name}! your appointment on {appointmentDate} , {slot} slot is cancelled.\nThank you"));
         }
 
-        public static void SendNotification(string phoneNumber,string message)
+        public static async void SendNotification(string phoneNumber,string message)
         {
             var configuration = new ConfigurationBuilder()
             .AddUserSecrets<Program>()
             .Build();
 
-            var twilioSettings = configuration.GetSection("Twilio").Get<Twilio>();
+            var KeyVaultName = "paviHospitalKeyvault";
+            var keyVaultUri = "https://pavihospitalkeyvault.vault.azure.net/";
+            var keyVaultClient = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
 
-            TwilioClient.Init(twilioSettings.AccountSid, twilioSettings.AuthToken);
+            var twilioSettings = configuration.GetSection("Twilio").Get<Twilio>();
+            var accountSid = await keyVaultClient.GetSecretAsync("AccountSid");
+            var authToken = await keyVaultClient.GetSecretAsync("AuthToken");
+
+            TwilioClient.Init(accountSid.Value.Value, authToken.Value.Value);
 
             var messageOptions = new CreateMessageOptions(new PhoneNumber(phoneNumber))
             {
@@ -46,15 +57,21 @@ namespace HospitalManagement.Jobs
             MessageResource.Create(messageOptions);
         }
 
-        public static void SendOTPToPatient(string phoneNumber, int otp, string name)
+        public  static async void SendOTPToPatient(string phoneNumber, int otp, string name)
         {
             var configuration = new ConfigurationBuilder()
             .AddUserSecrets<Program>()
             .Build();
 
-            var twilioSettings = configuration.GetSection("Twilio").Get<Twilio>();
+            var KeyVaultName = "paviHospitalKeyvault";
+            var keyVaultUri = "https://pavihospitalkeyvault.vault.azure.net/";
+            var keyVaultClient = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
 
-            TwilioClient.Init(twilioSettings.AccountSid, twilioSettings.AuthToken);
+            var twilioSettings = configuration.GetSection("Twilio").Get<Twilio>();
+            var accountSid = await keyVaultClient.GetSecretAsync("AccountSid");
+            var authToken = await keyVaultClient.GetSecretAsync("AuthToken");
+
+            TwilioClient.Init(accountSid.Value.Value, authToken.Value.Value);
 
             var messageOptions = new CreateMessageOptions(new PhoneNumber(phoneNumber))
             {

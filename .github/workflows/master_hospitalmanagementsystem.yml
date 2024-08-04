@@ -61,5 +61,5 @@ jobs:
         with:
           app-name: 'HospitalManagementSystem'
           slot-name: 'Production'
-          package: .
+          package: ./HospitalManagementBackend/HospitalManagementSolution/HospitalManagement/
           

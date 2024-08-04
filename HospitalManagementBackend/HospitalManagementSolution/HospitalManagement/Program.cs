@@ -1,3 +1,5 @@
+using Azure.Identity;
+using Azure.Security.KeyVault.Secrets;
 using Hangfire;
 using HospitalManagement.Contexts;
 using HospitalManagement.Interfaces;
@@ -16,7 +18,7 @@ namespace HospitalManagement
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static async void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -29,10 +31,15 @@ namespace HospitalManagement
 
             builder.Services.AddLogging(l => l.AddLog4Net());
 
+            var KeyVaultName = "paviHospitalKeyvault";
+            var keyVaultUri = "https://pavihospitalkeyvault.vault.azure.net/";
+            var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
+            var defaultConnection = await client.GetSecretAsync("defaultConnection");
+
             #region HangfireService
             builder.Services.AddHangfire((sp, config) =>
-            {
-                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("defaultConnection");
+            {              
+                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString(defaultConnection.Value.Value);
                 config.UseSqlServerStorage(connectionString);
             });
 
@@ -71,15 +78,16 @@ namespace HospitalManagement
 
             #region Authentication
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+                .AddJwtBearer(async options =>
                 {
+                    var jwt = await client.GetSecretAsync("JWT");
                     options.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
                     {
                         ValidateIssuer = false,
                         ValidateAudience = false,
                         RoleClaimType = "Role",
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey:JWT"])),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Value.Value)),
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero
                     };
@@ -99,7 +107,7 @@ namespace HospitalManagement
 
             #region Context
             builder.Services.AddDbContext<HospitalManagementContext>(
-                options => options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"))
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString(defaultConnection.Value.Value))
                 );
             #endregion
 
