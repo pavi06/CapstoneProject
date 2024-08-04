@@ -22,17 +22,20 @@ jobs:
           dotnet-version: '6.0.x'
           include-prerelease: true
 
+      - name: Restore dependencies
+        run: dotnet restore ./HospitalManagementBackend/HospitalManagementSolution/HospitalManagementSolution.sln
+        
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build ./HospitalManagementBackend/HospitalManagementSolution/HospitalManagementSolution.sln --configuration Release
 
-      - name: dotnet publish
-        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+      - name: publish with dotnet
+        run: dotnet publish ./HospitalManagementBackend/HospitalManagementSolution/HospitalManagementSolution.sln -c Release -o ./publish
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v3
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ./publish
 
   deploy:
     runs-on: windows-latest
@@ -54,4 +57,4 @@ jobs:
           app-name: 'PaviHospitalManagement'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5B6D1555C85D4048B1C4F10C399BBC8B }}
-          package: ./HospitalManagementBackend/HospitalManagementSolution
+          package: ./publish
