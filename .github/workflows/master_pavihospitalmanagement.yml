@@ -54,4 +54,4 @@ jobs:
           app-name: 'PaviHospitalManagement'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_5B6D1555C85D4048B1C4F10C399BBC8B }}
-          package: .
+          package: ./HospitalManagementBackend/HospitalManagementSolution
