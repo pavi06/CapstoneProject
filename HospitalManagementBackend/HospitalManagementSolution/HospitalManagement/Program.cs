@@ -18,7 +18,7 @@ namespace HospitalManagement
 {
     public class Program
     {
-        public static async void Main(string[] args)
+        public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +34,7 @@ namespace HospitalManagement
             var KeyVaultName = "paviHospitalKeyvault";
             var keyVaultUri = "https://pavihospitalkeyvault.vault.azure.net/";
             var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
-            var defaultConnection = await client.GetSecretAsync("defaultConnection");
+            var defaultConnection = client.GetSecretAsync("defaultConnection").Result;
 
             #region HangfireService
             builder.Services.AddHangfire((sp, config) =>

@@ -155,3 +155,10 @@ C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\Hospital
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\System.Text.Encodings.Web.dll
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\runtimes\browser\lib\net6.0\System.Text.Encodings.Web.dll
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Twilio.dll
+C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Azure.Core.dll
+C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Azure.Identity.dll
+C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Azure.Security.KeyVault.Secrets.dll
+C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Microsoft.Bcl.AsyncInterfaces.dll
+C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
+C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\System.ClientModel.dll
+C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\System.Memory.Data.dll

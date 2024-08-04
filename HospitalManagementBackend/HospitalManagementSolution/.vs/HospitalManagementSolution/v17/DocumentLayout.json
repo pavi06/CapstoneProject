@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|c:\\capstoneproject\\hospitalmanagementbackend\\hospitalmanagementsolution\\hospitalmanagement\\jobs\\backgroundjobs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|solutionrelative:hospitalmanagement\\jobs\\backgroundjobs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|c:\\capstoneproject\\hospitalmanagementbackend\\hospitalmanagementsolution\\hospitalmanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|solutionrelative:hospitalmanagement\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|c:\\capstoneproject\\hospitalmanagementbackend\\hospitalmanagementsolution\\hospitalmanagement\\jobs\\backgroundjobs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|solutionrelative:hospitalmanagement\\jobs\\backgroundjobs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{24FF9B9C-2CE9-41C0-97FB-87169A7F11A9}|HospitalManagement\\HospitalManagement.csproj|c:\\capstoneproject\\hospitalmanagementbackend\\hospitalmanagementsolution\\hospitalmanagement\\jobs\\recurringjobs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -206,17 +206,17 @@
       "DocumentGroups": [
         {
           "DockedHeight": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Program.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Program.cs",
               "ToolTip": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Program.cs",
               "RelativeToolTip": "HospitalManagement\\Program.cs",
-              "ViewState": "AQIAAB0AAAAAAAAAAAAAABMAAAAFAAAA",
+              "ViewState": "AQIAAKQAAAAAAAAAAAAQwBgAAAAtAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-02T18:10:18.245Z",
               "IsPinned": true,
@@ -232,8 +232,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\Patient.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAAjwBYAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T13:50:21.59Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T13:50:21.59Z"
             },
             {
               "$type": "Document",
@@ -245,18 +244,17 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\ReceptionistController.cs",
               "ViewState": "AQIAAFgAAAAAAAAAAAAewIMAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T14:18:14.148Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T14:18:14.148Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "BackgroundJobs.cs",
               "DocumentMoniker": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Jobs\\BackgroundJobs.cs",
               "RelativeDocumentMoniker": "HospitalManagement\\Jobs\\BackgroundJobs.cs",
               "ToolTip": "C:\\CapstoneProject\\HospitalManagementBackend\\HospitalManagementSolution\\HospitalManagement\\Jobs\\BackgroundJobs.cs",
               "RelativeToolTip": "HospitalManagement\\Jobs\\BackgroundJobs.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAD8AAAAVAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-08-03T09:46:41.157Z",
               "EditorCaption": ""
@@ -271,8 +269,7 @@
               "RelativeToolTip": "HospitalManagement\\Jobs\\Twilio.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T14:10:49.516Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T14:10:49.516Z"
             },
             {
               "$type": "Document",
@@ -284,8 +281,7 @@
               "RelativeToolTip": "HospitalManagement\\Jobs\\RecurringJobs.cs",
               "ViewState": "AQIAABgAAAAAAAAAAAAYwCAAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T09:38:44.41Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T09:38:44.41Z"
             },
             {
               "$type": "Document",
@@ -297,8 +293,7 @@
               "RelativeToolTip": "HospitalManagement\\Services\\ReceptionistService.cs",
               "ViewState": "AQIAAG4AAAAAAAAAAAAjwLEAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T07:20:48.008Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T07:20:48.008Z"
             },
             {
               "$type": "Document",
@@ -310,8 +305,7 @@
               "RelativeToolTip": "HospitalManagement\\Services\\UserService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAuAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T01:03:38.317Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T01:03:38.317Z"
             },
             {
               "$type": "Document",
@@ -323,8 +317,7 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\UserController.cs",
               "ViewState": "AQIAACEAAAAAAAAAAIBJwCQAAAAUAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T16:08:25.355Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T16:08:25.355Z"
             },
             {
               "$type": "Document",
@@ -336,8 +329,7 @@
               "RelativeToolTip": "HospitalManagement\\Services\\DoctorBasicService.cs",
               "ViewState": "AQIAAHgAAAAAAAAAAAAnwIMAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T16:00:17.341Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T16:00:17.341Z"
             },
             {
               "$type": "Document",
@@ -349,8 +341,7 @@
               "RelativeToolTip": "HospitalManagement\\Repositories\\DoctorRepository.cs",
               "ViewState": "AQIAAB4AAAAAAAAAAAAkwCoAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T17:34:53.123Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T17:34:53.123Z"
             },
             {
               "$type": "Document",
@@ -362,8 +353,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\Doctor.cs",
               "ViewState": "AQIAABEAAAAAAAAAAAA+wBMAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T16:40:37.96Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T16:40:37.96Z"
             },
             {
               "$type": "Document",
@@ -375,8 +365,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\UserLoginDetails.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T17:08:24.538Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T17:08:24.538Z"
             },
             {
               "$type": "Document",
@@ -388,8 +377,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\User.cs",
               "ViewState": "AQIAAAUAAAAAAAAAAAAAwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T17:08:28.901Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T17:08:28.901Z"
             },
             {
               "$type": "Document",
@@ -401,8 +389,7 @@
               "RelativeToolTip": "HospitalManagement\\Services\\MedicineService.cs",
               "ViewState": "AQIAAA0AAAAAAAAAAAA+wBkAAAANAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T17:11:58.615Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T17:11:58.615Z"
             },
             {
               "$type": "Document",
@@ -414,8 +401,7 @@
               "RelativeToolTip": "HospitalManagement\\Services\\TokenService.cs",
               "ViewState": "AQIAAAQAAAAAAAAAAAAowDAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T09:59:51.998Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T09:59:51.998Z"
             },
             {
               "$type": "Document",
@@ -427,8 +413,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\Bill.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAAzwBEAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T16:33:33.072Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T16:33:33.072Z"
             },
             {
               "$type": "Document",
@@ -440,8 +425,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\Admission.cs",
               "ViewState": "AQIAAAgAAAAAAAAAAAAxwBcAAAAgAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T13:50:30.07Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T13:50:30.07Z"
             },
             {
               "$type": "Document",
@@ -453,8 +437,7 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\PatientController.cs",
               "ViewState": "AQIAADwAAAAAAAAAAAAYwBAAAAATAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T11:09:21.507Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T11:09:21.507Z"
             },
             {
               "$type": "Document",
@@ -466,8 +449,7 @@
               "RelativeToolTip": "HospitalManagement\\Services\\DoctorService.cs",
               "ViewState": "AQIAAG0AAAAAAAAAAAAkwHoAAABEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T10:25:13.405Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T10:25:13.405Z"
             },
             {
               "$type": "Document",
@@ -479,8 +461,7 @@
               "RelativeToolTip": "HospitalManagementTests\\RepositoryTests\\PatientRepositoryTests.cs",
               "ViewState": "AQIAADAAAAAAAAAAAADwv0MAAAAOAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T08:39:56.213Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T08:39:56.213Z"
             },
             {
               "$type": "Document",
@@ -492,8 +473,7 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\JobController.cs",
               "ViewState": "AQIAAA4AAAAAAAAAAAAAwBwAAAAMAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T02:22:56.2Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T02:22:56.2Z"
             },
             {
               "$type": "Document",
@@ -505,8 +485,7 @@
               "RelativeToolTip": "HospitalManagement\\Repositories\\RoomRepository.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABkAAAAQAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T08:29:22.265Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T08:29:22.265Z"
             },
             {
               "$type": "Document",
@@ -518,8 +497,7 @@
               "RelativeToolTip": "HospitalManagementTests\\RepositoryTests\\RoomRepositoryTests.cs",
               "ViewState": "AQIAAAYAAAAAAAAAAIBJwEQAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T08:17:52.574Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T08:17:52.574Z"
             },
             {
               "$type": "Document",
@@ -531,8 +509,7 @@
               "RelativeToolTip": "HospitalManagement\\CustomExceptions\\ObjectNotAvailableException.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAgAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T12:41:22.665Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T12:41:22.665Z"
             },
             {
               "$type": "Document",
@@ -544,8 +521,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\UserDTOs\\UserRegistrationDTO.cs",
               "ViewState": "AQIAAA8AAAAAAAAAAAAYwBUAAAAaAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T01:19:10.429Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T01:19:10.429Z"
             },
             {
               "$type": "Document",
@@ -557,8 +533,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\Room.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-03T08:18:47.528Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-03T08:18:47.528Z"
             },
             {
               "$type": "Document",
@@ -570,8 +545,7 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\DoctorBasicController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAIBJwBMAAABAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T13:00:12.276Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T13:00:12.276Z"
             },
             {
               "$type": "Document",
@@ -583,8 +557,7 @@
               "RelativeToolTip": "HospitalManagement\\Services\\PatientService.cs",
               "ViewState": "AQIAAN8AAAAAAAAAAAAIwHkAAAB/AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T02:29:22.64Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T02:29:22.64Z"
             },
             {
               "$type": "Document",
@@ -596,8 +569,7 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\MedicineController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T16:08:00.371Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T16:08:00.371Z"
             },
             {
               "$type": "Document",
@@ -609,8 +581,7 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\TokenController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T16:08:23.181Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T16:08:23.181Z"
             },
             {
               "$type": "Document",
@@ -622,8 +593,7 @@
               "RelativeToolTip": "HospitalManagement\\Repositories\\PrescriptionRepository.cs",
               "ViewState": "AQIAACMAAAAAAAAAAAAUwDMAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T00:48:18.761Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T00:48:18.761Z"
             },
             {
               "$type": "Document",
@@ -635,8 +605,7 @@
               "RelativeToolTip": "HospitalManagement\\Controllers\\DoctorController.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T05:16:27.168Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T05:16:27.168Z"
             },
             {
               "$type": "Document",
@@ -648,8 +617,7 @@
               "RelativeToolTip": "HospitalManagement\\Repositories\\AppointmentRepository.cs",
               "ViewState": "AQIAACIAAAAAAAAAAAAUwDIAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T15:43:50.604Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T15:43:50.604Z"
             },
             {
               "$type": "Document",
@@ -661,8 +629,7 @@
               "RelativeToolTip": "HospitalManagement\\Interfaces\\IReceptionistService.cs",
               "ViewState": "AQIAAA4AAAAAAAAAAAAxwBYAAABDAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T14:02:06.052Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T14:02:06.052Z"
             },
             {
               "$type": "Document",
@@ -674,8 +641,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\PatientDTOs\\AddDoctorDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T15:32:57.344Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T15:32:57.344Z"
             },
             {
               "$type": "Document",
@@ -687,8 +653,7 @@
               "RelativeToolTip": "HospitalManagement\\Interfaces\\IDoctorService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAkAAABBAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T05:15:56.091Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T05:15:56.091Z"
             },
             {
               "$type": "Document",
@@ -700,8 +665,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\BookAppointmentBySpecDTO.cs",
               "ViewState": "AQIAABsAAAAAAAAAAAAawCcAAAAqAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T06:41:29.49Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T06:41:29.49Z"
             },
             {
               "$type": "Document",
@@ -713,8 +677,7 @@
               "RelativeToolTip": "HospitalManagement\\Interfaces\\IPatientService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T07:15:27.387Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T07:15:27.387Z"
             },
             {
               "$type": "Document",
@@ -726,8 +689,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\DoctorAppointmentReturnDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T05:11:46.545Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T05:11:46.545Z"
             },
             {
               "$type": "Document",
@@ -739,8 +701,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\AppointmentDTOs\\AppointmentReturnDTO.cs",
               "ViewState": "AQIAAA0AAAAAAAAAAAA/wBUAAAAmAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T05:12:36.774Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T05:12:36.774Z"
             },
             {
               "$type": "Document",
@@ -752,8 +713,7 @@
               "RelativeToolTip": "HospitalManagement\\Repositories\\AdmissionRepository.cs",
               "ViewState": "AQIAACQAAAAAAAAAAAAcwCsAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-01T17:33:38.626Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-01T17:33:38.626Z"
             },
             {
               "$type": "Document",
@@ -765,8 +725,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\BillDTOs\\RoomRateDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAbAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T12:54:52.18Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T12:54:52.18Z"
             },
             {
               "$type": "Document",
@@ -778,8 +737,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\BillDTOs\\InPatientBillDTO.cs",
               "ViewState": "AQIAAAoAAAAAAAAAAAA5wA4AAAAvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-08-02T03:00:21.51Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-08-02T03:00:21.51Z"
             },
             {
               "$type": "Document",
@@ -791,8 +749,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\AdmissionDetails.cs",
               "ViewState": "AQIAAAwAAAAAAAAAAAAQwA4AAAA6AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T13:48:36.725Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T13:48:36.725Z"
             },
             {
               "$type": "Document",
@@ -804,8 +761,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\PatientDTOs\\InPatientReturnDTO.cs",
               "ViewState": "AQIAAAkAAAAAAAAAAAAzwBMAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T12:48:10.488Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T12:48:10.488Z"
             },
             {
               "$type": "Document",
@@ -817,8 +773,7 @@
               "RelativeToolTip": "HospitalManagement\\Interfaces\\IDoctorBasicService.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAIBZwBAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T15:59:48.936Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T15:59:48.936Z"
             },
             {
               "$type": "Document",
@@ -830,8 +785,7 @@
               "RelativeToolTip": "HospitalManagement\\Enums\\DoctorFeeBySpecialization.cs",
               "ViewState": "AQIAAAUAAAAAAAAAAAAAwAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T12:33:17.212Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T12:33:17.212Z"
             },
             {
               "$type": "Document",
@@ -843,8 +797,7 @@
               "RelativeToolTip": "HospitalManagement\\Models\\DTOs\\BillDTOs\\OutPatientBillDTO.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-07-31T11:43:19.538Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-31T11:43:19.538Z"
             }
           ]
         }
