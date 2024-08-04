@@ -31,15 +31,14 @@ namespace HospitalManagement
 
             builder.Services.AddLogging(l => l.AddLog4Net());
 
-            var KeyVaultName = "paviHospitalKeyvault";
-            var keyVaultUri = "https://pavihospitalkeyvault.vault.azure.net/";
+            var keyVaultUri = builder.Configuration["KeyVault:Uri"];
+
             var client = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
-            var defaultConnection = client.GetSecretAsync("defaultConnection").Result;
 
             #region HangfireService
             builder.Services.AddHangfire((sp, config) =>
-            {              
-                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString(defaultConnection.Value.Value);
+            {
+                var connectionString = sp.GetRequiredService<IConfiguration>().GetConnectionString("defaultConnection");
                 config.UseSqlServerStorage(connectionString);
             });
 
@@ -87,7 +86,7 @@ namespace HospitalManagement
                         ValidateAudience = false,
                         RoleClaimType = "Role",
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwt.Value.Value)),
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["TokenKey:JWT"])),
                         ValidateLifetime = true,
                         ClockSkew = TimeSpan.Zero
                     };
@@ -107,7 +106,7 @@ namespace HospitalManagement
 
             #region Context
             builder.Services.AddDbContext<HospitalManagementContext>(
-                options => options.UseSqlServer(builder.Configuration.GetConnectionString(defaultConnection.Value.Value))
+                options => options.UseSqlServer(builder.Configuration.GetConnectionString("defaultConnection"))
                 );
             #endregion
 
@@ -148,21 +147,6 @@ namespace HospitalManagement
             });
 
             var app = builder.Build();
-
-            using (var scope = app.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                try
-                {
-                    var context = services.GetRequiredService<HospitalManagementContext>();
-                    context.Database.Migrate();
-                }
-                catch (Exception ex)
-                {
-                    var logger = services.GetRequiredService<ILogger<Program>>();
-                    logger.LogError(ex, "An error occurred while migrating the database.");
-                }
-            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())

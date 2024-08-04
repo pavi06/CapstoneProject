@@ -38,8 +38,7 @@ namespace HospitalManagement.Jobs
             .AddUserSecrets<Program>()
             .Build();
 
-            var KeyVaultName = "paviHospitalKeyvault";
-            var keyVaultUri = "https://pavihospitalkeyvault.vault.azure.net/";
+            var keyVaultUri = "https://pavihoskeyvault.vault.azure.net/";
             var keyVaultClient = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
 
             var twilioSettings = configuration.GetSection("Twilio").Get<Twilio>();
@@ -63,8 +62,7 @@ namespace HospitalManagement.Jobs
             .AddUserSecrets<Program>()
             .Build();
 
-            var KeyVaultName = "paviHospitalKeyvault";
-            var keyVaultUri = "https://pavihospitalkeyvault.vault.azure.net/";
+            var keyVaultUri = "https://pavihoskeyvault.vault.azure.net/";
             var keyVaultClient = new SecretClient(new Uri(keyVaultUri), new DefaultAzureCredential());
 
             var twilioSettings = configuration.GetSection("Twilio").Get<Twilio>();
