@@ -1,4 +1,3 @@
-var url="http://localhost:5253/api/Receptionist/GetTodayAppointmentDetails";
 var doctorUrl = "http://localhost:5253/api/Receptionist/CheckDoctorAvailability";
 var page = 1;
 var doctorPage=1;
@@ -8,7 +7,7 @@ var displayAppointments = (data) => {
     var div = document.getElementById("slider");
     if(data.length === 0 && div.children.length === 0){
         div.innerHTML=`
-            <div id="displayInformationToday" class="mt-5 p-5 mb-5 border-l-4 border-red-400 bg-red-100 rounded-lg shadow-lg" style="width: 40%;">
+            <div id="displayInformation" class="mt-5 p-5 mb-5 border-l-4 border-red-400 bg-red-100 rounded-lg shadow-lg" style="width: 80%;">
                 <h1 class="font-semibold"><i class='bx bxs-bell-ring bx-lg text-red-500 mr-3'></i>&nbsp;No Appointments available today! &nbsp;</h1>
             </div>
         `;
@@ -163,15 +162,17 @@ var removeAppointmentSkeleton = () =>{
     document.getElementById("slider").innerHTML ="";
 }
 
-var fetchAppointments = async () => {
+var fetchAppointments = async (skeletonStatus) => {
     if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Receptionist"){
         openModal('alertModal', "Error", "Unauthorized Access!");
         return;
     }
     const skip = (page - 1) * itemsperpage;
     await checkForRefresh()
-    appointmentsSkeleton();
-    fetch(`${url}?limit=${itemsperpage}&skip=${skip}`, {
+    if(skeletonStatus){
+        appointmentsSkeleton();
+    }
+    fetch(`http://localhost:5253/api/Receptionist/GetTodayAppointmentDetails?limit=${itemsperpage}&skip=${skip}`, {
         method: 'GET',
         headers:{
             'Content-Type' : 'application/json',  
@@ -187,16 +188,27 @@ var fetchAppointments = async () => {
         }
         return await res.json();
     }).then(data => {
-        removeAppointmentSkeleton();
+        if(skeletonStatus){
+            removeAppointmentSkeleton();
+        }
         displayAppointments(data);
     }).catch(error => {
+        if(skeletonStatus){
+            removeAppointmentSkeleton();
+        }
         if (error.message === 'Unauthorized Access!') {
             openModal('alertModal', "Error", "Unauthorized Access!");
         } else {
             openModal('alertModal', "Error", error.message);
             if (error.message == "No Appointments are available!") {
                 document.getElementById('loadMoreDiv').classList.add("hide");
-                document.getElementById('displayInformation').classList.remove('none');
+                if(document.getElementById("slider").children.length===0){
+                    document.getElementById("slider").innerHTML=`
+                    <div id="displayInformation" class="mt-5 p-5 mb-5 border-l-4 border-red-400 mx-auto bg-red-100 rounded-lg shadow-lg" style="width: 80%;">
+                        <h1 class="font-semibold"><i class='bx bxs-bell-ring bx-lg text-red-500 mr-3'></i>&nbsp;No Appointments available today! &nbsp;</h1>
+                    </div>
+                `;
+                }
             }
         }
     });
@@ -204,7 +216,7 @@ var fetchAppointments = async () => {
 
 var loadMoreData = () => {
     page++;
-    fetchAppointments();
+    fetchAppointments(false);
 }
 
 var displayRoomAvailability = (data) =>{
@@ -364,7 +376,7 @@ var removeDoctorSkeleton = () =>{
     document.getElementById("doctorsList").innerHTML="";
 }
 
-var getDoctors = async () =>{
+var getDoctors = async (skeletonStatus) =>{
     if(!validate('speciality')){
         openModal('alertModal', "Error", "Choose the valid speciality");
         return;
@@ -373,7 +385,9 @@ var getDoctors = async () =>{
         openModal('alertModal', "Error", "Unauthorized Access!");
         return;
     }
-    displayDoctorsSkeleton();
+    if(skeletonStatus){
+        displayDoctorsSkeleton();
+    }
     const skip = (doctorPage - 1) * itemsperpage;
     await checkForRefresh()
     fetch(`${doctorUrl}?limit=${itemsperpage}&skip=${skip}`, {
@@ -393,15 +407,27 @@ var getDoctors = async () =>{
         }
         return await res.json();
     }).then(data => {
-        removeDoctorSkeleton();
+        if(skeletonStatus){
+            removeDoctorSkeleton();
+        }
         displayDoctors(data);
     }).catch(error => {
+        if(skeletonStatus){
+            displayDoctorsSkeleton();
+        }
         if (error.message === 'Unauthorized Access!') {
             openModal('alertModal', "Error", "Unauthorized Access!");
         } else {
             openModal('alertModal', "Error", error.message);
-            if (error.message == "No Doctors are available!") {
+            if (error.message === "No Doctor are available!") {
                 document.getElementById('loadMoreDoctor').classList.add("hide");
+                if(document.getElementById("doctorsList").children.length===0){
+                    document.getElementById("doctorsList").innerHTML=`
+                    <div id="displayInformation" class="mt-5 p-5 mb-5 border-l-4 border-red-400 mx-auto bg-red-100 rounded-lg shadow-lg" style="width: 80%;">
+                        <h1 class="font-semibold"><i class='bx bxs-bell-ring bx-lg text-red-500 mr-3'></i>&nbsp;No doctors available! &nbsp;</h1>
+                    </div>
+                `;
+                }
             }
         }
     });
@@ -410,7 +436,7 @@ var getDoctors = async () =>{
 
 var loadMoreDoctors = () => {
     doctorPage++;
-    getDoctors();
+    getDoctors(false);
 }
 
 var redirectToInPatientManagement = () =>{
@@ -433,6 +459,6 @@ document.addEventListener("DOMContentLoaded", () => {
     page = 1;
     doctorPage=1;
     document.getElementById("slider").innerHTML = "";
-    fetchAppointments();
+    fetchAppointments(true);
     getRoomAvailabilityStatictics();
 })

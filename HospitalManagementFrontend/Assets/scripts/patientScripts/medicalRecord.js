@@ -213,7 +213,7 @@ var displayRecords = (data) => {
 }
 
 var displayRecordsSkeleton = () =>{
-    document.getElementById('').innerHTML = `
+    document.getElementById('medicalRecord').innerHTML = `
         <div class="bg-white rounded-3xl border-t-4 border-[#009fbd] shadow-lg my-10 p-5 mx-auto" style="width: 80%;">
     <div class="flex font-bold text-xl text-[#009fbd] ml-5 mb-3">
         <div class="w-24 h-6 bg-gray-300 animate-pulse rounded"></div>

@@ -4,7 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>RVPBS Multispeciality hospital</title>
+  <link rel="icon" type="image/x-icon"
+      href="../../Assets/images/logo_bg.png">
   <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
   <link rel="stylesheet" href="../../Assets/styles/common.css">
   <script src="https://cdn.tailwindcss.com"></script>
@@ -23,7 +25,7 @@
   </div>
   <ul
     class="md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-[#4a249d]  w-full left-0 md:w-auto md:py-0 py-5 md:pt-0 pl-7 md:opacity-100  opacity-0  top-[-400px] transition-all ease-in duration-300">
-    <li class="uppercase m-4 md:my-0"><a href="./index.html" class="active">Home</a></li>
+    <li class="uppercase m-4 md:my-0"><a href="./doctorHome.html" class="active">Home</a></li>
     <li class="uppercase m-4  md:my-0 logInNav"><a href="./MedicalRecords.html">MedicalRecords</a></li>
     <li class="uppercase m-4  md:my-0 logInNav"><a href="#" onclick="logOut()">LogOut</a></li>
   </ul>
@@ -38,9 +40,7 @@
                 <div class="flex">
                     <div class="w-3/10 px-5 flex items-center justify-center"></div>
                     <div id="todayAppointment" class="h-50 w-full mb-5 flex overflow-x-auto scrollbar-custom">
-                        <div id="displayInformationToday" class="mt-5 none p-5 mb-5 border-l-4 border-red-400 bg-red-100 rounded-lg shadow-lg" style="width: 40%;">
-                            <h1 class="font-semibold"><i class='bx bxs-bell-ring bx-lg text-red-500 mr-3'></i>&nbsp;No Appointments available today! &nbsp;</h1>
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -51,9 +51,7 @@
                 <div class="flex"> 
                     <div class="w-3/10 px-5 flex items-center justify-center"></div>
                     <div id="upcomingAppointment" class="h-50 mb-10 w-full flex overflow-x-auto scrollbar-custom">
-                        <div id="displayInformationUpcoming" class="mt-5 none p-5 mx-auto rounded-lg shadow-lg" style="width: 50%;">
-                            <h1 class="text-red-400 font-semibold text-xl text-center"><i class='bx bxs-bell-ring'></i> &nbsp;No Appointments Are available today! &nbsp;<i class='bx bxs-bell-ring'></i></h1>
-                        </div>
+                        
                     </div>
                 </div>
             </div>

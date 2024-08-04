@@ -3,6 +3,17 @@ function menu(element) {
     element.name === 'menu' ? (element.name = "close", list.classList.add('top-[80px]'), list.classList.add('opacity-100')) : (element.name = "menu", list.classList.remove('top-[80px]'), list.classList.remove('opacity-100'))
 }
 
+function encryptNumber(key, number) {
+    const encrypted = sjcl.encrypt(key, number.toString());
+    return encrypted;
+}
+
+function decryptNumber(key, encrypted) {
+    const decrypted = sjcl.decrypt(key, encrypted);
+    return parseInt(decrypted, 10);
+}
+
+const key = "This is the demo key for prosessing"
 
 function signIn(){
     if(!(validateEmail('email') && validatePassword('password'))){
@@ -232,16 +243,18 @@ function redirectToExternalLogin (){
     window.location.href="../PatientLogin.html";
 }
 
+function preventBack(){
+    window.history.forward();
+}
+
 function logOut(){
-    if(JSON.parse(localStorage.getItem('loggedInUser')).role === "Patient"){
+    if(JSON.parse(localStorage.getItem('loggedInUser')) && JSON.parse(localStorage.getItem('loggedInUser')).role === "Patient"){
         localStorage.clear();
-        window.history.replaceState({}, '', './index.html');
-        window.location.href="./index.html"               
+        window.location.href="./index.html"             
     }
     else{
         localStorage.clear();
-        window.history.replaceState({}, '', '../login.html');
-        window.location.href="../login.html"
+        window.location.href="../login.html";
     }   
 }
 
@@ -333,3 +346,11 @@ function redirectToPatientRegisterPage(){
     window.location.href="./register.html";
 }
 
+
+function redirectToDoctors(){
+    window.location.href="./specialities.html";
+}
+
+function redirectToBookAppointment(){
+    window.location.href="./AppointmentSpec.html";
+}

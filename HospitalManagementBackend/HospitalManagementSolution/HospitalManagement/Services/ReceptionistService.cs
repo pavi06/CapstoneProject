@@ -179,7 +179,7 @@ namespace HospitalManagement.Services
             try
             {
                 User patient = null;
-                if(patientDTO.PatientId == null)
+                if(patientDTO.PatientId == 0)
                 {
                     DateTime today = DateTime.Today;
                     int age = today.Year - patientDTO.DateOfBirth.Year;

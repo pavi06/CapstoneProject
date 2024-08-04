@@ -1,10 +1,12 @@
-var fetchAppointments = async () => {
+var fetchAppointments = async (skeletonStatus) => {
     if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Doctor"){
         openModal('alertModal', "Error", "UnAuthorized Access!");
         return;
     }
     await checkForRefresh()
-    displayAppointmentsSkeleton();
+    if(skeletonStatus){
+        displayAppointmentsSkeleton();
+    }
     var doctorId = JSON.parse(localStorage.getItem('loggedInUser')).userId;
     fetch(`http://localhost:5253/api/Doctor/GetTodayAppointment?doctorId=${doctorId}`, {
         method: 'GET',
@@ -22,8 +24,10 @@ var fetchAppointments = async () => {
         }
         return await res.json();
     }).then(data => {
+        if(skeletonStatus){
+            displayAppointmentsSkeletonRemove();
+        }
         displayAppointments(data);
-        displayAppointmentsSkeletonRemove();
     }).catch(error => {
         if (error.message === 'Unauthorized Access!') {
             openModal('alertModal', "Error", "UnAuthorized Access!");
@@ -263,11 +267,19 @@ var displayAppointments = (data) => {
                         </div> 
             `;
         }
-        if(todayDiv.children.length < 2){
-            document.getElementById("displayInformationToday").classList.remove('none');
+        if(todayDiv.children.length === 0){
+            todayDiv.innerHTML=`
+                <div id="displayInformation" class="mt-5 p-5 mb-5 border-l-4 border-red-400 bg-red-100 rounded-lg shadow-lg" style="width: 40%;">
+                    <h1 class="font-semibold"><i class='bx bxs-bell-ring bx-lg text-red-500 mr-3'></i>&nbsp;No Appointments available today! &nbsp;</h1>
+                </div>
+            `;
         }
-        if(upcomingDiv.childNodes.length < 2){
-            document.getElementById("displayInformationUpcoming").classList.remove('none');
+        if(upcomingDiv.childNodes.length === 0){
+            upcomingDiv.innerHTML=`
+                <div id="displayInformation" class="mt-5 p-5 mb-5 border-l-4 border-red-400 bg-red-100 rounded-lg shadow-lg" style="width: 40%;">
+                    <h1 class="font-semibold"><i class='bx bxs-bell-ring bx-lg text-red-500 mr-3'></i>&nbsp;No Appointments available today! &nbsp;</h1>
+                </div>
+            `;
         }
         
     });
@@ -327,5 +339,5 @@ document.addEventListener("DOMContentLoaded", () => {
         openModal('alertModal', "Error", "UnAuthorized Access!");
         return;
     }
-    fetchAppointments();
+    fetchAppointments(true);
 })

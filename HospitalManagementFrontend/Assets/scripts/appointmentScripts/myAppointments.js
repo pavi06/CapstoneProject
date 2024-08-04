@@ -283,7 +283,7 @@ var displayAppointments = (data) =>{
         }
         if(appointment.appointmentDate.split('T')[0] === today){
             todayAppointment.innerHTML+=`
-                        <div class="relative h-90 m-5 pb-5 bg-white md:w-80 shadow-lg border-t-4 border-[#009fbd] rounded-2xl grow-0 shrink-0 basis-2/5">
+                        <div class="relative h-90 m-5 pb-5 bg-white shadow-lg border-t-4 border-[#009fbd] rounded-2xl grow-0 shrink-0 lg:basis-2/5 sm:2/5 md:3/5">
                             <div class="grid grid-cols-2 mt-8">
                                 <div class="pl-4 pr-0">
                                     <div class="grid grid-cols-3">
@@ -335,7 +335,7 @@ var displayAppointments = (data) =>{
         }
         else if(appointment.appointmentStatus.toLowerCase() === "scheduled" && appointment.appointmentDate.split('T')[0] > today){
             upcomingAppointment.innerHTML+=`
-                    <div class="relative h-90 m-5 pb-5 bg-white md:w-80 shadow-lg border-t-4 border-[#e9c46a] rounded-2xl grow-0 shrink-0 basis-2/5">
+                    <div class="relative h-90 m-5 pb-5 bg-white shadow-lg border-t-4 border-[#e9c46a] rounded-2xl grow-0 shrink-0 lg:basis-2/5 sm:2/5 md:3/5">
                             <div class="grid grid-cols-2 mt-12">
                                 <div class="pl-4 pr-0">
                                     <div class="grid grid-cols-3">
@@ -387,7 +387,7 @@ var displayAppointments = (data) =>{
         }
         else{
             completedAppointment.innerHTML+=`
-                        <div class="relative h-90 m-5 pb-5 bg-white md:w-80 shadow-lg border-t-4 border-[#36ba98] rounded-2xl grow-0 shrink-0 basis-2/5">
+                        <div class="relative h-90 m-5 pb-5 bg-white shadow-lg border-t-4 border-[#36ba98] rounded-2xl grow-0 shrink-0 lg:basis-2/5 sm:2/5 md:3/5">
                             <div class="grid grid-cols-2 mt-12">
                                 <div class="pl-4 pr-0">
                                     <div class="grid grid-cols-3">
@@ -437,16 +437,27 @@ var displayAppointments = (data) =>{
                         </div>                        
             `;
         }
-        if(todayAppointment.children.length < 1){
-            document.getElementById("displayInformationToday").classList.remove('none');
-        }
-        if(upcomingAppointment.childNodes.length <1 ){
-            document.getElementById("displayInformationUpcoming").classList.remove('none');
-        }
-        if(completedAppointment.childNodes.length <1){
-            document.getElementById("displayInformationCompleted").classList.remove('none');
-        }
     });
+    if(todayAppointment.children.length === 0){
+        todayAppointment.innerHTML=`
+        <div id="displayInformation" class="mt-5 p-5 mx-auto rounded-lg shadow-lg" style="width: 50%;">
+            <h1 class="text-red-400 font-semibold text-xl text-center"><i class='bx bxs-bell-ring'></i> &nbsp;No Appointments Are available today! &nbsp;<i class='bx bxs-bell-ring'></i></h1>
+        </div>`;
+    }
+    if(upcomingAppointment.childNodes.length === 0 ){
+        upcomingAppointment.innerHTML=`
+        <div id="displayInformation" class="mt-5 p-5 mx-auto rounded-lg shadow-lg" style="width: 50%;">
+            <h1 class="text-red-400 font-semibold text-xl text-center"><i class='bx bxs-bell-ring'></i> &nbsp;No Appointments Are available today! &nbsp;<i class='bx bxs-bell-ring'></i></h1>
+        </div>
+        `;
+    }
+    if(completedAppointment.childNodes.length === 0){
+        completedAppointment.innerHTML=`
+            <div id="displayInformation" class="mt-5 p-5 mx-auto rounded-lg shadow-lg" style="width: 50%;">
+            <h1 class="text-red-400 font-semibold text-xl text-center"><i class='bx bxs-bell-ring'></i> &nbsp;No Appointments Are available today! &nbsp;<i class='bx bxs-bell-ring'></i></h1>
+        </div>
+        `;
+    }
 }
 
 var cancelAppointment = (appointmentId) =>{
@@ -472,27 +483,30 @@ var cancelAppointment = (appointmentId) =>{
     }).then(data => {
         openModal('alertModal', "Success", data);
     }).catch(error => {
+        console.log(error.message)
         if (error.message === 'Unauthorized Access!') {
             openModal('alertModal', "Error", "Unauthorized Access!");
         } else {
             openModal('alertModal', "Error", error.message);
         }
     });
-    getAllAppointments();
+    window.location.reload()
 }
 
 var viewPrescription = (appointmentId) =>{
     window.location.href=`./prescription.html?search=${appointmentId}`;
 }
 
-var getAllAppointments = () =>{
+var getAllAppointments = (skeletonStatus) =>{
     if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
         openModal('alertModal', "Error", "Unauthorized Access!");
         return;
     }
     const skip = (page - 1) * itemsperpage;
     var patientId = JSON.parse(localStorage.getItem('loggedInUser')).userId; 
-    displayAppointmentsSkeleton();
+    if(skeletonStatus){
+        displayAppointmentsSkeleton();
+    }
     fetch(`${url}?patientId=${patientId}&limit=${itemsperpage}&skip=${skip}`,
         {
             method:'GET',
@@ -513,19 +527,22 @@ var getAllAppointments = () =>{
         return await res.json();
     })
     .then(data => {
-        displayAppointmentsSkeletonRemove();
+        if(skeletonStatus){
+            displayAppointmentsSkeletonRemove();
+        }
         if(data.length === 0){
-            openModal('alertModal', "Error", "No more appointments available!");
+            openModal('alertModal', "Information", "No more appointments available!");
         }
         displayAppointments(data)
     }).catch( error => {
+        console.log(error.message)
         openModal('alertModal', "Error", error.message);
     });    
 }
 
 var loadMoreData = () =>{
     page++;
-    getAllAppointments();
+    getAllAppointments(false);
 }
 
 document.addEventListener("DOMContentLoaded",() => {
@@ -535,5 +552,5 @@ document.addEventListener("DOMContentLoaded",() => {
     }
     updateForLogInAndOut();
     page=1;
-    getAllAppointments();
+    getAllAppointments(true);
 })

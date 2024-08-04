@@ -55,7 +55,7 @@ var displayDoctors = (data) =>{
         doctorDiv.innerHTML+=`
             <div class="bg-white rounded-lg my-10 p-5 border-b-2 doctorCard">
                 <div class="relative border-8 border-[#4A249D] rounded-full overflow-hidden doctorImage">
-                    <img src="../../image.jpg" alt="doctorImage" class="absolute inset-0 w-full h-full object-cover">
+                    <img src="../../Assets/images/${doctor.doctorName}.jpg" alt="doctorImage" class="absolute inset-0 w-full h-full object-cover">
                 </div>
                 <div class="ml-4 flex-1 p-5 border-t-3 border-b-3 border-l-3 border-blue-900 rounded-tl-lg rounded-bl-lg">
                     <ul> 
@@ -106,7 +106,10 @@ var displayDoctorsSkeletonRemove = () =>{
 var fetchDoctors = async() =>{
     const skip =  (page - 1) * itemsperpage;
     await checkForRefresh()
-    displayDoctorsSkeleton();
+    if(document.getElementById("doctors").childNodes===0){
+        displayDoctorsSkeleton();
+    }
+    
         fetch(`${url}?limit=${itemsperpage}&skip=${skip}`, {
             method: 'POST',
             headers: {'Content-Type':'application/json'},
@@ -121,15 +124,19 @@ var fetchDoctors = async() =>{
                 }
                 return await res.json();
         }).then(data => {
-            displayDoctorsSkeletonRemove();
+            if(document.getElementById("doctors").childNodes===0){
+                displayDoctorsSkeletonRemove();
+            }
             displayDoctors(data);
         }).catch(error => {
             if (error.message === 'Unauthorized Access!') {
                 openModal('alertModal', "Error", "UnAuthorized Access!");
             } else {
-                openModal('alertModal', "Error", error.message);
                 if(error.message == "No Doctors are available!"){
+                    openModal('alertModal', "For your Information", "No more Doctors available!");
                     document.getElementById('loadMoreDiv').classList.add("hide");
+                }else{
+                    openModal('alertModal', "Error", error.message);
                 }
             }
         });

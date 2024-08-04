@@ -4,12 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RVPBS Multispeciality hospital</title>
+    <link rel="icon" type="image/x-icon"
+        href="../../Assets/images/logo_bg.png">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../../Assets/styles/common.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="../../Assets/scripts/common.js"></script>
-    <script src="../../Assets/scripts/prescriptionScripts/myPrescripitons.js"></script>    
+    <script src="../../Assets/scripts/prescriptionScripts/myPrescripitons.js"></script> 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sjcl/1.0.8/sjcl.min.js"></script>
 </head>
 
 <body>
@@ -23,18 +26,16 @@
   </div>
   <ul
     class="md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-[#4a249d]  w-full left-0 md:w-auto md:py-0 py-5 md:pt-0 pl-7 md:opacity-100  opacity-0  top-[-400px] transition-all ease-in duration-300">
-    <li class="uppercase m-4 md:my-0"><a href="./index.html" class="active">Home</a></li>
+    <li class="uppercase m-4 md:my-0"><a href="./index.html">Home</a></li>
     <li class="uppercase m-4  md:my-0"><a href="./specialities.html">OurDoctors</a></li>
-    <li class="uppercase m-4  md:my-0"><a href="#">Aboutus</a></li>
-    <li class="uppercase m-4  md:my-0"><a href="#">Contact</a></li>
     <li class="uppercase m-4  md:my-0 logOutNav"><a href="../PatientLogin.html">SignUp/LogIn</a></li>
     <li class="uppercase m-4  md:my-0 logInNav"><a href="./MyAppointments.html">MyAppointments</a></li>
-    <li class="uppercase m-4  md:my-0 logInNav"><a class="active" href="./prescriptionDisplay.html">MyPrescriptions</a></li>
+    <li class="uppercase m-4  md:my-0 logInNav"><a class="active" href="./prescriptionDisplay.html" class="active">MyPrescriptions</a></li>
     <li class="uppercase m-4  md:my-0 logInNav"><a href="#" onclick="logOut()">LogOut</a></li>
   </ul>
 </nav>
-    <section style="margin-top: 85px;">
-        <h1 class="uppercase text-3xl text-[#4A249D] text-center font-extrabold mb-10">MyPrescriptions</h1>
+    <section style="margin-top: 95px;">
+        <h1 class="uppercase text-3xl text-[#4A249D] text-center mt-10 font-extrabold mb-10">My Prescriptions</h1>
         <div id="prescriptions" style="clear: both;">
         
         </div>

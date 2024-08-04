@@ -32,6 +32,12 @@ var loadPrescription = async (appointmentId) =>{
             displayDetails(data);
         }).catch(error => {
             openModal('alertModal', "Error", error.message);
+            if(error.message === "Prescription Not available!"){
+                setTimeout(
+                    window.location.href="./MyAppointments.html", 50000
+                )
+                
+            }
         });
 }
 

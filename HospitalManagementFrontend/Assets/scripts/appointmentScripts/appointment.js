@@ -85,7 +85,6 @@ var bookAppointmentByDoctor = (bodyData) =>{
         return await res.json();
     })
     .then(data => {
-        openModal('alertModal', "Success", data);
         document.getElementById("slotsAvailable").innerHTML="";
         document.getElementById("bookAppointmentForm").reset();
         document.getElementById("infoModel").style.display='block';

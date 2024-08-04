@@ -174,7 +174,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
     const urlParams = new URLSearchParams(window.location.search); 
-    doctorId = urlParams.get('search'); 
+    doctorIdEncrypted = urlParams.get('search'); 
+    doctorId = CryptoJS.AES.decrypt(doctorIdEncrypted, "Secret Passphrase");
     var appointmentBtn = document.getElementById("bookAppointmentBtn");
     appointmentBtn.addEventListener("click", () => {
         bookAppointment();

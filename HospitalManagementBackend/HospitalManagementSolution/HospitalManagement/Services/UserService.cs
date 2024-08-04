@@ -30,7 +30,7 @@ namespace HospitalManagement.Services
         {
             try
             {
-                var user = _userRepository.Get().Result.SingleOrDefault(u => u.EmailId.ToLower() == loginDTO.Email.ToLower());
+                var user = _userRepository.Get().Result.SingleOrDefault(u => u.EmailId!=null &&  u.EmailId.ToLower() == loginDTO.Email.ToLower());
                 if (user == null)
                 {
                     throw new ObjectNotAvailableException("User");

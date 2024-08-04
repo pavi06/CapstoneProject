@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>RVPBS Multispeciality hospital</title>
+    <link rel="icon" type="image/x-icon"
+        href="../../Assets/images/logo_bg.png">
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../../Assets/styles/common.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -24,7 +26,7 @@
     </div>
     <ul
       class="md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-[#4a249d]  w-full left-0 md:w-auto md:py-0 py-5 md:pt-0 pl-7 md:opacity-100  opacity-0  top-[-400px] transition-all ease-in duration-300">
-      <li class="uppercase m-4 md:my-0"><a href="./ReceptionistDashboard.html">Home</a></li>
+      <li class="uppercase m-4 md:my-0"><a href="./ReceptionistDashboard.html" class="active">Home</a></li>
       <li class="uppercase m-4  md:my-0 logInNav"><a href="./billDetails.html">Bills</a></li>
       <li class="uppercase m-4  md:my-0 logInNav"><a href="./InPatientDetails.html">InPatientDetails</a></li>
       <li class="uppercase m-4  md:my-0 logInNav"><a href="#" onclick="logOut()">LogOut</a></li>
@@ -43,9 +45,6 @@
         </div>
         <div style="clear: both;">
             <h1 class="uppercase text-2xl text-[#4A249D] text-center font-extrabold">Today Appointments</h1>
-            <div id="displayInformation" class="mt-5 p-5 mx-auto rounded-lg shadow-lg none" style="width: 50%;">
-                <h1 class="text-red-400 font-semibold text-xl text-center"><i class='bx bxs-bell-ring'></i> &nbsp;No Appointments Are available! &nbsp;<i class='bx bxs-bell-ring'></i></h1>
-            </div>
             <div class="todayAppointments">
                 <div class="flex">
                     <div id="slider" class="h-50 mt-0 mx-5 w-full flex overflow-x-auto scrollbar-custom">
@@ -70,10 +69,10 @@
                     <div class="flex flex-col">
                         <input list="specialityList" name="speciality" required onblur="validate('speciality')" id="speciality" placeholder="speciality" class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                         <datalist id="specialityList">
-                            <option value="Dermatologist">
-                            <option value="Gynacologist">
-                            <option value="Neurologist">
-                            <option value="Cardiologist">
+                            <option value="Dermatology">
+                            <option value="Gynacology">
+                            <option value="Neurology">
+                            <option value="Cardiology">
                         </datalist>
                         <span id="specialitytext" class="text-xs ml-3 none mt-0"></span>
                     </div>

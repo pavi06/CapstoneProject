@@ -10,7 +10,7 @@ var UpdateTab = (e, lefttag) =>{
                             <input type="text" name="name" required onblur="validateName('name')" id="name" placeholder="patientName" class="w-40 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             <span id="nametext" class="text-xs ml-3 none mt-0"></span>
                         </div>
-                        <div>
+                        <div class="flex flex-col">
                             <input type="text" name="contact" required onblur="validatePhone('contact')" id="contact" placeholder="contactNo" class=" mx-2 w-40 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
                             <span id="contacttext" class="text-xs ml-3 none mt-0"></span>
                         </div>
@@ -18,16 +18,16 @@ var UpdateTab = (e, lefttag) =>{
                     </div>
                     <form id="createPatientForm" style="width: 50%;" class="mx-auto">
                         <div class="mb-5">
-                            <label for="name" class="mb-3 block text-base font-medium text-[#07074D]">Name</label>
-                            <input type="text" name="name" id="name"
+                            <label for="patientCreateName" class="mb-3 block text-base font-medium text-[#07074D]">Name</label>
+                            <input type="text" name="patientCreateName" id="patientCreateName"
                                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
                             <span id="nametext" class="text-xs ml-3 none mt-0"></span>
                                 </div>
                         <div class="mb-5">
-                            <label for="dob" class="mb-3 block text-base font-medium text-[#07074D]">Date Of Birth</label>
-                            <input type="date" name="dob" id="dob"
+                            <label for="createPatientDob" class="mb-3 block text-base font-medium text-[#07074D]">Date Of Birth</label>
+                            <input type="date" name="createPatientDob" id="createPatientDob"
                                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
-                            <span id="dobtext" class="text-xs ml-3 none mt-0"></span>
+                            <span id="createPatientDobtext" class="text-xs ml-3 none mt-0"></span>
                                 </div>
                         <div class="mb-5">
                             <label for="gender" class="mb-3 block text-base font-medium text-[#07074D]">Gender</label>
@@ -36,10 +36,10 @@ var UpdateTab = (e, lefttag) =>{
                             <span id="gendertext" class="text-xs ml-3 none mt-0"></span>
                                 </div>
                         <div class="mb-5">
-                            <label for="contact" class="mb-3 block text-base font-medium text-[#07074D]">Contact Number</label>
-                            <input type="text" name="contact" id="contact"
+                            <label for="createPatientContact" class="mb-3 block text-base font-medium text-[#07074D]">Contact Number</label>
+                            <input type="text" name="createPatientContact" id="createPatientContact"
                                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
-                            <span id="contacttext" class="text-xs ml-3 none mt-0"></span>
+                            <span id="createPatientContacttext" class="text-xs ml-3 none mt-0"></span>
                         </div>
                         <div class="mb-5">
                             <div class="mb-5">
@@ -203,17 +203,19 @@ var createPatient = async () =>{
         openModal('alertModal', "Error", "UnAuthorized Access!");
         return;
     }
+    var patientId=parseInt(document.getElementById("patientIdDisplay").textContent,10);
     var bodyData = {
-        patientId:  parseInt(document.getElementById("patientIdDisplay").textContent,10),
-        name: document.getElementById("name").value,
-        dateOfBirth: document.getElementById("dob").value ? "" : "0001-01-01",
+        patientId: Number.isNaN(patientId) ? 0 : patientId,
+        name: document.getElementById("patientCreateName").value,
+        dateOfBirth: document.getElementById("createPatientDob").value ? "" : "0001-01-01",
         gender: document.getElementById("gender").value,
-        contactNo: document.getElementById("contact").value,
+        contactNo: document.getElementById("createPatientContact").value,
         address: document.getElementById("address").value,
         wardType: document.getElementById("wardType").value,
         noOfDays: parseInt(document.getElementById("noOfDays").value ,10),
         description: document.getElementById("description").value
     }
+    console.log(bodyData)
     await checkForRefresh()
     fetch('http://localhost:5253/api/Receptionist/AdmissionForPatient',
         {
@@ -236,6 +238,7 @@ var createPatient = async () =>{
         return await res.text();
     })
     .then(data => {
+        openModal('alertModal',"Success",data)
         window.location.href="./InPatientDetails.html";
     }).catch( error => {
         openModal('alertModal', "Error", error.message);
