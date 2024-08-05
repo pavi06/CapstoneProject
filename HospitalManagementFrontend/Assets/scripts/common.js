@@ -356,5 +356,5 @@ function redirectToBookAppointment(){
 }
 
 function redirectToDocRepLoginPage(){
-    window.location.href="./Templates/login.html"
+    window.location.href="./login.html"
 }
