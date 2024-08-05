@@ -13,11 +13,11 @@ namespace HospitalManagement.Controllers
     public class JobController : ControllerBase
     {
         private readonly IRepository<int, Appointment> _appointmentRepository;
-        private readonly ILogger<RecurringJobs> _logger;
-        public JobController(IRepository<int, Appointment> appointmentRepo, ILogger<RecurringJobs> logger)
+        //private readonly ILogger<RecurringJobs> _logger;
+        public JobController(IRepository<int, Appointment> appointmentRepo)
         {
             _appointmentRepository = appointmentRepo;
-            _logger = logger;
+            //_logger = logger;
         }
 
         [HttpPost]
@@ -25,7 +25,7 @@ namespace HospitalManagement.Controllers
         public ActionResult ActivateRecurringJobs()
         {
 
-            RecurringJobs job = new RecurringJobs(_appointmentRepository, _logger);
+            RecurringJobs job = new RecurringJobs(_appointmentRepository);
             job.StartUpdating();
             return Ok();
         }

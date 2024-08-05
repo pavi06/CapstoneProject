@@ -29,7 +29,7 @@ namespace HospitalManagement
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 
-            builder.Services.AddLogging(l => l.AddLog4Net());
+            //builder.Services.AddLogging(l => l.AddLog4Net());
 
             var keyVaultUri = builder.Configuration["KeyVault:Uri"];
 

@@ -19,11 +19,11 @@ namespace HospitalManagement.Controllers
     public class ReceptionistController : ControllerBase
     {
         private readonly IReceptionistService _receptionistService;
-        private readonly ILogger<ReceptionistController> _logger;
+        //private readonly ILogger<ReceptionistController> _logger;
 
-        public ReceptionistController(IReceptionistService receptionistService, ILogger<ReceptionistController> logger) { 
+        public ReceptionistController(IReceptionistService receptionistService) { 
             _receptionistService = receptionistService;
-            _logger = logger;
+            //_logger = logger;
         }
 
         [HttpPost("CheckDoctorAvailability")]
@@ -39,22 +39,22 @@ namespace HospitalManagement.Controllers
                 {
                     throw new ObjectsNotAvailableException("Doctors");
                 }
-                _logger.LogInformation("Available doctors retrieved");
+                //_logger.LogInformation("Available doctors retrieved");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch(ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -70,17 +70,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _receptionistService.BookAppointment(appointmentDTO);
-                _logger.LogInformation("Appointment booked successfully");
+                //_logger.LogInformation("Appointment booked successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -95,17 +95,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _receptionistService.CheckBedAvailability();
-                _logger.LogInformation("Bed availability retrieved");
+                //_logger.LogInformation("Bed availability retrieved");
                 return Ok(result);
             }
             catch (ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -121,17 +121,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _receptionistService.CreateInPatient(patientDTO);
-                _logger.LogInformation("InPatient registered successfully");
+                //_logger.LogInformation("InPatient registered successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -147,17 +147,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _receptionistService.UpdateInPatient(patientDTO);
-                _logger.LogInformation("InPatient details updated");
+                //_logger.LogInformation("InPatient details updated");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -173,17 +173,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _receptionistService.GenerateBillForOutPatient(appointmentId);
-                _logger.LogInformation("Bill generated for outpatient successfully");
+                //_logger.LogInformation("Bill generated for outpatient successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -198,17 +198,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _receptionistService.GenerateBillForInPatient(inPatientid);
-                _logger.LogInformation("Bill generated for inpatient successfully");
+                //_logger.LogInformation("Bill generated for inpatient successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -223,17 +223,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _receptionistService.GetAppointmentDetails(appointmentId);
-                _logger.LogInformation("Appointment details retrieved successfully");
+                //_logger.LogInformation("Appointment details retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -248,17 +248,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _receptionistService.GetAllTodayAppointments(limit, skip);
-                _logger.LogInformation("Appointment details retrieved successfully");
+                //_logger.LogInformation("Appointment details retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -274,17 +274,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _receptionistService.GetPendingBills();
-                _logger.LogInformation("Pending bills retrieved successfully");
+                //_logger.LogInformation("Pending bills retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -299,17 +299,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _receptionistService.GetAllInPatientDetails();
-                _logger.LogInformation("Patient details retrieved successfully");
+                //_logger.LogInformation("Patient details retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -325,17 +325,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _receptionistService.AddDoctorForInPatient(dto);
-                _logger.LogInformation("Doctor added successfully");
+                //_logger.LogInformation("Doctor added successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 

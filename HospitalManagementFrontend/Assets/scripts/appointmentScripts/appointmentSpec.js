@@ -1,4 +1,4 @@
-const baseUrl ="http://localhost:5253/api";
+const baseUrl ="https://pavihosmanagebeapp.azurewebsites.net/api";
 var bookAppointmentBySpeciality = (bodyData) =>{
     if(JSON.parse(localStorage.getItem('loggedInUser')).role != "Patient"){
         openModal('alertModal', "Error", "Unauthorized Access!");

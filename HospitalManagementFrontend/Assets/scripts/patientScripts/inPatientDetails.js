@@ -5,7 +5,7 @@ var fetchDetails = async () =>{
         return;
     }
     displayDataSkeleton();
-    fetch('http://localhost:5253/api/Receptionist/GetAllInPatientDetails',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Receptionist/GetAllInPatientDetails',
         {
             method:'GET',
             headers:{

@@ -4,7 +4,7 @@
     <Controller_SelectedScaffolderID>ApiControllerEmptyScaffolder</Controller_SelectedScaffolderID>
     <Controller_SelectedScaffolderCategoryPath>root/Common/Api</Controller_SelectedScaffolderCategoryPath>
     <ActiveDebugProfile>HospitalManagement</ActiveDebugProfile>
-    <NameOfLastUsedPublishProfile>C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\Properties\PublishProfiles\PaviHospitalManagementBE - Web Deploy.pubxml</NameOfLastUsedPublishProfile>
+    <NameOfLastUsedPublishProfile>C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\Properties\PublishProfiles\paviHosManageBEApp - Web Deploy1.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

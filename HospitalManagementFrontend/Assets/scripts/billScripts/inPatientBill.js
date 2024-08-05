@@ -77,7 +77,7 @@ var generateBill = async () => {
     var patientId = document.getElementById("patientId").value;
     displayDataSkeleton()
     await checkForRefresh()
-    fetch(`http://localhost:5253/api/Receptionist/BillForInPatient?inPatientid=${patientId}`,
+    fetch(`https://pavihosmanagebeapp.azurewebsites.net/api/Receptionist/BillForInPatient?inPatientid=${patientId}`,
         {
             method:'POST',
             headers:{

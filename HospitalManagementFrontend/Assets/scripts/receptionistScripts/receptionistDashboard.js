@@ -1,4 +1,4 @@
-var doctorUrl = "http://localhost:5253/api/Receptionist/CheckDoctorAvailability";
+var doctorUrl = "https://pavihosmanagebeapp.azurewebsites.net/api/Receptionist/CheckDoctorAvailability";
 var page = 1;
 var doctorPage=1;
 const itemsperpage = 5;
@@ -172,7 +172,7 @@ var fetchAppointments = async (skeletonStatus) => {
     if(skeletonStatus){
         appointmentsSkeleton();
     }
-    fetch(`http://localhost:5253/api/Receptionist/GetTodayAppointmentDetails?limit=${itemsperpage}&skip=${skip}`, {
+    fetch(`https://pavihosmanagebeapp.azurewebsites.net/api/Receptionist/GetTodayAppointmentDetails?limit=${itemsperpage}&skip=${skip}`, {
         method: 'GET',
         headers:{
             'Content-Type' : 'application/json',  
@@ -240,7 +240,7 @@ var getRoomAvailabilityStatictics = async () => {
         openModal('alertModal', "Error", "Unauthorized Access!");
         return;
     }
-    fetch('http://localhost:5253/api/Receptionist/CheckBedAvilability',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Receptionist/CheckBedAvilability',
         {
             method:'GET',
             headers:{

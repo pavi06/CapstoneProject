@@ -15,12 +15,12 @@ namespace HospitalManagement.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly ILogger<UserController> _logger;
+        //private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserService userService, ILogger<UserController> logger)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            _logger = logger;
+            //_logger = logger;
         }
 
 
@@ -35,12 +35,12 @@ namespace HospitalManagement.Controllers
                 try
                 {
                     var res = await _userService.Login(userLoginDTO);
-                    _logger.LogInformation("Login successfull");
+                    //_logger.LogInformation("Login successfull");
                     return Ok(res);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogCritical("User not authenticated!");
+                    //_logger.LogCritical("User not authenticated!");
                     return Unauthorized(new ErrorModel(401, ex.Message));
                 }
             }
@@ -57,12 +57,12 @@ namespace HospitalManagement.Controllers
             try
             {
                 var user = await _userService.Register(userDTO);
-                _logger.LogInformation("Registration successfull");
+                //_logger.LogInformation("Registration successfull");
                 return Ok(user);
             }
             catch (Exception ex)
             {
-                _logger.LogError("Cannot register at this moment");
+                //_logger.LogError("Cannot register at this moment");
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
         }
@@ -79,12 +79,12 @@ namespace HospitalManagement.Controllers
                 try
                 {
                     await _userService.LoginWithContactNo(userDTO);
-                    _logger.LogInformation("Otp sent successfull");
+                    //_logger.LogInformation("Otp sent successfull");
                     return Ok("Otp sent successfully!");
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogCritical("User not authenticated!");
+                    //_logger.LogCritical("User not authenticated!");
                     return Unauthorized(new ErrorModel(401, ex.Message));
                 }
             }
@@ -103,12 +103,12 @@ namespace HospitalManagement.Controllers
                 try
                 {
                     var res = await _userService.VerifyOTPAndGiveAccess(otp);
-                    _logger.LogInformation("Otp is verified successfull");
+                    //_logger.LogInformation("Otp is verified successfull");
                     return Ok(res);
                 }
                 catch (Exception ex)
                 {
-                    _logger.LogCritical("User not authenticated!");
+                    //_logger.LogCritical("User not authenticated!");
                     return Unauthorized(new ErrorModel(401, ex.Message));
                 }
             }

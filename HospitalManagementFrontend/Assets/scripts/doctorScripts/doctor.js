@@ -1,4 +1,4 @@
-var url = "http://localhost:5253/api/DoctorBasic/GetAllDoctorsBySpecializationWithLimit";
+var url = "https://pavihosmanagebeapp.azurewebsites.net/api/DoctorBasic/GetAllDoctorsBySpecializationWithLimit";
 var page = 1;
 const itemsperpage = 10;
 

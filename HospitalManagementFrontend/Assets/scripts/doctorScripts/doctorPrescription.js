@@ -73,7 +73,7 @@ var providePrescriptionAPIForPatient =async (medications) => {
         prescribedMedicine: medications
     }
     await checkForRefresh()
-    fetch('http://localhost:5253/api/Doctor/UploadPrescription',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Doctor/UploadPrescription',
         {
             method:'POST',
             headers: {
@@ -145,7 +145,7 @@ var fetchMedicineNames = async () =>{
         return;
     }
     await checkForRefresh()
-    fetch('http://localhost:5253/api/Medicine/GetAllMedicineNames',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Medicine/GetAllMedicineNames',
         {
             method: 'GET',
             headers: {
@@ -197,7 +197,7 @@ var getDetails = async (e) =>{
     }
     var value = e.value.trim();
     await checkForRefresh()
-    fetch(`http://localhost:5253/api/Medicine/GetDetailsOfMedicine?id=${medicineMapper[value]}`,
+    fetch(`https://pavihosmanagebeapp.azurewebsites.net/api/Medicine/GetDetailsOfMedicine?id=${medicineMapper[value]}`,
         {
             method: 'GET',
             headers: {

@@ -66,7 +66,7 @@ var removeDisplaySpecialitiesSkeleton = () =>{
 var fetchSpecialities = async () => {
     await checkForRefresh()
     displaySpecialitiesSkeleton()
-    fetch('http://localhost:5253/api/DoctorBasic/GetAllSpecialization',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/DoctorBasic/GetAllSpecialization',
         {
             method: 'GET',
             headers: {

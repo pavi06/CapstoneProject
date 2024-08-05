@@ -24,7 +24,7 @@ function signIn(){
         email:document.getElementById("email").value,
         password:document.getElementById("password").value
     }
-    fetch('http://localhost:5253/api/User/Login',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/User/Login',
         {
             method: 'POST',
             headers: {
@@ -71,7 +71,7 @@ function signUp(){
         address: document.getElementById("address").value,
         password: document.getElementById("password").value
     }
-    fetch('http://localhost:5253/api/User/Register',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/User/Register',
         {
             method: 'POST',
             headers: {
@@ -114,7 +114,7 @@ function externalSignIn(){
         userName: document.getElementById("name").value,
         contactNumber: document.getElementById("contactno").value
     }
-    fetch('http://localhost:5253/api/User/ExternalLogin',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/User/ExternalLogin',
         {
             method: 'POST',
             headers: {
@@ -159,7 +159,7 @@ function closeModal(modalId) {
 
 function externalLoginVerification(){
     var otp = document.getElementById("otp").value;
-    fetch('http://localhost:5253/api/User/VerifyOTPForExternalLogin',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/User/VerifyOTPForExternalLogin',
         {
             method: 'POST',
             headers: {
@@ -292,7 +292,7 @@ function parseJwt(token) {
 
 
 function refreshToken(){
-    fetch('http://localhost:5253/api/Token/refreshToken', {
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Token/refreshToken', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

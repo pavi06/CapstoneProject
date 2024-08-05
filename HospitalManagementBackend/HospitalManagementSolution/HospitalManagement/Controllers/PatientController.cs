@@ -18,12 +18,12 @@ namespace HospitalManagement.Controllers
     public class PatientController : ControllerBase
     {
         private readonly IPatientService _patientService;
-        private readonly ILogger<PatientController> _logger;
+        //private readonly ILogger<PatientController> _logger;
 
-        public PatientController(IPatientService patientService, ILogger<PatientController> logger)
+        public PatientController(IPatientService patientService)
         {
             _patientService = patientService;
-            _logger = logger;
+            //_logger = logger;
         }
 
         [HttpPost("GetDoctorSlots")]
@@ -39,22 +39,22 @@ namespace HospitalManagement.Controllers
                 {
                     throw new ObjectsNotAvailableException("Slots");
                 }
-                _logger.LogInformation("Doctor slots retrieved successfully");
+                //_logger.LogInformation("Doctor slots retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -69,17 +69,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 PatientAppointmentReturnDTO result = await _patientService.BookAppointmentByDoctor(appointmentDTO);
-                _logger.LogInformation("Appointment Booked successfully");
+                //_logger.LogInformation("Appointment Booked successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError("No Appointment Available");
+                //_logger.LogError("No Appointment Available");
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -94,17 +94,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 PatientAppointmentReturnDTO result = await _patientService.BookAppointmentBySpeciality(specAppointmentDTO);
-                _logger.LogInformation("Appointment raised successfully");
+                //_logger.LogInformation("Appointment raised successfully");
                 return Ok(result);
             }
             catch (ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -119,22 +119,22 @@ namespace HospitalManagement.Controllers
             try
             {
                 string result = await _patientService.CancelAppointment(appointmentId);
-                _logger.LogInformation("Appointment cancelled successfully");
+                //_logger.LogInformation("Appointment cancelled successfully");
                 return Ok(result);
             }
             catch (AppointmentAlreadyCancelledException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -149,22 +149,22 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _patientService.MyAppointments(patientId, limit, skip);
-                _logger.LogInformation("Appointments retrieved successfully");
+                //_logger.LogInformation("Appointments retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -179,17 +179,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _patientService.MyPrescriptionForAppointment(patientId, appointmentId);
-                _logger.LogInformation("prescription retrieved successfully");
+                //_logger.LogInformation("prescription retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -205,22 +205,22 @@ namespace HospitalManagement.Controllers
             try
             {
                 var result = await _patientService.MyPrescriptions(patientId, limit, skip);
-                _logger.LogInformation("Prescriptions retrieved successfully");
+                //_logger.LogInformation("Prescriptions retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 

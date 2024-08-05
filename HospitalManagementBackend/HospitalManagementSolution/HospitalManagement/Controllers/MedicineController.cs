@@ -17,11 +17,11 @@ namespace HospitalManagement.Controllers
     public class MedicineController : ControllerBase
     {
         private readonly IMedicineService _medicineService;
-        private readonly ILogger<MedicineController> _logger;
+        //private readonly ILogger<MedicineController> _logger;
 
-        public MedicineController(IMedicineService medicineService, ILogger<MedicineController> logger) {
+        public MedicineController(IMedicineService medicineService) {
             _medicineService = medicineService;
-            _logger = logger;
+            //_logger = logger;
         }
 
 
@@ -34,22 +34,22 @@ namespace HospitalManagement.Controllers
             try
             {
                 List<MedicineReturnDTO> result = await _medicineService.GetAllMedicineNames();
-                _logger.LogInformation("Medicine retrieved successfully");
+                //_logger.LogInformation("Medicine retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -64,17 +64,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 MedicineDetailsDTO result = await _medicineService.GetMedicineDetailsById(id);
-                _logger.LogInformation("Medicine details retrieved successfully");
+                //_logger.LogInformation("Medicine details retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                //_logger.LogError(e.Message);
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                //_logger.LogError(ex.Message);
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 

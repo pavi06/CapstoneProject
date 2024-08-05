@@ -62,7 +62,7 @@ var loadPendingBills = async () =>{
     }
     await checkForRefresh()
     displayBillsSkeleton();
-    fetch('http://localhost:5253/api/Receptionist/GetPendingBills',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Receptionist/GetPendingBills',
         {
             method:'GET',
             headers:{

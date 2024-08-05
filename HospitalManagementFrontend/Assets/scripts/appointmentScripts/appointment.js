@@ -1,4 +1,4 @@
-const baseUrl ="http://localhost:5253/api";
+const baseUrl ="https://pavihosmanagebeapp.azurewebsites.net/api";
 
 var displaySlots = (data) =>{
     var div = document.getElementById("slotsAvailable");

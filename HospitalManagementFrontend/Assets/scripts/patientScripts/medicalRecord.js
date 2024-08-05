@@ -10,7 +10,7 @@ var getPatientId = async () => {
     var name = document.getElementById("patientName").value;
     var contactNo = document.getElementById("contactNo").value;
     await checkForRefresh()
-    fetch('http://localhost:5253/api/DoctorBasic/GetPatientId',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/DoctorBasic/GetPatientId',
         {
             method: 'POST',
             headers: {
@@ -54,7 +54,7 @@ var addRecord = async () => {
     var treatment = document.getElementById("treatment").value;
     var treatmentStatus = document.getElementById("treatStatus").value;
     await checkForRefresh()
-    fetch('http://localhost:5253/api/Doctor/CreateMedicalRecord',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Doctor/CreateMedicalRecord',
         {
             method: 'POST',
             headers: {
@@ -106,7 +106,7 @@ var GetRecords = async () => {
     var patientId = document.getElementById("patientId").value;
     await checkForRefresh()
     displayRecordsSkeleton();
-    fetch(`http://localhost:5253/api/Doctor/GetMedicalRecord?doctorId=${doctorId}&patientId=${patientId}`,
+    fetch(`https://pavihosmanagebeapp.azurewebsites.net/api/Doctor/GetMedicalRecord?doctorId=${doctorId}&patientId=${patientId}`,
         {
             method: 'GET',
             headers: {

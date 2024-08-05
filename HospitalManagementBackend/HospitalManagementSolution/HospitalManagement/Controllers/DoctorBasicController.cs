@@ -17,12 +17,11 @@ namespace HospitalManagement.Controllers
     public class DoctorBasicController : ControllerBase
     {
         private readonly IDoctorBasicService _hospitalBasicService;
-        private readonly ILogger<DoctorBasicController> _logger;
+       
 
-        public DoctorBasicController(IDoctorBasicService hospitalBasicService, ILogger<DoctorBasicController> logger)
+        public DoctorBasicController(IDoctorBasicService hospitalBasicService)
         {
             _hospitalBasicService = hospitalBasicService;
-            _logger = logger;
         }
 
         [HttpPost("GetAllDoctorsBySpecialization")]
@@ -34,22 +33,21 @@ namespace HospitalManagement.Controllers
             try
             {
                 List<DoctorReturnDTO> result = await _hospitalBasicService.GetAllDoctorsBySpecialization(specialization);
-                _logger.LogInformation("Doctors retrieved successfully");
                 return Ok(result);
             }
             catch (ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+               
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+               
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -65,22 +63,22 @@ namespace HospitalManagement.Controllers
             try
             {
                 List<DoctorReturnDTO> result = await _hospitalBasicService.GetAllDoctorsBySpecialization(specialization, limit, skip);
-                _logger.LogInformation("Doctors retrieved successfully");
+               
                 return Ok(result);
             }
             catch (ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+                
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+               
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -95,17 +93,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 List<string> result = await _hospitalBasicService.GetAllSpecializations();
-                _logger.LogInformation("specializations retrieved successfully");
+               
                 return Ok(result);
             }
             catch (ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+               
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+               
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -120,17 +118,17 @@ namespace HospitalManagement.Controllers
             try
             {
                 int result = await _hospitalBasicService.GetPatientId(patientDTO);
-                _logger.LogInformation("patientId retrieved successfully");
+               
                 return Ok(result);
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+              
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+               
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 
@@ -145,22 +143,22 @@ namespace HospitalManagement.Controllers
             try
             {
                 int result = await _hospitalBasicService.GetAdmissionId(patientDTO);
-                _logger.LogInformation("AdmissionId retrieved successfully");
+               
                 return Ok(result);
             }
             catch (ObjectsNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+               
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (ObjectNotAvailableException e)
             {
-                _logger.LogError(e.Message);
+               
                 return NotFound(new ErrorModel(404, e.Message));
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex.Message);
+                
                 return BadRequest(new ErrorModel(400, ex.Message));
             }
 

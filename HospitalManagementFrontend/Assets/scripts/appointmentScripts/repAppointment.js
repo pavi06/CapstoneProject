@@ -9,7 +9,7 @@ var getPatientId = () =>{
         alert("Provide valid Patient name and contactno to get patient id!");
         return;
     }
-    fetch('http://localhost:5253/api/DoctorBasic/GetPatientId',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/DoctorBasic/GetPatientId',
         {
             method:'POST',
             headers:{
@@ -69,7 +69,7 @@ var getDoctorSlots = () =>{
         openModal('alertModal', "Error","Provide valid date to get slots");
         return;
     }
-    fetch('http://localhost:5253/api/Patient/GetDoctorSlots',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Patient/GetDoctorSlots',
         {
             method:'POST',
             headers:{
@@ -133,7 +133,7 @@ var bookAppointment = () => {
         description: document.getElementById("description").value,
         appointmentType: document.getElementById("preferredType").value,
     } 
-    fetch('http://localhost:5253/api/Receptionist/BookAppointment',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Receptionist/BookAppointment',
         {
             method:'POST',
             headers:{

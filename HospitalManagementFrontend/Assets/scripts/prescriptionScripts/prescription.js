@@ -7,7 +7,7 @@ var loadPrescription = async (appointmentId) =>{
     await checkForRefresh()
     displayDetailsSKeleton ();
     displayTableRecordsSkeleton();
-    fetch(`http://localhost:5253/api/Patient/MyPrescriptionForAppointment?patientId=${patientId}&appointmentId=${appointmentId}`,
+    fetch(`https://pavihosmanagebeapp.azurewebsites.net/api/Patient/MyPrescriptionForAppointment?patientId=${patientId}&appointmentId=${appointmentId}`,
         {
             method: 'GET',
             headers: {

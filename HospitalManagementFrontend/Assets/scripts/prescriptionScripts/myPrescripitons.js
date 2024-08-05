@@ -1,4 +1,4 @@
-var url="http://localhost:5253/api/Patient/MyPrescriptions";
+var url="https://pavihosmanagebeapp.azurewebsites.net/api/Patient/MyPrescriptions";
 var page = 1;
 const itemsperpage = 10;
 

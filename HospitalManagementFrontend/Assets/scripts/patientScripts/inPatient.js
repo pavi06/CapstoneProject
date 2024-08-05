@@ -162,7 +162,7 @@ var getPatientId = async () =>{
     var name = document.getElementById("name").value;
     var contactNo = document.getElementById("contact").value;
     await checkForRefresh();
-    fetch('http://localhost:5253/api/DoctorBasic/GetPatientId',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/DoctorBasic/GetPatientId',
         {
             method:'POST',
             headers:{
@@ -217,7 +217,7 @@ var createPatient = async () =>{
     }
     console.log(bodyData)
     await checkForRefresh()
-    fetch('http://localhost:5253/api/Receptionist/AdmissionForPatient',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Receptionist/AdmissionForPatient',
         {
             method:'POST',
             headers:{
@@ -265,7 +265,7 @@ var updatePatient = async () =>{
         noOfDays:document.getElementById("noOfDays").value
     }
     await checkForRefresh()
-    fetch('http://localhost:5253/api/Receptionist/UpdateInPatient',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Receptionist/UpdateInPatient',
         {
             method:'PUT',
             headers:{
@@ -304,7 +304,7 @@ var getAdmissionId = async () => {
         return;
     }
     await checkForRefresh()
-    fetch('http://localhost:5253/api/DoctorBasic/GetAdmissionId',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/DoctorBasic/GetAdmissionId',
         {
             method:'POST',
             headers:{
@@ -350,7 +350,7 @@ var updateDoctor = async () =>{
         doctorId:document.getElementById("doctorId").value,
     }
     await checkForRefresh()
-    fetch('http://localhost:5253/api/Receptionist/AddDoctorForPatient',
+    fetch('https://pavihosmanagebeapp.azurewebsites.net/api/Receptionist/AddDoctorForPatient',
         {
             method:'PUT',
             headers:{

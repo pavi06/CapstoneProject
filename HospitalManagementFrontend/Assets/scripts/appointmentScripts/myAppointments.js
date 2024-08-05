@@ -1,4 +1,4 @@
-var url="http://localhost:5253/api/Patient/MyAppointments";
+var url="https://pavihosmanagebeapp.azurewebsites.net/api/Patient/MyAppointments";
 var page = 1;
 const itemsperpage = 15;
 
@@ -465,7 +465,7 @@ var cancelAppointment = (appointmentId) =>{
         openModal('alertModal', "Error", "Unauthorized Access!");
         return;
     }
-    fetch(`http://localhost:5253/api/Patient/CancelAppointment?appointmentId=${appointmentId}`, {
+    fetch(`https://pavihosmanagebeapp.azurewebsites.net/api/Patient/CancelAppointment?appointmentId=${appointmentId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',

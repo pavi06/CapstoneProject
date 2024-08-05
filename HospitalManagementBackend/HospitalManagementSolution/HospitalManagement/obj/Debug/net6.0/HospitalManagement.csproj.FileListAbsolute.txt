@@ -139,10 +139,7 @@ C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\Hospital
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Hangfire.Core.dll
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Hangfire.NetCore.dll
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Hangfire.SqlServer.dll
-C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\log4net.dll
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
-C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Microsoft.Extensions.Logging.Abstractions.dll
-C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Microsoft.Extensions.Logging.Log4Net.AspNetCore.dll
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\System.Data.SqlClient.dll
@@ -162,3 +159,4 @@ C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\Hospital
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Microsoft.Identity.Client.Extensions.Msal.dll
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\System.ClientModel.dll
 C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\System.Memory.Data.dll
+C:\CapstoneProject\HospitalManagementBackend\HospitalManagementSolution\HospitalManagement\bin\Debug\net6.0\Azure.Extensions.AspNetCore.Configuration.Secrets.dll

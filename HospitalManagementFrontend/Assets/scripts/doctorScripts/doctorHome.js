@@ -8,7 +8,7 @@ var fetchAppointments = async (skeletonStatus) => {
         displayAppointmentsSkeleton();
     }
     var doctorId = JSON.parse(localStorage.getItem('loggedInUser')).userId;
-    fetch(`http://localhost:5253/api/Doctor/GetTodayAppointment?doctorId=${doctorId}`, {
+    fetch(`https://pavihosmanagebeapp.azurewebsites.net/api/Doctor/GetTodayAppointment?doctorId=${doctorId}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -305,7 +305,7 @@ var cancelAppointment = async (appointmentId) =>{
         return;
     }
     await checkForRefresh()
-    fetch(`http://localhost:5253/api/Doctor/CancelAppointment?appointmentId=${appointmentId}`, {
+    fetch(`https://pavihosmanagebeapp.azurewebsites.net/api/Doctor/CancelAppointment?appointmentId=${appointmentId}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
