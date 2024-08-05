@@ -8,6 +8,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Secrets;
 using System.Configuration;
 using Microsoft.Extensions.Configuration;
+using Task = System.Threading.Tasks.Task;
 
 namespace HospitalManagement.Jobs
 {
@@ -32,7 +33,7 @@ namespace HospitalManagement.Jobs
                     , $"Hello Dr.{name}! your appointment on {appointmentDate} , {slot} slot is cancelled.\nThank you"));
         }
 
-        public static async void SendNotification(string phoneNumber,string message)
+        public static async Task SendNotification(string phoneNumber,string message)
         {
             var configuration = new ConfigurationBuilder()
             .AddUserSecrets<Program>()
@@ -56,7 +57,7 @@ namespace HospitalManagement.Jobs
             MessageResource.Create(messageOptions);
         }
 
-        public  static async void SendOTPToPatient(string phoneNumber, int otp, string name)
+        public  async static Task SendOTPToPatient(string phoneNumber, int otp, string name)
         {
             var configuration = new ConfigurationBuilder()
             .AddUserSecrets<Program>()
