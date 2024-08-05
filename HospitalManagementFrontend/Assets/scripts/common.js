@@ -354,3 +354,7 @@ function redirectToDoctors(){
 function redirectToBookAppointment(){
     window.location.href="./AppointmentSpec.html";
 }
+
+function redirectToDocRepLoginPage(){
+    window.location.href="./Templates/login.html"
+}
