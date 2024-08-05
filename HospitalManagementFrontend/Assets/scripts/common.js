@@ -114,6 +114,7 @@ function externalSignIn(){
         userName: document.getElementById("name").value,
         contactNumber: document.getElementById("contactno").value
     }
+    console.log(bodyData)
     fetch('https://pavihosmanagebeapp.azurewebsites.net/api/User/ExternalLogin',
         {
             method: 'POST',
@@ -124,6 +125,8 @@ function externalSignIn(){
         }
     )
     .then(async (res) => {
+        console.log(res.status)
+        console.log(res.body)
             if (!res.ok) {
                 if (res.status === 401) {
                     throw new Error('Unauthorized Access!');
