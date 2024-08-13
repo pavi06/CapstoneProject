@@ -139,10 +139,21 @@ namespace HospitalManagement.Services
             {
                 var meetLink = "demomeetlink";
                 appointment = await _appointmentRepository.Add(new Appointment(specAppointmentDTO.AppointmentDate, TimeOnly.Parse(specAppointmentDTO.PreferredTime), doctor.DoctorId, doctor.Specialization, specAppointmentDTO.PatientId, specAppointmentDTO.Description, "scheduled", specAppointmentDTO.AppointmentType, specAppointmentDTO.AppointmentMode, meetLink));
+                
                 return new PatientAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot.ToString(), appointment.Description, _userRepository.Get(appointment.DoctorId).Result.Name, appointment.Speciality, appointment.AppointmentStatus, appointment.AppointmentMode, appointment.AppointmentType, meetLink);
             }
             var doctorDetails = await _userRepository.Get(doctor.DoctorId);
             appointment = await _appointmentRepository.Add(new Appointment(specAppointmentDTO.AppointmentDate, TimeOnly.Parse(specAppointmentDTO.PreferredTime), doctor.DoctorId, doctor.Specialization, specAppointmentDTO.PatientId, specAppointmentDTO.Description, "scheduled", specAppointmentDTO.AppointmentType, specAppointmentDTO.AppointmentMode));
+            var availability = await _doctorAvailabilityRepository.Get(appointment.DoctorId, appointment.AppointmentDate);
+            if (availability == null)
+            {
+                await _doctorAvailabilityRepository.Add(new DoctorAvailability(doctor.DoctorId, appointment.AppointmentDate, doctor.Slots.Except(new List<TimeOnly>() { TimeOnly.Parse(specAppointmentDTO.PreferredTime) }).ToList()));
+            }
+            else
+            {
+                availability.AvailableSlots.Remove(TimeOnly.Parse(specAppointmentDTO.PreferredTime));
+                await _doctorAvailabilityRepository.Update(availability);
+            }
             BackgroundJobs.NotificationForDoctor(doctorDetails.Name, doctorDetails.ContactNo, appointment.AppointmentDate, appointment.Slot);
             return new PatientAppointmentReturnDTO(appointment.AppointmentId, appointment.AppointmentDate, appointment.Slot.ToString(), appointment.Description, _userRepository.Get(appointment.DoctorId).Result.Name, appointment.Speciality, appointment.AppointmentStatus, appointment.AppointmentMode, appointment.AppointmentType);
         }
