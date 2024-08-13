@@ -1,0 +1,50 @@
+User
+    - id, name, dob, age, gender, emailid, contactno, address, role
+    role:patient, doctor, receptionist
+    -Doctor:
+        -doctorId, specialization, experience , Qualification, languagesKnown, shiftStartTime, shiftEndTime
+        type:permanent, visiting 
+    -Patient :
+        - patientId
+
+Appointment
+    -appointmentid, currentDate, appointmentDate, slot , doctorid , speciality, patientid, description, status, 
+     appointmentType, appointmentMode
+status:scheduled, cancelled, completed
+appointmentType : speciality, general
+appointmentMode : online, offline
+
+Prescription
+    -prescriptionid, appointmentid, listOfMedication
+
+Medication:
+    -medId, name, form, dosage, intake, intaketiming, prescriptionId
+
+MedicalRecord
+    -id, patientid, doctorid, date, diagnosis, treatment, medication , treatementStatus
+treatementStatus: recovered, Ongoing , initiated
+medication : description -> medicine, weekly injection, therapy, etc   
+
+admission :admissionId, patientId, doctorid, admittedDate,dischargedDate?, isActivePatient
+
+admissionDetails : admissionDetailsid, admissionid, roomid, noOfDays 
+
+Bill
+    -billid, date, patientid, description, amount, paymentstatus
+paymentstatus: paid, pending
+
+Payment: paymentId, paymentstatus, paymentMode, billId
+
+WardBedAvailability
+    -typeid, type, availablecount , totalBedCount
+type:generalWard, ICUWard, Maternity Ward, Pediatric Ward, Psychiatric Ward, Isolation Ward, Neonatal Intensive Care Unit
+
+Rooms
+    -roomId, typeId, costPerDay
+
+DoctorFeesEnum :
+ENT - Rs. 300
+Cardiology - Rs. 500
+
+
+

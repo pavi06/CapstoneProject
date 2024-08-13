@@ -1,0 +1,37 @@
+DTO:
+    -AppointmentDTO : name, dob, age, gender, contactno, address, appointmentDate, slot , doctorid , 
+    description, appointmenttype , mode:offline
+    -BookAppointmentDTO : (patientid, phoneno(check!), appointmentDate, appointmentSlot, doctorid, description, appointmenttype, mode)
+    -BookAppointmentBySpecDTO : (patientid, phoneno(check!), appointmentDate, speciality, description , preferredLanguage, appointmenttype, mode)
+
+    -UpdateAppointmentDTO : appointmentid, status
+    -InPatientDTO : patientid, doctorid, generalWardAdmittedDays, ICUAdmittedDays, dischargedDate?, isActive, billId?
+
+HospitalBasic:
+    - GET  : getAllServices()
+    - POST : getAllDoctorsBySpecialization(specialization)
+    - POST : getAllDoctorsBySpecialization(specialization, limit, skip)
+
+Patient:
+    - POST : bookAppointmentByDoctor(BookAppointmentDTO)
+    - POST : bookAppointmentBySpeciality(BookAppointmentBySpecDTO)
+    - GET  : myAppointments(patientid, limit, skip)
+    - GET  : myPrescriptionForAppointment(appointmentid)
+    - GET  : myPrescriptions(limit, skip)
+    - PUT  : updateAppointment(appointmentid, status) -> cancel
+
+Doctor:
+    -GET  : getAllTodayAppointments(doctorid)
+    -POST : uploadPrescription(appointmentid, prescriptionImage)
+    -POST : getPatientMedicalRecords(patientid, doctorid)
+
+Receptionist:
+    - POST : checkDoctoravailability(specialization)
+    - POST : bookAppointment(AppointmentDTO)
+    - POST : createInPatient(InPatientDTO)
+    - PUT  : updateInPatient(UpdateInPatientDTO)
+    - PUT  : updateAppointment(appointmentid, status)
+    - POST : generateBillForOutPatient(appointmentid)
+    - POST : generateBillForInPatient(inPatientid)
+    - GET  : getAppointmentDetails(appointmentid)
+

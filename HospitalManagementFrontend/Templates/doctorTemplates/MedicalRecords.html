@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RVPBS Multispeciality hospital</title>
+    <link rel="icon" type="image/x-icon"
+        href="../../Assets/images/logo_bg.png">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="../../Assets/styles/common.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../Assets/scripts/sessionTracking.js"></script>
+    <script src="../../Assets/scripts/common.js"></script>
+    <script src="../../Assets/scripts/validations.js"></script>
+    <script src="../../Assets/scripts/patientScripts/medicalRecord.js"></script>
+</head>
+
+<body>
+    <div class="loader"></div>
+    <nav class="md:flex md:items-center md:justify-between p-5 align-middle bg-[#4a249d] text-white"
+  style="position: fixed;width: 100%;z-index: 1000;">
+  <div class="flex justify-between items-center">
+    <img src="../../Assets/images/logo_bg.png" style="width: 15%;" />
+    <a class="cursor-pointer mx-2 mt-0 md:hidden block text-white" onclick="menu(this)"><i class="bi bi-list-task fs-4" name="menu"
+        style="font-size: 2rem;"></i></a>
+  </div>
+  <ul
+    class="md:flex md:items-center z-[-1] md:z-auto md:static absolute bg-[#4a249d]  w-full left-0 md:w-auto md:py-0 py-5 md:pt-0 pl-7 md:opacity-100  opacity-0  top-[-400px] transition-all ease-in duration-300">
+    <li class="uppercase m-4 md:my-0"><a href="./doctorHome.html">Home</a></li>
+    <li class="uppercase m-4  md:my-0 logInNav"><a href="./MedicalRecords.html" class="active">MedicalRecords</a></li>
+    <li class="uppercase m-4  md:my-0 logInNav"><a href="#" onclick="logOut()">LogOut</a></li>
+  </ul>
+</nav>
+    <section style="margin-top: 85px;">
+        <h1 class="uppercase text-3xl text-[#4A249D] text-center font-extrabold mb-10">Medical Records</h1>
+        <div class="flex flex-row flex-wrap justify-between">
+            <div class="mb-5 ml-10">
+                <form class="flex flex-wrap justify-center">
+                    <div class="w-30 py-3 px-5 my-4 rounded-md ring-1 mr-3 ring-[#e0e0e0]" id="idDisplay"></div>
+                    <div class="flex flex-col my-4">
+                        <input type="text" name="patientName" id="patientName" onblur="validateName('patientName')"
+                        placeholder="patientName"
+                        class="w-40 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        <span id="patientNametext" class="text-xs ml-3 none mt-0"></span>
+                    </div>
+                    <div class="flex flex-col my-4">
+                        <input type="text" name="contactNo" id="contactNo" onblur="validatePhone('contactNo')"
+                        placeholder="contactNo"
+                        class=" mx-2 w-40 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                        <span id="contactNotext" class="text-xs ml-3 none mt-0"></span>
+                    </div>
+                    <button type="button" class="mx-2 mt-2 mb-2 px-3 bg-indigo-100 rounded-lg" onclick="getPatientId()"
+                        style="width: fit-content;">Get Patient</button>
+                </form>
+            </div>
+            <div class="mb-5 mr-10">
+                <form class="flex justify-center">
+                    <div class="flex flex-col mx-5">
+                        <input type="text" name="patientId" id="patientId" placeholder="Provide patientId"
+                        onblur="validateNumber('patientId')"
+                        class="w-15 rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md break-words" />
+                        <span id="patientIdtext" class="text-xs ml-3 none mt-0"></span>
+                    </div>
+                    <button type="button" class="w-25 mx-5 px-3 bg-indigo-100 rounded-lg" onclick="GetRecords()">Get
+                        Records</button>
+                </form>
+            </div>
+        </div>
+        <div id="medicalRecord" style="clear: both;">
+           
+        </div>
+    </section>
+
+
+    <div id="alertModal"  class="fixed hidden z-50 inset-0 bg-gray-900 bg-opacity-60 overflow-y-auto h-full w-full px-4 ">
+        <div class="relative top-40 mx-auto shadow-xl rounded-md bg-white max-w-md">
+            <div class="flex justify-end p-2">
+                <button onclick="closeModal('alertModal')" type="button"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                    <i class='bx bx-x bx-lg'></i>
+                </button>
+            </div>     
+            <div class="p-6 pt-0 text-center">
+                <h3 class="text-2xl uppercase mt-3 mb-2 font-extrabold" id="headerMessage"></h3>
+                <p id="message"></p>
+                <div class="items-center px-4 py-3">
+                   <button id="otpProceedBtn" class="px-4 py-2 bg-[#4A249D] text-white text-base font-medium rounded-md w-70
+                       shadow-sm hover:bg-[#4A249D] focus:outline-none focus:ring-2 focus:bg-[#4A249D]" onclick="closeModal('alertModal')">
+                       Ok
+                   </button>        
+               </div>
+            </div>     
+        </div>
+    </div>
+</body>
+
+</html>
+
